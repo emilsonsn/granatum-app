@@ -124,7 +124,7 @@ export class DialogTaskComponent {
 
       Object.keys(formValues).forEach(key => {
         const value = formValues[key];
-        if (key === 'concluded_at' && value) {
+        if (key === 'concluded_at' && value && value != 'null') {
 
           const utcDate = dayjs(value).format('YYYY-MM-DD');
           formData.append(key, utcDate);

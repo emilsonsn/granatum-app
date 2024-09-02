@@ -9,7 +9,7 @@
         (cdkDropListDropped)="drop($event)">
         @for (item of data[key]; track item) {
           <div class="kanban-box"
-               [ngStyle]="{ 'border-color': getBorderColor(item.task_status_id) }"
+               [ngStyle]="{ 'border-color': getBorderColor(item?.task_status_id) }"
                cdkDrag
                (click)="onBoxClick(item)">
             <div
@@ -17,8 +17,14 @@
               style="color: red;">
               <span><i style="cursor: pointer" class="fa-solid fa-trash" (click)="deleteTask($event, item)"></i></span>
             </div>
-            <h4>{{ item.name }}</h4>
-            <p>{{ item.description }}</p>
+            <h4>
+              <strong>
+                {{ item?.user?.name }}
+              </strong>
+            </h4>
+            <h4>{{ item?.name }}</h4>
+            <p>{{ item?.description }}</p>
+
           </div>
         }
       </div>

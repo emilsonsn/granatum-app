@@ -18,6 +18,7 @@ import { dateValidator } from '@shared/validators/date';
 import { DialogOrderSolicitationComponent } from '../dialog-order-solicitation/dialog-order-solicitation.component';
 import { RequestService } from '@services/request.service';
 import { RequestStatus } from '@models/request';
+import { SessionQuery } from '@store/session.query';
 
 @Component({
   selector: 'app-dialog-order',
@@ -63,7 +64,7 @@ export class DialogOrderComponent {
   public allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
 
   public bancos = signal<Banco[]>([]);
-
+  public isAdmin = false; 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected readonly _data,
@@ -75,6 +76,7 @@ export class DialogOrderComponent {
     private readonly _constructionService : ConstructionService,
     private readonly _userService : UserService,
     private readonly _supplierService : SupplierService,
+    private readonly _sessionQuery : SessionQuery,
     private readonly _dialog: MatDialog,
   ) {
 
@@ -93,7 +95,7 @@ export class DialogOrderComponent {
       description: [''],
       total_value: [null, Validators.required],
       payment_method: [null, Validators.required],
-      purchase_status: [null, Validators.required],
+      purchase_status: [null],
       quantity_items: [null, Validators.required],
       items: this._fb.array([]),
       bank_id: [null],
@@ -104,6 +106,7 @@ export class DialogOrderComponent {
     this.getConstructions();
     this.getSuppliers();
     this.getUsers();
+    this.loadPermissions();
 
     if (this._data) {
       this.isNewOrder = false;
@@ -157,6 +160,14 @@ export class DialogOrderComponent {
       this.form.get('total_value').setValue(+newValue.toFixed(2));
     });
 
+  }
+
+  public loadPermissions(){
+    this._sessionQuery.user$.subscribe(user => {
+      if(user && user?.company_position.position !== 'Requester') {
+        this.isAdmin = true;
+      }
+    })
   }
 
   public postOrder(order : RequestOrder) {
@@ -294,6 +305,7 @@ export class DialogOrderComponent {
       this.patchOrder(
         this._data.order.id,
         {
+          order_files,
           ...this.form.getRawValue()
         }
       );

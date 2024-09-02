@@ -12,6 +12,7 @@ import { OrderService } from '@services/order.service';
 import { RequestService } from '@services/request.service';
 import { SupplierService } from '@services/supplier.service';
 import { UserService } from '@services/user.service';
+import { SessionQuery } from '@store/session.query';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 
@@ -36,7 +37,7 @@ export class DialogRequestComponent {
   protected users : User[] = [];
   protected suppliers : Supplier[] = [];
   protected orders : RequestOrder[] = [];
-
+  public isAdmin: boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private readonly _data,
@@ -48,6 +49,7 @@ export class DialogRequestComponent {
     private readonly _constructionService : ConstructionService,
     private readonly _userService : UserService,
     private readonly _supplierService : SupplierService,
+    private readonly _sessionQuery : SessionQuery,
   ) { }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class DialogRequestComponent {
       supplier_id: [null, Validators.required],
       user_id: [null, Validators.required],
       construction_id: [null, Validators.required],
-      status: [null, Validators.required],
+      status: [null],
       payment_date: [null],
     });
 
@@ -66,6 +68,7 @@ export class DialogRequestComponent {
     this.getUsers();
     this.getSuppliers();
     this.getOrders();
+    this.loadPermissions();
 
     if (this._data) {
       this.isNewRequest = false;
@@ -78,6 +81,15 @@ export class DialogRequestComponent {
       this.form.patchValue(this._data);
     }
   }
+
+  public loadPermissions(){
+    this._sessionQuery.user$.subscribe(user => {
+      if(user && user?.company_position.position !== 'Requester') {
+        this.isAdmin = true;
+      }
+    })
+  }
+
 
   public postRequest(request : Request) {
 

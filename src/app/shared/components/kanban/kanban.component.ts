@@ -42,7 +42,7 @@ export class KanbanComponent {
 
   private changeColumn(currentContainerIndex: number, event: CdkDragDrop<Task[]>) {
     const keys: (string | number)[] = Object.keys(this.data) as (keyof Kanban<Task>)[];
-    const task: Task = this.data[keys[currentContainerIndex]].find(item => item.id === event.container.data[0].id);
+    const task: Task = this.data[keys[currentContainerIndex]].find(item => item?.id === event.container?.data[0]?.id);
     task.task_status_id = currentContainerIndex + 1;
     this.taskMoved.emit(task);
   }

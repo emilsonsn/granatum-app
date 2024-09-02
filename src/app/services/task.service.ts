@@ -24,7 +24,7 @@ export class TaskService {
   }
 
   updateTask(task: Task): Observable<ApiResponse<Task>> {
-    return this._http.patch<ApiResponse<Task>>(`${environment.api}/task/${task.id}`, task);
+    return this._http.patch<ApiResponse<Task>>(`${environment.api}/task/${task?.id}`, task);
   }
 
   createTask(task: FormData): Observable<ApiResponse<Task>> {
@@ -32,7 +32,7 @@ export class TaskService {
   }
 
   deleteTask(task: Task): Observable<ApiResponse<Task>> {
-    return this._http.delete<ApiResponse<Task>>(`${environment.api}/task/${task.id}`);
+    return this._http.delete<ApiResponse<Task>>(`${environment.api}/task/${task?.id}`);
   }
 
   putTask(id: number, task: FormData): Observable<ApiResponse<Task>> {

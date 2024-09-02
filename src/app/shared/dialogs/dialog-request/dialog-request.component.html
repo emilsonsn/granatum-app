@@ -72,16 +72,6 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Status *</span>
-      <mat-form-field appearance="outline">
-        <mat-select formControlName="status" placeholder="Status" >
-          @for (status of requestStatusSelection; track status) {
-            <mat-option [value]="status">{{ status | status }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
 
     <div class="col-md-6 mb-3">
       <span class="fw-bolder">Valor *</span>
@@ -90,6 +80,19 @@
       </mat-form-field>
     </div>
 
+    <ng-container *ngIf="isAdmin">
+      <div class="col-md-6 mb-3">
+        <span class="fw-bolder">Status *</span>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="status" placeholder="Status" >
+            @for (status of requestStatusSelection; track status) {
+              <mat-option [value]="status">{{ status | status }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-container>
+    
   </form>
 
 </mat-dialog-content>

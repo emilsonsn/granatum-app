@@ -12,6 +12,7 @@ import {
 } from '@shared/dialogs/filters/dialog-filter-request/dialog-filter-request.component';
 import dayjs from 'dayjs';
 import {requestCards} from "@models/requestOrder";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-requests',
@@ -63,7 +64,8 @@ export class RequestsComponent {
     private readonly _router: Router,
     private readonly _dialog: MatDialog,
     private readonly _fb: FormBuilder,
-    private readonly _requestService: RequestService
+    private readonly _requestService: RequestService,
+    private readonly _toastrService: ToastrService
   ) {
     this._headerService.setTitle('Solicitações');
     this._headerService.setSubTitle('');
@@ -159,14 +161,21 @@ export class RequestsComponent {
       .subscribe({
           next: (res) => {
             if (res) {
-              // Delete
+              this._requestService.deleteRequest(request.id).subscribe({
+                next: (resData) => {
+                  this.loading = true;
+                  this._toastrService.success(resData.message);
+                  setTimeout(() => {
+                    this.loading = false;
+                    this.itemsRequests().filter((item) => item.title!== request.title);
+                  }, 200);
+                }
+              });
             }
           }
         }
       )
   }
 
-
-  // Utils
 
 }

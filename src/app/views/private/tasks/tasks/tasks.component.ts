@@ -89,21 +89,24 @@ export class TasksComponent {
 
     this._taskService.createTask(res).subscribe(
       {
+        next: (response) => {
+
+          this.status.forEach((status: TaskStatus) => {
+            this.data[status.name] = []
+          })
+
+          this.getTasks();
+        },
         error: (err) => {
           this._toastr.error(err.error.error);
         },
       }
     );
-
-
-    this.status.forEach((status: TaskStatus) => {
-      this.data[status.name] = []
-    })
-
-    this.getTasks();
   }
 
   deleteTask($event: Task) {
+    if (!$event?.id) return;
+    
     this._taskService.deleteTask($event).subscribe(
       {
         next: (response: ApiResponse<Task>) => {

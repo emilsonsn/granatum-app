@@ -30,15 +30,7 @@
           <mat-error *ngIf="taskForm.get('user_id').hasError('required')">Usuário é obrigatório</mat-error>
         </mat-form-field>
       </div>
-      <div class="col-md-6 col-12 mb-3">
-        <mat-form-field appearance="outline">
-          <mat-label>Concluído Em</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="concluded_at">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="col-md-6 col-12 mb-3">
+      <div class="col-md-12 col-12 mb-3">
         <mat-form-field appearance="outline">
           <mat-label>Status da Tarefa</mat-label>
           <mat-select formControlName="task_status_id">
@@ -53,6 +45,14 @@
           <mat-label>Descrição</mat-label>
           <textarea matInput formControlName="description"></textarea>
           <mat-error *ngIf="taskForm.get('description').hasError('required')">A descrição é obrigatória</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 col-12 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Concluído Em</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="concluded_at">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
     </div>

@@ -127,21 +127,21 @@
     </div>
     <!---->
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-6 mb-3">
       <span class="fw-bolder">Valor Total *</span>
       <mat-form-field appearance="outline">
         <input type="text" formControlName="total_value" matInput currencyMask placeholder="R$ 0,00" />
       </mat-form-field>
     </div>
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-6 mb-3">
       <span class="fw-bolder">Quantidade de Itens *</span>
       <mat-form-field appearance="outline">
         <input type="text" formControlName="quantity_items" matInput mask="0*" [allowNegativeNumbers]="false" placeholder="0" />
       </mat-form-field>
     </div>
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-12 mb-3">
       <span class="fw-bolder">Forma de pagamento *</span>
       <mat-form-field>
         <mat-select [formControl]="payment_method" placeholder="Forma de Pagamento" >
@@ -182,17 +182,18 @@
         </mat-form-field>
       </div>
     }
-
-    <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Status *</span>
-      <mat-form-field>
-        <mat-select [formControl]="purchase_status" placeholder="Status" >
-          @for (status of requestStatusSelection; track status) {
-            <mat-option [value]="status">{{ status | status }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
+    <ng-container *ngIf="isAdmin">
+      <div class="col-md-6 mb-3">
+        <span class="fw-bolder">Status *</span>
+        <mat-form-field>
+          <mat-select [formControl]="purchase_status" placeholder="Status" >
+            @for (status of requestStatusSelection; track status) {
+              <mat-option [value]="status">{{ status | status }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-container>
 
     <div class="">
       <span class="fw-bolder">Anexos</span>

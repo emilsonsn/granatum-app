@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface Task {
   id: string;
   user_id: number;
@@ -9,7 +11,8 @@ export interface Task {
   updated_at: Date;
   sub_tasks: any[];
   tasks_files: any[]
-  files: any[]
+  files: any[];
+  user: User;
 }
 
 export enum TaskStatusEnum {
