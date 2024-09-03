@@ -51,7 +51,8 @@ export class TasksComponent {
     this._taskService.getTasks().subscribe((response: ApiResponse<Task[]>) => {
       if (response.data) {
         response.data.forEach((task: Task) => {
-          this.data[this.status.find((status) => status.id === task.task_status_id).name].push(task)
+          const name = this.status.find((status) => status.id === task.task_status_id)?.name;
+          if(name) this.data[name].push(task);
         })
       }
     })
