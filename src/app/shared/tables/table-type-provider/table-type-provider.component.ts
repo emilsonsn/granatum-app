@@ -103,6 +103,10 @@ export class TableTypeProviderComponent {
       .subscribe({
         next: (res) => {
           this.providerTypes = res.data;
+
+          this.pageControl.page = res.current_page - 1;
+          this.pageControl.itemCount = res.total;
+          this.pageControl.pageCount = res.last_page;
         }
       })
   }

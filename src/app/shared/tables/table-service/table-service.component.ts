@@ -109,7 +109,7 @@ export class TableServiceComponent {
       .subscribe((res) => {
         this.services = res.data;
 
-        this.pageControl.page = res.current_page;
+        this.pageControl.page = res.current_page - 1;
         this.pageControl.itemCount = res.total;
         this.pageControl.pageCount = res.last_page;
       });

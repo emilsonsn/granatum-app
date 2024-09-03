@@ -103,6 +103,9 @@ export class TableTypeUserSectorComponent {
       .subscribe({
         next: (res) => {
           this.sectors = res.data;
+          this.pageControl.page = res.current_page - 1;
+          this.pageControl.itemCount = res.total;
+          this.pageControl.pageCount = res.last_page;
         }
       })
   }

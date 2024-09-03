@@ -35,7 +35,7 @@ export class TableRequestComponent {
 
   @Output()
   public onOrderModal = new EventEmitter<Request>();
-  
+
   public columns = [
     {
       slug: "request_type",
@@ -142,7 +142,7 @@ export class TableRequestComponent {
       .subscribe((res) => {
         this.requests = res.data;
 
-        this.pageControl.page = res.current_page;
+        this.pageControl.page = res.current_page - 1;
         this.pageControl.itemCount = res.total;
         this.pageControl.pageCount = res.last_page;
       });

@@ -144,7 +144,7 @@ export class TableOrdersComponent {
       .subscribe((res) => {
         this.orders = res.data;
 
-        this.pageControl.page = res.current_page;
+        this.pageControl.page = res.current_page - 1;
         this.pageControl.itemCount = res.total;
         this.pageControl.pageCount = res.last_page;
       });
