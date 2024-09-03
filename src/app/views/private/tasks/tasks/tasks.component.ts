@@ -8,6 +8,7 @@ import {ToastrService} from "ngx-toastr";
 import {DialogTaskComponent} from "@shared/dialogs/dialog-task/dialog-task.component";
 import {UserService} from "@services/user.service";
 import {User} from "@models/user";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-tasks',
@@ -23,7 +24,8 @@ export class TasksComponent {
     private readonly _dialog: MatDialog,
     private readonly _toastr: ToastrService,
     private readonly _taskService: TaskService,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private cdr: ChangeDetectorRef
   ) {
 
     _taskService.getStatusTasks().subscribe((response: ApiResponse<TaskStatus[]>) => {
@@ -41,9 +43,10 @@ export class TasksComponent {
         this.users = response.data
       }
     })
-
     this.getTasks();
+  }
 
+  ngOnInit(){
   }
 
 
@@ -54,6 +57,7 @@ export class TasksComponent {
           const name = this.status.find((status) => status.id === task.task_status_id)?.name;
           if(name) this.data[name].push(task);
         })
+        this.cdr.detectChanges();
       }
     })
   }
