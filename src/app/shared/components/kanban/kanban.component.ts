@@ -57,7 +57,7 @@ export class KanbanComponent {
       case TaskStatusEnum.Pending:
         return '⏳'; // Emoji de relógio de areia
       case TaskStatusEnum.InProgress:
-        return '🚧'; // Emoji de construção
+        return '🚧'; // Emoji de obra
       case TaskStatusEnum.Completed:
         return '✅'; // Emoji de marca de verificação
       case TaskStatusEnum.Canceled:

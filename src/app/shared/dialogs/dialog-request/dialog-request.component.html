@@ -20,7 +20,7 @@
     <div class="col-md-6 mb-3">
       <span class="fw-bolder">Pedido *</span>
       <mat-form-field appearance="outline">
-        <mat-select formControlName="order_id" placeholder="Construção">
+        <mat-select formControlName="order_id" placeholder="Obra">
           <mat-option *ngFor="let order of orders" [value]="order.id">
             {{ order.description }}
           </mat-option>
@@ -51,9 +51,9 @@
     </div>
 
     <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Construção *</span>
+      <span class="fw-bolder">Obra *</span>
       <mat-form-field appearance="outline">
-        <mat-select formControlName="construction_id" placeholder="Construção">
+        <mat-select formControlName="construction_id" placeholder="Obra">
           <mat-option *ngFor="let construction of constructions" [value]="construction.id">
             {{ construction.name }}
           </mat-option>

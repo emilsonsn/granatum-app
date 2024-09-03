@@ -42,7 +42,7 @@ export class DialogConstructionComponent {
 
     if (this._data?.construction) {
       this.isNewConstruction = false;
-      this.title = 'Editar construção';
+      this.title = 'Editar obra';
       this._fillForm(this._data.construction);
     }
 
