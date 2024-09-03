@@ -44,18 +44,8 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Banco *</span>
-      <mat-form-field appearance="outline">
-        <mat-select formControlName="bank_id" placeholder="Solicitante" >
-          <mat-option *ngFor="let banco of bancos()" [value]="banco.id">
-            {{ banco.descricao }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
 
-    <div class="col-md-6 col-12 mb-3">
+    <div class="col-md-4 col-12 mb-3">
       <span class="fw-bolder">Tipo de Solicitação *</span>
       <mat-form-field>
         <mat-select [formControl]="order_type" placeholder="Tipo de Solicitação" >
@@ -66,7 +56,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 mb-3">
+    <div class="col-md-4 mb-3">
       <span class="fw-bolder">Obra *</span>
       <mat-form-field appearance="outline">
         <mat-select formControlName="construction_id" placeholder="Obra">
@@ -77,7 +67,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 mb-3">
+    <div class="col-md-4 mb-3">
       <span class="fw-bolder">Data *</span>
       <mat-form-field appearance="outline">
         <input matInput [matDatepicker]="picker" formControlName="date" placeholder="DD/MM/YYYY" readonly >
@@ -85,6 +75,19 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
+    
+    @if (isAdmin) {
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Banco *</span>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="bank_id" placeholder="Solicitante" >
+            <mat-option *ngFor="let banco of bancos()" [value]="banco.id">
+              {{ banco.descricao }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    }
 
     <!-- Itens -->
     <div class="col-12" formArrayName="items">
@@ -182,18 +185,18 @@
         </mat-form-field>
       </div>
     }
-    <ng-container *ngIf="isAdmin">
-      <div class="col-md-6 mb-3">
-        <span class="fw-bolder">Status *</span>
-        <mat-form-field>
-          <mat-select [formControl]="purchase_status" placeholder="Status" >
-            @for (status of requestStatusSelection; track status) {
-              <mat-option [value]="status">{{ status | status }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </ng-container>
+    
+    <div class="col-md-6 mb-3">
+      <span class="fw-bolder">Status *</span>
+      <mat-form-field>
+        <mat-select [formControl]="purchase_status" placeholder="Status" >
+          @for (status of requestStatusSelection; track status) {
+            <mat-option [value]="status">{{ status | status }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
 
     <div class="">
       <span class="fw-bolder">Anexos</span>

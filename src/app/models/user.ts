@@ -39,3 +39,11 @@ export enum UserStatus {
 	INATIVO = 'INACTIVE',
 	BLOQUEADO = 'BLOCKED',
 }
+
+
+export enum Positions { //Gerente/Gestor/Adm/Tiago
+  Admin = 'Admin',
+  Financial = 'Financial',
+  Supplies = 'Supplies',
+  Requester = 'Requester'
+}

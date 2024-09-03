@@ -11,7 +11,7 @@ export class RequestOrderTypePipe implements PipeTransform {
       case RequestOrderType.Material:
         return 'Material';
       case RequestOrderType.Order:
-        return 'Progresso';
+        return 'Despesa';
       case RequestOrderType.Reimbursement:
         return 'Reembolso';
       case RequestOrderType.Service:

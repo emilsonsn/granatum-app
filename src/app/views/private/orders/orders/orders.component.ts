@@ -46,7 +46,7 @@ export class OrdersComponent {
       icon: 'fa-solid fa-clock',
       background: '#FC9108',
       title: this.dashboardCards().pendingOrders,
-      category: 'Pedidos / Solicitações',
+      category: 'Pedidos',
       description: 'Pedidos pendentes',
     },
     {
@@ -54,22 +54,15 @@ export class OrdersComponent {
       // icon_description: 'fa-solid fa-calendar-day',
       // background: '#17a2b8',
       title: this.dashboardCards().awaitingFinanceOrders,
-      category: 'Pedidos / Solicitações',
+      category: 'Pedidos',
       description: 'Solicitações em aberto',
     },
     {
-      icon: 'fa-solid fa-calendar-times',
-      // icon_description: 'fa-solid fa-calendar-day',
-      background: '#dc3545',
-      title: this.dashboardCards().solicitationPendings,
-      category: 'Pedidos / Solicitações',
-      description: 'Pedidos vencidos',
-    }, {
       icon: 'fa-solid fa-check-circle',
       // icon_description: 'fa-solid fa-calendar-day',
       background: '#28a745',
       title: this.dashboardCards().solicitationFinished,
-      category: 'Pedidos / Solicitações',
+      category: 'Pedidos',
       description: 'Pedidos resolvidos',
     },
   ]);

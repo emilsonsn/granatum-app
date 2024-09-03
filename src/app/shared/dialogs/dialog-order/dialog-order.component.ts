@@ -166,12 +166,17 @@ export class DialogOrderComponent {
     this._sessionQuery.user$.subscribe(user => {
       if(user && user?.company_position.position !== 'Requester') {
         this.isAdmin = true;
+      }else{
+        this.form.get('purchase_status').disable();        
       }
     })
   }
 
   public postOrder(order : RequestOrder) {
-    this.prepareFormData(order);
+    if (!this.prepareFormData(order)){
+      this.loading = false;
+      return;
+    }
 
     this._orderService.postOrder(this.prepareFormData(order))
       .pipe(finalize(() => {
@@ -189,7 +194,10 @@ export class DialogOrderComponent {
   }
 
   public patchOrder(id : number, order : RequestOrder) {
-    this.prepareFormData(order);
+    if (!this.prepareFormData(order)){
+      this.loading = false;
+      return;
+    }
 
     this._orderService.patchOrder(id, this.prepareFormData(order))
       .pipe(finalize(() => {
@@ -207,6 +215,16 @@ export class DialogOrderComponent {
   }
 
   public prepareFormData(order : RequestOrder) {
+    if(!order.items.length){
+      this._toastr.error('Item é um campo obrigatório');
+      return;
+    }
+
+    if(!order.order_files.length){
+      this._toastr.error('Anexo é um campo obrigatório');
+      return;
+    }
+
     const orderFormData = new FormData();
 
     Object.keys(order).forEach((key) => {

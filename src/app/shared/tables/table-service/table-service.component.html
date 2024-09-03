@@ -41,7 +41,6 @@
             <tr
               class="table-line-hover"
               style="outline: none; cursor: pointer"
-              (click)="onServiceClick.emit(service)"
             >
               <td>
                 <div
@@ -61,12 +60,20 @@
                   {{ service?.type?.type }}
                 </div>
               </td>
-              <td class="p-0">
-                <div class="d-flex justify-content-center align-items-center" style="white-space: nowrap;">
-                  <button mat-icon-button class="d-flex justify-content-center align-items-center"
-                          (click)="onDeleteServiceClick.emit(service?.id); $event.stopPropagation()">
-                    <i class="fa-solid fa-trash" style="font-size:large"></i>
-                  </button>
+
+              <td>
+                <div class="d-flex justify-content-end">
+                  <div matRipple class="buttonTemplate" (click)="onServiceClick.emit(service)">
+                    <i class="fa-solid fa-eye"></i>
+                  </div>
+
+                  <div matRipple class="buttonTemplate" (click)="onServiceClick.emit(service)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </div>
+
+                  <div matRipple class="buttonTemplate" (click)="onDeleteServiceClick.emit(service?.id)">
+                    <i class="fa-solid fa-trash"></i>
+                  </div>
                 </div>
               </td>
             </tr>

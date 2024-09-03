@@ -41,7 +41,7 @@
           <mat-label>Cargo</mat-label>
           <mat-select formControlName="company_position_id">
             <mat-option *ngFor="let type of userPositionEnum" [value]="type.id">
-              {{ type.position }}
+              {{ type.position | companyPosition}}
             </mat-option>
           </mat-select>
         </mat-form-field>
