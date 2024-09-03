@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { Order, PageControl, PaymentForm } from '@models/application';
-import { RequestOrder, RequestOrderStatus, RequestOrderType } from '@models/requestOrder';
-import { OrderService } from '@services/order.service';
-import { ToastrService } from 'ngx-toastr';
-import { finalize, Subscription } from 'rxjs';
+import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
+import {Order, PageControl} from '@models/application';
+import {RequestOrder, RequestOrderStatus} from '@models/requestOrder';
+import {OrderService} from '@services/order.service';
+import {ToastrService} from 'ngx-toastr';
+import {finalize, Subscription} from 'rxjs';
+
 @Component({
   selector: 'app-table-orders',
   templateUrl: './table-orders.component.html',
@@ -78,7 +79,7 @@ export class TableOrdersComponent {
     },
   ];
 
-  public orders : RequestOrder[] = [];
+  public orders: RequestOrder[] = [];
 
   public pageControl: PageControl = {
     take: 10,
@@ -88,30 +89,34 @@ export class TableOrdersComponent {
     orderField: "id",
     order: Order.ASC,
   };
+  @Input() home!: boolean;
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _orderService : OrderService
-  ) {}
+    private readonly _orderService: OrderService
+  ) {
+  }
 
   ngOnInit(): void {
     // this.subscription = this._sidebarService.accountIdAlterado$.subscribe(
     //   () => { this._onSearch() }
     // );
+
+    if (this.home) {
+      this.columns.pop();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const { filters, searchTerm, loading } = changes;
+    const {filters, searchTerm, loading} = changes;
 
-    if ( searchTerm?.previousValue && searchTerm?.currentValue !== searchTerm?.previousValue ) {
+    if (searchTerm?.previousValue && searchTerm?.currentValue !== searchTerm?.previousValue) {
+      this._onSearch();
+    } else if (!loading?.currentValue) {
+      this._onSearch();
+    } else if (filters?.previousValue && filters?.currentValue) {
       this._onSearch();
     }
-    else if (!loading?.currentValue) {
-      this._onSearch();
-    }
-    else if(filters?.previousValue && filters?.currentValue) {
-			this._onSearch();
-		}
 
   }
 

@@ -152,12 +152,15 @@ export class HomeComponent {
       }
     }
   };
+  filters: any = {
+    is_home: true
+  };
 
   ngOnInit() {
     Chart.register(...registerables);
 
     // Initialize the charts and store the instances
-    this.lineChart = new Chart('lineChart', this.lineChart);
+    // this.lineChart = new Chart('lineChart', this.lineChart);
     this.barChart = new Chart('barChart', this.barChart);
 
     this._dashboardService.getPurchaseGraphicBar().subscribe((c: ApiResponse<{ month: string, total: number }[]>) => {
@@ -171,7 +174,7 @@ export class HomeComponent {
       }
     });
 
-    this._dashboardService.getPurchaseGraphicLine().subscribe((c: ApiResponse<{ month: string, total: number }[]>) => {
+    /*this._dashboardService.getPurchaseGraphicLine().subscribe((c: ApiResponse<{ month: string, total: number }[]>) => {
       const months = c.data.map(d => d.month); // Extract months
       const totals = c.data.map(d => d.total); // Extract totals
 
@@ -181,7 +184,7 @@ export class HomeComponent {
         this.lineChart.data.datasets[0].data = totals;
         this.lineChart.update(); // Update chart
       }
-    });
+    });*/
   }
 
 

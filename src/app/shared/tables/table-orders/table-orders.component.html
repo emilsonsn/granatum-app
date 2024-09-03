@@ -2,7 +2,7 @@
   <div class="overflow-auto">
     <table class="table table-responsive">
       <thead>
-        @for(col of columns; track col) {
+        @for (col of columns; track col) {
           <th [class.hasorder]="col.order"
               [class.active-order]="pageControl.orderField === col.slug"
               (click)="onClickOrderBy(col.slug, col.order)">
@@ -16,7 +16,7 @@
         }
       </thead>
       <tbody>
-        @if(loading) {
+        @if (loading) {
           <tr>
             <td [attr.colspan]="columns.length + 1">
               <div id="mat-loading">
@@ -24,16 +24,14 @@
               </div>
             </td>
           </tr>
-        }
-        @else {
-          @if(!orders?.length) {
+        } @else {
+          @if (!orders?.length) {
             <tr>
               <td [attr.colspan]="columns.length + 1" class="text-center">
                 <div>Nenhum resultado encontrado</div>
               </td>
             </tr>
-          }
-          @else {
+          } @else {
             @for (order of orders; track order) {
               <tr class="table-line-hover" style="outline: none;">
                 <td>
@@ -58,7 +56,7 @@
                 </td>
                 <td>
                   <div>
-                    {{ order.construction?.name}}
+                    {{ order.construction?.name }}
                   </div>
                 </td>
                 <td>
@@ -66,33 +64,35 @@
                     {{ order.purchase_status | status }}
                   </div>
                 </td>
-                <td>
-                  <div id="buttons" class="d-flex justify-content-end">
-                    <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(
+                @if (!home) {
+                  <td>
+                    <div id="buttons" class="d-flex justify-content-end">
+                      <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(
                       {
                         edit: false,
                         order : order
                       }
                     )">
-                      <i class="fa-solid fa-eye"></i>
-                    </div>
+                        <i class="fa-solid fa-eye"></i>
+                      </div>
 
-                    <div matRipple class="buttonTemplate" (click)="onEditOrder.emit(
+                      <div matRipple class="buttonTemplate" (click)="onEditOrder.emit(
                       {
                         edit: true,
                         order : order
                       }
                     )">
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </div>
-
-                    @if(order.purchase_status == orderStatus.Pending) {
-                      <div matRipple class="buttonTemplate" (click)="onDeleteOrder.emit(order)">
-                        <i class="fa-solid fa-trash"></i>
+                        <i class="fa-solid fa-pen-to-square"></i>
                       </div>
-                    }
-                  </div>
-                </td>
+
+                      @if (order.purchase_status == orderStatus.Pending) {
+                        <div matRipple class="buttonTemplate" (click)="onDeleteOrder.emit(order)">
+                          <i class="fa-solid fa-trash"></i>
+                        </div>
+                      }
+                    </div>
+                  </td>
+                }
               </tr>
             }
           }
