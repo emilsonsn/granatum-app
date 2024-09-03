@@ -24,9 +24,10 @@
             </h4>
             <h4>{{ item?.name }}</h4>
             <p>{{ item?.description }}</p>
-
           </div>
         }
+        <!-- Placeholder: deve estar dentro do cdkDropList -->
+        <div class="kanban-box cdk-drag-placeholder" *cdkDragPlaceholder></div>
       </div>
     </div>
   }

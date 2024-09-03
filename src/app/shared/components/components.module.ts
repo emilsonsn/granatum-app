@@ -7,7 +7,7 @@ import {
 } from "@shared/components/small-information-card/small-information-card.component";
 import {MatDivider} from "@angular/material/divider";
 import {KanbanComponent} from "@shared/components/kanban/kanban.component";
-import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragPlaceholder, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 
 const components: any[] = [
   AccountManagerComponent,
@@ -23,7 +23,8 @@ const components: any[] = [
     MatDivider,
     CdkDropListGroup,
     CdkDropList,
-    CdkDrag
+    CdkDrag,
+    CdkDragPlaceholder
   ],
   exports: components
 })
