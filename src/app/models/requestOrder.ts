@@ -50,7 +50,8 @@ export enum RequestOrderType { // Pedido, reembolso, serviço, material...
 export enum RequestOrderStatus { // lista suspensa) (resolvido ou solicitar financeiro)
   Pending = 'Pending',
   Resolved = 'Resolved',
-  RequestFinance = 'RequestFinance'
+  RequestFinance = 'RequestFinance',
+  RequestManager = 'RequestManager'
 }
 
 export enum OrderResponsible { //Gerente/Gestor/Adm/Tiago

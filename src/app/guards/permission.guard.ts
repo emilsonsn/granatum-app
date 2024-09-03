@@ -15,26 +15,27 @@ export const permissionGuard: CanActivateFn = (route: ActivatedRouteSnapshot, st
   return sessionQuery.user$.pipe(
     map(user => {
 
-      if(!user) {
-        router.navigate(['/login']);
-        hasPermission = false;
-      }
-      else {
+      // if(!user) {
+      //   router.navigate(['/login']);
+      //   hasPermission = false;
+      // }
+      // else {
 
-        const notAllowedPermissionToRequester = [
-          'home',
-          'collaborator',
-          'construction',
-          'provider',
-          'services',
-          'tasks',
-          'client'
-        ];
+      //   const notAllowedPermissionToRequester = [
+      //     'home',
+      //     'collaborator',
+      //     'construction',
+      //     'provider',
+      //     'services',
+      //     'tasks',
+      //     'client'
+      //   ];
 
-        if (user?.company_position?.position == 'Requester' && notAllowedPermissionToRequester.includes(page))
-          hasPermission = false;
+      //   if (user?.company_position?.position == 'Requester' && notAllowedPermissionToRequester.includes(page))
+      //     hasPermission = false;
 
-      }
+      // }
+      return true;
 
       return hasPermission;
     }),

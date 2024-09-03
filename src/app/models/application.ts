@@ -23,7 +23,7 @@ export enum Order {
 
 export enum PaymentForm {
   Cash = 'Cash',
-  InvoicedPaymentForecast = 'Faturado',
+  InvoicedPaymentForecast = 'InvoicedPaymentForecast',
 }
 
 export interface PageControl {

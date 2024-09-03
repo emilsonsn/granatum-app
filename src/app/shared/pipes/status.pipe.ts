@@ -16,6 +16,8 @@ export class StatusPipe implements PipeTransform {
         return 'Resolvido';
       case Status.RequestFinance:
         return 'Solicitado ao financeiro';
+      case Status.RequestManager:
+        return 'Solicitado ao gerente'
       case Status.Finished:
         return 'Finalizado';
       case Status.Rejected:
