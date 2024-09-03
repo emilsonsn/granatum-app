@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize, Subscription } from 'rxjs';
 import { Request } from '@models/request';
 import { RequestService } from '@services/request.service';
+import { SessionQuery } from '@store/session.query';
 
 @Component({
   selector: 'app-table-request',
@@ -32,7 +33,9 @@ export class TableRequestComponent {
   @Output()
   public onDeleteOrder = new EventEmitter<Request>();
 
-
+  @Output()
+  public onOrderModal = new EventEmitter<Request>();
+  
   public columns = [
     {
       slug: "request_type",
@@ -71,15 +74,28 @@ export class TableRequestComponent {
     order: Order.ASC,
   };
 
+  isFinancial: boolean = false;
+
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _requestService : RequestService
+    private readonly _requestService : RequestService,
+    private readonly _sessionQuery : SessionQuery
   ) {}
 
   ngOnInit(): void {
     // this.subscription = this._sidebarService.accountIdAlterado$.subscribe(
     //   () => { this._onSearch() }
     // );
+
+    this.loadPermissions();
+  }
+
+  public loadPermissions(){
+    this._sessionQuery.user$.subscribe(user => {
+      if(user && (user?.company_position.position === 'Financial' || user?.company_position.position === 'Admin')) {
+        this.isFinancial = true;
+      }
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {

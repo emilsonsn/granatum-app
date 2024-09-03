@@ -5,10 +5,17 @@
     <div class="d-flex align-items-center gap-2">
       @if(!isNewOrder) {
         <div id="headerButtons">
-          @if(_data.order.purchase_date) {
+          @if(_data.order.purchase_date && hasGranatum && !_data.order.has_granatum) {
             <div matRipple class="headerBtn" (click)="throwToGranatum()">Lançar no Granatum</div>
           }
-          <div matRipple class="headerBtn" (click)="onSolicitation()">Solicitar ao Financeiro</div>
+
+          @if(_data.order.has_granatum) {
+            <div matRipple class="btn btn-success">
+              <i class="fa-solid fa-circle-check"></i>
+              Já lançado no granatum
+            </div>
+          }
+          <div matRipple class="headerBtn" (click)="onSolicitation()" *ngIf="!_data.order.has_granatum" >Solicitar ao Financeiro</div>
         </div>
       }
 
@@ -77,12 +84,23 @@
     </div>
     
     @if (isAdmin) {
-      <div class="col-md-12 mb-3">
+      <div class="col-md-6 mb-3">
         <span class="fw-bolder">Banco *</span>
         <mat-form-field appearance="outline">
-          <mat-select formControlName="bank_id" placeholder="Solicitante" >
+          <mat-select formControlName="bank_id" placeholder="Banco" >
             <mat-option *ngFor="let banco of bancos()" [value]="banco.id">
               {{ banco.descricao }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <span class="fw-bolder">Categoria *</span>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="category_id" placeholder="Categoria" >
+            <mat-option *ngFor="let category of categories()" [value]="category.id">
+              {{ category.descricao }}
             </mat-option>
           </mat-select>
         </mat-form-field>

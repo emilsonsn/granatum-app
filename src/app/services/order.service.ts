@@ -56,4 +56,8 @@ export class OrderService {
     return this._http.get<ApiResponse<Banco[]>>(`${environment.api}/${this.sessionEndpoint}/getBank`);
   }
 
+  public getCategories(): Observable<ApiResponse<any[]>> {
+    return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/getCategories`);
+  }
+
 }

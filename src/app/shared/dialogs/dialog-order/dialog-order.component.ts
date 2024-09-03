@@ -49,7 +49,6 @@ export class DialogOrderComponent {
     path: string, // Wasabi
   }[] = [];
 
-
   // Getters
   protected requestTypeSelection = Object.values(RequestOrderType);
   protected requestStatusSelection = Object.values(RequestOrderStatus);
@@ -64,7 +63,10 @@ export class DialogOrderComponent {
   public allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
 
   public bancos = signal<Banco[]>([]);
+  public categories = signal<any[]>([]);
+
   public isAdmin = false; 
+  public hasGranatum = false; 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected readonly _data,
@@ -83,6 +85,10 @@ export class DialogOrderComponent {
     this._orderService.getBank().subscribe((b: ApiResponse<Banco[]>) => {
       this.bancos.set(b.data);
     })
+
+    this._orderService.getCategories().subscribe((b: ApiResponse<any[]>) => {
+      this.categories.set(b.data);
+    })
   }
 
   ngOnInit(): void {
@@ -99,6 +105,7 @@ export class DialogOrderComponent {
       quantity_items: [null, Validators.required],
       items: this._fb.array([]),
       bank_id: [null],
+      category_id: [null],
 
       // responsible: [null],  Não implementado no back
     });
@@ -107,6 +114,7 @@ export class DialogOrderComponent {
     this.getSuppliers();
     this.getUsers();
     this.loadPermissions();
+    this.loadPermissionGranatum();
 
     if (this._data) {
       this.isNewOrder = false;
@@ -172,6 +180,14 @@ export class DialogOrderComponent {
     })
   }
 
+  public loadPermissionGranatum(){
+    this._sessionQuery.user$.subscribe(user => {
+      if(user && (user?.company_position.position === 'Financial' || user?.company_position.position === 'Admin')) {
+        this.hasGranatum = true;
+      }
+    })
+  }
+
   public postOrder(order : RequestOrder) {
     if (!this.prepareFormData(order)){
       this.loading = false;
@@ -215,12 +231,12 @@ export class DialogOrderComponent {
   }
 
   public prepareFormData(order : RequestOrder) {
-    if(!order.items.length){
+    if(!order.items.length ){
       this._toastr.error('Item é um campo obrigatório');
       return;
     }
 
-    if(!order.order_files.length){
+    if(!order.order_files.length && !this.filesFromBack.length){
       this._toastr.error('Anexo é um campo obrigatório');
       return;
     }

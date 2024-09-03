@@ -23,9 +23,7 @@ export enum Order {
 
 export enum PaymentForm {
   Cash = 'Cash',
-  InvoicedPaymentForecast = 'InvoicedPaymentForecast',
-  InvoicedBoleto = 'InvoicedBoleto',
-  InvoicedInvoice = 'InvoicedInvoice'
+  InvoicedPaymentForecast = 'Faturado',
 }
 
 export interface PageControl {

@@ -90,7 +90,6 @@ export class DialogRequestComponent {
     })
   }
 
-
   public postRequest(request : Request) {
 
     this._requestService.postRequest(request)

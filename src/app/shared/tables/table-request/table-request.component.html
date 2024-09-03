@@ -52,7 +52,11 @@
                   </div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">
+                  <div class="d-flex justify-content-end" *ngIf="isFinancial">
+                    <div matRipple class="buttonTemplate" (click)="onOrderModal.emit(order)">
+                      <i class="fa-solid fa-folder"></i>
+                    </div>
+
                     <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(order)">
                       <i class="fa-solid fa-eye"></i>
                     </div>
