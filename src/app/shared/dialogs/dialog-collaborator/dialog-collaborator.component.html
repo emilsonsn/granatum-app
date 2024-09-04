@@ -11,6 +11,23 @@
   <form [formGroup]="form">
     <div class="row">
       <div class="col-12 mb-3">
+        <div class="profile-upload">
+          <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" hidden>
+          <div class="upload-container" (click)="triggerFileInput()" [ngClass]="{'drag-over': isDragOver}"
+               (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <div class="upload-placeholder" *ngIf="!profileImage">
+              <i class="fa-solid fa-upload"></i>
+              <p>Arraste a imagem aqui ou clique para fazer upload</p>
+            </div>
+            <img *ngIf="profileImage" [src]="profileImage" alt="Foto de Perfil" class="uploaded-image">
+            <div *ngIf="profileImage" class="remove-image" (click)="removeImage($event)">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 mb-3">
         <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
           <input matInput type="text" formControlName="name">

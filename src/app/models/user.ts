@@ -13,6 +13,7 @@ export interface User {
   createdAt : string;
   updatedAt : string;
   admin?: boolean;
+  photo?: string;
 
   sector?: UserSector;
   company_position?: UserPosition;

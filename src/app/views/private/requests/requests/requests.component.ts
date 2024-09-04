@@ -182,7 +182,6 @@ export class RequestsComponent {
 
   onOrderModal(request){
     this._orderService.getOrderById(request.order_id).subscribe(order => {
-        console.log(order)
         const dialogConfig: MatDialogConfig = {
           width: '80%',
           maxWidth: '850px',
@@ -190,14 +189,14 @@ export class RequestsComponent {
           hasBackdrop: true,
           closeOnNavigation: true,
         };
-    
+
         this._dialog
           .open(DialogOrderComponent, {
             data: {order: order, edit: true},
             ...dialogConfig
-          }); 
+          });
     });
-     
+
   }
 
 }

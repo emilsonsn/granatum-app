@@ -18,6 +18,8 @@ import { TableTypeProviderComponent } from './table-type-provider/table-type-pro
 import { TableTypeServiceComponent } from './table-type-service/table-type-service.component';
 import { TableTypeUserSectorComponent } from './table-type-user-sector/table-type-user-sector.component';
 import { TableUserComponent } from './table-users/table-users.component';
+import {SharedModule} from "@shared/shared.module";
+import {AvatarModule} from "@shared/components/avatar/avatar.module";
 
 const tables = [
   TableOrdersComponent,
@@ -46,7 +48,8 @@ const tables = [
     MatButtonModule,
     MatProgressSpinnerModule,
     MatRippleModule,
-    PipesModule
+    PipesModule,
+    AvatarModule,
   ],
   exports: [
     tables

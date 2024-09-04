@@ -45,7 +45,13 @@
                   </div>
                 </td>
                 <td>
-                  <div>
+                  <div class="d-flex align-items-center" style="gap: 1rem;">
+                    <app-avatar
+                      [imageUrl]="order?.user?.photo"
+                      [altText]="order?.user?.name"
+                      [color]="'#e7b403'"
+                      [onCircle]="true"
+                    ></app-avatar>
                     {{ order?.user?.name }}
                   </div>
                 </td>
