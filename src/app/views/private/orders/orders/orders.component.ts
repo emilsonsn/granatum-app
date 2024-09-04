@@ -2,7 +2,7 @@ import {Component, computed, Signal, signal} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import {Banco, RequestOrder} from '@models/requestOrder';
+import {Banco, RequestOrder, RequestOrderStatus} from '@models/requestOrder';
 import {HeaderService} from '@services/header.service';
 import {OrderService} from '@services/order.service';
 import {DialogConfirmComponent} from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
@@ -199,4 +199,6 @@ export class OrdersComponent {
     this.loading = !this.loading;
   }
 
+  protected readonly RequestOrderStatus = RequestOrderStatus;
+  protected readonly Object = Object;
 }
