@@ -1,6 +1,6 @@
 <app-account-manager
   [options]="options"
-  primary_text="Olá, Bem vindo!"
+  primary_text="Olá, bem-vindo(a)!"
 >
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
     <mat-form-field appearance="outline" class="mb-3">
@@ -28,5 +28,4 @@
 
     <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
   </form>
-
 </app-account-manager>
