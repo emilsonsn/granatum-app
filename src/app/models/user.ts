@@ -21,7 +21,7 @@ export interface User {
 
 export interface UserPosition {
   id? : string,
-  position : string
+  position : Positions;
 }
 
 export interface UserSector {
@@ -42,7 +42,7 @@ export enum UserStatus {
 }
 
 
-export enum Positions { //Gerente/Gestor/Adm/Tiago
+export enum Positions { //Suprimento/Gestor/Adm/Tiago
   Admin = 'Admin',
   Financial = 'Financial',
   Supplies = 'Supplies',

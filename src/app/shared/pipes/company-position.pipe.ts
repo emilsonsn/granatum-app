@@ -13,7 +13,7 @@ export class CompanyPositionPipe implements PipeTransform {
       case Positions.Financial:
         return 'Financeiro';
       case Positions.Supplies:
-        return 'Gerente';
+        return 'Suprimento';
       case Positions.Requester:
         return 'Colaborador';
 

@@ -9,7 +9,7 @@ export class OrderResponsiblePipe implements PipeTransform {
   transform(value: OrderResponsible) {
     switch (value) {
       case OrderResponsible.MANAGER:
-        return 'Gerente';
+        return 'Suprimento';
       case OrderResponsible.GESTOR:
         return 'Gestor';
       case OrderResponsible.ADMINISTRATOR:

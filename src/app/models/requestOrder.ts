@@ -54,7 +54,7 @@ export enum RequestOrderStatus { // lista suspensa) (resolvido ou solicitar fina
   RequestManager = 'RequestManager'
 }
 
-export enum OrderResponsible { //Gerente/Gestor/Adm/Tiago
+export enum OrderResponsible { //Suprimento/Gestor/Adm/Tiago
   MANAGER = 'MANAGER',
   GESTOR = 'GESTOR',
   ADMINISTRATOR = 'ADMINISTRATOR',
