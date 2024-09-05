@@ -30,7 +30,7 @@
   <form [formGroup]="form" class="row">
 
     <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Solicitante *</span>
+      <span class="fw-bolder">Solicitante</span>
       <mat-form-field appearance="outline">
         <mat-select formControlName="user_id" placeholder="Solicitante" >
           <mat-option *ngFor="let user of users" [value]="user.id">
@@ -82,7 +82,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
-    
+
     @if (isAdmin) {
       <div class="col-md-6 mb-3">
         <span class="fw-bolder">Banco *</span>
@@ -203,7 +203,7 @@
         </mat-form-field>
       </div>
     }
-    
+
     <div class="col-md-12 mb-3">
       <span class="fw-bolder">Status *</span>
       <mat-form-field>
