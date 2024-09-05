@@ -10,19 +10,7 @@
 
   <form [formGroup]="form" class="row">
 
-    <div class="col-12 mb-3">
-      <p class="fw-bold fs-6 mb-2">Data</p>
-      <mat-form-field>
-        <mat-date-range-input [rangePicker]="picker">
-          <input formControlName="start_date" matStartDate  placeholder="Início" readonly >
-          <input formControlName="end_date" matEndDate placeholder="Fim" readonly >
-        </mat-date-range-input>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-6 col-12 mb-3">
+    <div class="col-md-12 col-12 mb-3">
       <p class="fw-bold fs-6 mb-2">Status</p>
       <mat-form-field appearance="outline">
         <mat-select [formControl]="status" multiple placeholder="Selecionar todos">
@@ -44,20 +32,32 @@
     </div>
 
     <div class="col-12 mb-3">
+      <p class="fw-bold fs-6 mb-2">Data</p>
+      <mat-form-field>
+        <mat-date-range-input [rangePicker]="picker">
+          <input formControlName="start_date" matStartDate  placeholder="Início" readonly >
+          <input formControlName="end_date" matEndDate placeholder="Fim" readonly >
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-12 mb-3">
       <p class="fw-bold fs-6 mb-2">Nome</p>
       <mat-form-field appearance="outline">
         <input type="text" formControlName="name" matInput placeholder="Nome"  />
       </mat-form-field>
-    </div>
+    </div> -->
   </form>
 
 </mat-dialog-content>
 <mat-dialog-actions>
   <div class="container">
     <div id="actionsDialog" class="flex-sm-row flex-column">
-      <div matRipple class="buttonTemplate me-auto me-sm-0 mb-sm-0 mb-2" (click)="onCancel(true)">
+      <!-- <div matRipple class="buttonTemplate me-auto me-sm-0 mb-sm-0 mb-2" (click)="onCancel(true)">
         <i class="fa-solid fa-trash"></i>
-      </div>
+      </div> -->
       <div id="buttonsDialog" class="flex-sm-row flex-column">
         <div class="col-auto">
           <button matRipple id="cancel" class="button cancel" (click)="onCancel(false)">Cancelar</button>
