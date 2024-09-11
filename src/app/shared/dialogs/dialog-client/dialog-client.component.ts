@@ -53,7 +53,7 @@ export class DialogClientComponent {
       address: [null, [Validators.required]],
       city: [null, [Validators.required]],
       state: [null, [Validators.required]],
-      number: [null, [Validators.required]],
+      number: [null],
     })
 
     if (this._data?.client) {
