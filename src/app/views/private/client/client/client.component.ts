@@ -25,10 +25,10 @@ export class ClientComponent {
     this.loading = !this.loading;
   }
 
-  openDialogClient(service?: Client) {
+  openDialogClient(client?: Client) {
     this._dialog
       .open(DialogClientComponent, {
-        data: { service },
+        data: { client },
         width: '80%',
         maxWidth: '850px',
         maxHeight: '90%',
