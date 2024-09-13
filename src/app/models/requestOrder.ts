@@ -7,6 +7,7 @@ export interface RequestOrder {
   id?: number;
   order_type: RequestOrderType;
   date: string;
+  purchase_date: string;
   construction_id: number;
   user_id: number;
   supplier_id: number;

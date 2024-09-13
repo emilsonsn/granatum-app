@@ -97,11 +97,12 @@ export class DialogOrderComponent {
       date: [null, Validators.required],
       construction_id: [null, Validators.required],
       user_id: [null],
-      supplier_id: [null, Validators.required],
+      supplier_id: [null],
       description: [''],
       total_value: [null, Validators.required],
       payment_method: [null, Validators.required],
       purchase_status: [null],
+      purchase_date: [null],
       quantity_items: [null, Validators.required],
       items: this._fb.array([]),
       bank_id: [null],
@@ -168,14 +169,16 @@ export class DialogOrderComponent {
       this.form.get('total_value').setValue(+newValue.toFixed(2));
     });
 
+    this.form.get('purchase_status').disable();
+
   }
 
-  public loadPermissions() {
+  public loadPermissions() {    
+
     this._sessionQuery.user$.subscribe(user => {
       if (user && user?.company_position.position !== 'Requester') {
         this.isAdmin = true;
       } else {
-        this.form.get('purchase_status').disable();
         this.form.get("user_id").disable();
       }
     })
@@ -251,8 +254,11 @@ export class DialogOrderComponent {
           orderFormData.append('order_files[]', file);
         });
       } else if (key == 'date') {
-        orderFormData.append('date', dayjs(order.date).format('YYYY-MM-DD'));
-      } else if (key == 'items') {
+        if(order.date) orderFormData.append('date', dayjs(order.date).format('YYYY-MM-DD'));
+      }else if(key == 'purchase_date'){
+        if(order.purchase_date) orderFormData.append('purchase_date', dayjs(order.purchase_date).format('YYYY-MM-DD'));
+      }
+       else if (key == 'items') {
         (order.items).forEach(item => {
           orderFormData.append('items[]', JSON.stringify(item));
         });
