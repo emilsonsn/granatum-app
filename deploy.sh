@@ -1,4 +1,4 @@
-git pull https://github.com/emilsonsn/granatum-app.git
+git pull
 
 npm install
 
