@@ -20,6 +20,7 @@ import { TableTypeUserSectorComponent } from './table-type-user-sector/table-typ
 import { TableUserComponent } from './table-users/table-users.component';
 import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
+import { TableLeadsComponent } from './table-leads/table-leads.component';
 
 const tables = [
   TableOrdersComponent,
@@ -38,6 +39,7 @@ const tables = [
 @NgModule({
   declarations: [
     tables,
+    TableLeadsComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,8 @@ const tables = [
     AvatarModule,
   ],
   exports: [
-    tables
+    tables,
+    TableLeadsComponent
   ],
 })
 export class TablesModule { }

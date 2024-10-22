@@ -1,16 +1,16 @@
 import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
-import {Order, PageControl} from '@models/application';
-import {Client} from '@models/client';
-import {ClientService} from '@services/client.service';
-import {ToastrService} from 'ngx-toastr';
-import {finalize} from 'rxjs';
+import {Client} from "@models/client";
+import {Order, PageControl} from "@models/application";
+import {ToastrService} from "ngx-toastr";
+import {ClientService} from "@services/client.service";
+import {finalize} from "rxjs";
 
 @Component({
-  selector: 'app-table-client',
-  templateUrl: './table-client.component.html',
-  styleUrl: './table-client.component.scss'
+  selector: 'app-table-leads',
+  templateUrl: './table-leads.component.html',
+  styleUrl: './table-leads.component.scss'
 })
-export class TableClientComponent {
+export class TableLeadsComponent {
   @Input()
   searchTerm?: string = '';
 
@@ -38,21 +38,33 @@ export class TableClientComponent {
       align: "start",
     },
     {
-      slug: "cnpj",
-      order: true,
-      title: "CNPJ",
-      align: "justify-content-center",
-    },
-    {
-      slug: "whatsapp",
-      order: true,
-      title: "Whatsapp",
-      align: "justify-content-center",
-    },
-    {
       slug: "email",
       order: true,
-      title: "E-mail",
+      title: "Email",
+      align: "justify-content-center",
+    },
+    {
+      slug: "phone",
+      order: true,
+      title: "Telefone",
+      align: "justify-content-center",
+    },
+    {
+      slug: "origin",
+      order: true,
+      title: "Origem",
+      align: "justify-content-center",
+    },
+    {
+      slug: "observations",
+      order: true,
+      title: "Observações",
+      align: "justify-content-center",
+    },
+    {
+      slug: "responsible_id",
+      order: true,
+      title: "Responsável",
       align: "justify-content-center",
     },
     {
@@ -149,5 +161,3 @@ export class TableClientComponent {
     this.search();
   }
 }
-
-

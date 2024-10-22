@@ -63,6 +63,11 @@ export class LayoutPrivateComponent {
       label: 'Tarefas',
       icon: 'fa-solid fa-tasks',
       route: '/painel/tasks'
+    },
+    {
+      label: 'Leads',
+      icon: 'fa-solid fa-people-group',
+      route: '/painel/leads'
     }
   ]
 
@@ -93,7 +98,7 @@ export class LayoutPrivateComponent {
         if(user?.company_position.position == 'Requester')
           this.permitedMenuItem = this.menuItem.filter(item =>
             item.label == 'Pedidos' ||
-            item.label == 'Solicitações' || 
+            item.label == 'Solicitações' ||
             item.label == 'Fornecedores'
           );
         else

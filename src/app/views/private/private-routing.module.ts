@@ -83,6 +83,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'leads',
+        loadChildren: () => import('./leads/leads.module').then(m => m.LeadsModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'leads'
+        }
+      },
+      {
         path: '**',
         redirectTo: 'home',
         canMatch: []
