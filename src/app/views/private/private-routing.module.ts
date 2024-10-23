@@ -1,9 +1,8 @@
-import { CollaboratorModule } from './collaborator/collaborator.module';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LayoutPrivateComponent } from "@shared/layouts/layout-private/layout-private.component";
-import { SessionService } from '../../store/session.service';
-import { permissionGuard } from '@app/guards/permission.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LayoutPrivateComponent} from "@shared/layouts/layout-private/layout-private.component";
+import {SessionService} from '@store/session.service';
+import {permissionGuard} from '@app/guards/permission.guard';
 
 const routes: Routes = [
   {
@@ -107,7 +106,8 @@ export class PrivateRoutingModule {
 
   constructor(
     private readonly _sessionService: SessionService
-  ) {}
+  ) {
+  }
 
 }
 

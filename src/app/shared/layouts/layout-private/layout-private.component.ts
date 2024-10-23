@@ -4,9 +4,8 @@ import {SidebarService} from '@services/sidebar.service';
 import {Subscription} from "rxjs";
 import {User} from "@models/user";
 import {UserService} from "@services/user.service";
-import {ApiResponse} from "@models/application";
-import { SessionService } from '@store/session.service';
-import { SessionQuery } from '@store/session.query';
+import {SessionService} from '@store/session.service';
+import {SessionQuery} from '@store/session.query';
 
 @Component({
   selector: 'app-layout-private',
@@ -23,6 +22,49 @@ export class LayoutPrivateComponent {
       icon: 'fa-solid fa-house',
       route: '/painel/home',
       active: true
+    },
+    {
+      label: 'CRM',
+      icon: 'fa-solid fa-people-arrows',
+      route: '/painel/crm',
+      isOpen: false,
+      children: [
+        {
+          label: 'Dashboard',
+          icon: 'fa-solid fa-chart-line',
+          route: 'painel/dashboard'
+        },
+        {
+          label: 'Leads',
+          icon: 'fa-solid fa-people-group',
+          route: 'painel/leads'
+        },
+        {
+          label: 'Automações',
+          icon: 'fa-solid fa-robot',
+          route: 'painel/automations'
+        },
+        {
+          label: 'Orçamento',
+          icon: 'fa-solid fa-receipt',
+          route: 'painel/budget'
+        },
+        {
+          label: 'Bancos',
+          icon: 'fa-solid fa-building-columns',
+          route: 'painel/banks'
+        },
+        {
+          label: 'Parceiros',
+          icon: 'fa-solid fa-people-robbery',
+          route: 'painel/partners'
+        },
+        {
+          label: 'WebChat',
+          icon: 'fa-brands fa-whatsapp',
+          route: 'painel/web-chat'
+        },
+      ]
     },
     {
       label: 'Pedidos',
@@ -64,11 +106,6 @@ export class LayoutPrivateComponent {
       icon: 'fa-solid fa-tasks',
       route: '/painel/tasks'
     },
-    {
-      label: 'Leads',
-      icon: 'fa-solid fa-people-group',
-      route: '/painel/leads'
-    }
   ]
 
   protected isMobile: boolean = window.innerWidth >= 1000;
@@ -81,8 +118,9 @@ export class LayoutPrivateComponent {
     private readonly _sidebarService: SidebarService,
     private readonly _userService: UserService,
     private readonly _sessionService: SessionService,
-    private readonly _sessionQuery : SessionQuery
-  ) { }
+    private readonly _sessionQuery: SessionQuery
+  ) {
+  }
 
 
   ngOnInit(): void {
@@ -92,10 +130,10 @@ export class LayoutPrivateComponent {
     });
 
     this._sessionQuery.user$.subscribe(user => {
-      if(user) {
+      if (user) {
         this.user = user;
 
-        if(user?.company_position.position == 'Requester')
+        if (user?.company_position.position == 'Requester')
           this.permitedMenuItem = this.menuItem.filter(item =>
             item.label == 'Pedidos' ||
             item.label == 'Solicitações' ||
