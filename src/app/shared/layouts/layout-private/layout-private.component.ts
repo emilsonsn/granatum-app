@@ -32,7 +32,7 @@ export class LayoutPrivateComponent {
         {
           label: 'Dashboard',
           icon: 'fa-solid fa-chart-line',
-          route: 'painel/dashboard'
+          route: 'painel/crm/dashboard'
         },
         {
           label: 'Leads',
@@ -42,27 +42,27 @@ export class LayoutPrivateComponent {
         {
           label: 'Automações',
           icon: 'fa-solid fa-robot',
-          route: 'painel/automations'
+          route: 'painel/crm/automations'
         },
         {
           label: 'Orçamento',
           icon: 'fa-solid fa-receipt',
-          route: 'painel/budget'
+          route: 'painel/crm/budget'
         },
         {
           label: 'Bancos',
           icon: 'fa-solid fa-building-columns',
-          route: 'painel/banks'
+          route: 'painel/crm/banks'
         },
         {
           label: 'Parceiros',
           icon: 'fa-solid fa-people-robbery',
-          route: 'painel/partners'
+          route: 'painel/crm/partners'
         },
         {
           label: 'WebChat',
           icon: 'fa-brands fa-whatsapp',
-          route: 'painel/web-chat'
+          route: 'painel/crm/web-chat'
         },
       ]
     },
