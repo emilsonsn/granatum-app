@@ -26,7 +26,7 @@ export class LayoutPrivateComponent {
     {
       label: 'CRM',
       icon: 'fa-solid fa-people-arrows',
-      route: '/painel/crm',
+      route: null,
       isOpen: false,
       children: [
         {
@@ -37,7 +37,7 @@ export class LayoutPrivateComponent {
         {
           label: 'Leads',
           icon: 'fa-solid fa-people-group',
-          route: 'painel/leads'
+          route: 'painel/crm/leads'
         },
         {
           label: 'Automações',

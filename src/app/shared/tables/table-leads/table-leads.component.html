@@ -32,12 +32,12 @@
         </td>
       </tr>
         @if (!loading) {
-          <tr *ngIf="!clients.length">
+          <tr *ngIf="!leads.length">
             <td [attr.colspan]="columns.length + 1" class="text-center">
               <div>Nenhum resultado encontrado</div>
             </td>
           </tr>
-          @for (client of clients; track client) {
+          @for (lead of leads; track lead) {
             <tr
               class="table-line-hover"
               style="outline: none; cursor: pointer"
@@ -47,35 +47,53 @@
                   class="d-flex align-items-center gap-2"
                   style="white-space: nowrap"
                 >
-
+                  {{ lead?.name }}
                 </div>
               </td>
               <td>
                 <div class="text-center">
-
+                  {{ lead?.email }}
                 </div>
               </td>
               <td>
                 <div class="text-center">
-
+                  {{ lead?.phone }}
                 </div>
               </td>
               <td>
                 <div class="text-center">
+                  {{ lead?.origin.substring(0, 20) + "..." }}
+                </div>
+              </td>
 
+              <td>
+                <div class="text-center">
+                  {{ lead?.observations }}
+                </div>
+              </td>
+
+              <td>
+                <div class="d-flex align-items-center" style="gap: 1rem;">
+                  <app-avatar
+                    [imageUrl]="lead?.responsible.photo"
+                    [altText]="lead?.responsible.name"
+                    [color]="'#e7b403'"
+                    [onCircle]="true"
+                  ></app-avatar>
+                  {{ lead?.responsible.name }}
                 </div>
               </td>
               <td>
                 <div class="d-flex justify-content-end">
-                  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(client)">
-                    <i class="fa-solid fa-eye"></i>
-                  </div>
+                  <!--  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(lead)">
+                      <i class="fa-solid fa-eye"></i>
+                    </div>-->
 
-                  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(client)">
+                  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(lead)">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </div>
 
-                  <div matRipple class="buttonTemplate" (click)="onDeleteClientClick.emit(client?.id)">
+                  <div matRipple class="buttonTemplate" (click)="onDeleteClientClick.emit(lead?.id)">
                     <i class="fa-solid fa-trash"></i>
                   </div>
                 </div>

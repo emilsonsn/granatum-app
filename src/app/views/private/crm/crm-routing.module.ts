@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LeadsComponent} from "@app/views/private/leads/leads/leads.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: LeadsComponent
+    path: 'leads',
+    loadChildren: () => import('./leads/leads.module').then(m => m.LeadsModule)
   }
 ];
 
@@ -13,5 +12,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LeadsRoutingModule {
+export class CrmRoutingModule {
 }

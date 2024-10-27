@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { LeadsRoutingModule } from './leads-routing.module';
 import { LeadsComponent } from './leads/leads.component';
-import {SharedModule} from "@shared/shared.module";
 import {MatRipple} from "@angular/material/core";
+import {SharedModule} from "@shared/shared.module";
 
 
 @NgModule({
@@ -14,8 +14,8 @@ import {MatRipple} from "@angular/material/core";
   imports: [
     CommonModule,
     LeadsRoutingModule,
-    SharedModule,
-    MatRipple
+    MatRipple,
+    SharedModule
   ]
 })
 export class LeadsModule { }

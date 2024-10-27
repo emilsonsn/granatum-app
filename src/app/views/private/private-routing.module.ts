@@ -82,11 +82,11 @@ const routes: Routes = [
         }
       },
       {
-        path: 'leads',
-        loadChildren: () => import('./leads/leads.module').then(m => m.LeadsModule),
+        path: 'crm',
+        loadChildren: () => import('./crm/crm.module').then(m => m.CrmModule),
         canActivate: [permissionGuard],
         data: {
-          page: 'leads'
+          page: 'crm'
         }
       },
       {

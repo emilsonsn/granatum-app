@@ -8,7 +8,7 @@
     </div>
 
     <div id="options">
-      @if(false) {
+      @if (false) {
         <div id="filter" matRipple (click)="openOrderFilterDialog()">
           <i class="fa-solid fa-filter"></i>
         </div>
@@ -24,5 +24,8 @@
 </div>
 
 <div id="componentTable" class="col-12 mt-4">
-  <app-table-leads></app-table-leads>
+  <app-table-leads [loading]="loading"
+                   (onClientClick)="openLeadsDialog($event)"
+                   (onDeleteClientClick)="onDeleteLead($event)">>
+  </app-table-leads>
 </div>

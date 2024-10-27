@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
 
   findActiveItem(menuItems: IMenuItem[], currentUrl: string): IMenuItem | undefined {
     for (let item of menuItems) {
-      if (currentUrl.match(item.route)) {
+      if (currentUrl.match(item.route) && item.label) {
         return item;
       } else if (item.children) {
         const childItem = this.findActiveItem(item.children, currentUrl);

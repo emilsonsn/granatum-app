@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
-import {Client} from "@models/client";
 import {Order, PageControl} from "@models/application";
 import {ToastrService} from "ngx-toastr";
-import {ClientService} from "@services/client.service";
 import {finalize} from "rxjs";
+import {LeadService} from "@services/crm/lead.service";
+import {Lead} from "@models/Lead";
 
 @Component({
   selector: 'app-table-leads',
@@ -21,14 +21,14 @@ export class TableLeadsComponent {
   filters: any;
 
   @Output()
-  onClientClick: EventEmitter<Client> =
-    new EventEmitter<Client>();
+  onClientClick: EventEmitter<Lead> =
+    new EventEmitter<Lead>();
 
   @Output()
   onDeleteClientClick: EventEmitter<number> =
     new EventEmitter<number>();
 
-  public clients: Client[] = [];
+  public leads: Lead[] = [];
 
   public columns = [
     {
@@ -86,7 +86,7 @@ export class TableLeadsComponent {
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _clientService: ClientService,
+    private readonly _leadService: LeadService
   ) {
   }
 
@@ -120,12 +120,12 @@ export class TableLeadsComponent {
   search(): void {
     this._initOrStopLoading();
 
-    this._clientService
-      .getClients(this.pageControl, this.filters)
+    this._leadService
+      .getLeads(this.pageControl, this.filters)
       .pipe(finalize(() => this._initOrStopLoading()))
       .subscribe({
         next: res => {
-          this.clients = res.data;
+          this.leads = res.data;
 
           this.pageControl.page = res.current_page - 1;
           this.pageControl.itemCount = res.total;

@@ -180,17 +180,12 @@ export class DialogCollaboratorComponent {
 
   validateCellphoneNumber(control: any) {
     const phoneNumber = control.value;
-    if (phoneNumber && phoneNumber.replace(/\D/g, '').length !== 11) {
-      return false;
-    }
-    return true;
+    return !(phoneNumber && phoneNumber.replace(/\D/g, '').length !== 11);
+
   }
 
   validatePhoneNumber(control: any) {
     const phoneNumber = control.value;
-    if (phoneNumber && phoneNumber.replace(/\D/g, '').length !== 10) {
-      return false;
-    }
-    return true;
+    return !(phoneNumber && phoneNumber.replace(/\D/g, '').length !== 10);
   }
 }
