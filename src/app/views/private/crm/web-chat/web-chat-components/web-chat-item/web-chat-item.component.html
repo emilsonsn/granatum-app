@@ -1,0 +1,20 @@
+<div class="web-chat-item-container">
+  <div class="web-chat-item-avatar">
+    <app-avatar [qtdBadge]="qtdBadge" [size]="50" [imageUrl]="'imageUrl'" [altText]="'altText'"></app-avatar>
+  </div>
+  <div class="web-chat-item-details">
+    <div class="web-chat-item-details-primary">
+      <div class="web-chat-item-details-primary-left">
+        <h4>
+          {{ 'title' }}
+          @if (tag) {
+            <span class="tag">vip</span>
+          }
+        </h4>
+        <p>{{ '00:00' }}</p>
+      </div>
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+    </div>
+    <p>{{ 'message' }}</p>
+  </div>
+</div>

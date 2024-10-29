@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { WebChatProtectRoutingModule } from './web-chat-protect-routing.module';
 import { WebChatProtectComponent } from './web-chat-protect/web-chat-protect.component';
+import {LottieComponent} from "ngx-lottie";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { WebChatProtectComponent } from './web-chat-protect/web-chat-protect.com
   ],
   imports: [
     CommonModule,
-    WebChatProtectRoutingModule
+    WebChatProtectRoutingModule,
+    LottieComponent
   ]
 })
 export class WebChatProtectModule { }

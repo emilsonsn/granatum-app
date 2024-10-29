@@ -1,1 +1,5 @@
-<p>web-chat-sidebar works!</p>
+<div class="web-chat-item">
+  @for (item of [0, 1, 2, 3, 4]; track item) {
+    <app-web-chat-item [qtdBadge]="item" [tag]="item % 2 !== 0"></app-web-chat-item>
+  }
+</div>

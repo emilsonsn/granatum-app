@@ -4,6 +4,8 @@ import { WebChatHeaderComponent } from './web-chat-header/web-chat-header.compon
 import { WebChatSidebarComponent } from './web-chat-sidebar/web-chat-sidebar.component';
 import { WebChatInputComponent } from './web-chat-input/web-chat-input.component';
 import { WebChatConversaComponent } from './web-chat-conversa/web-chat-conversa.component';
+import { WebChatItemComponent } from './web-chat-item/web-chat-item.component';
+import {AvatarModule} from "@shared/components/avatar/avatar.module";
 
 
 
@@ -12,7 +14,8 @@ import { WebChatConversaComponent } from './web-chat-conversa/web-chat-conversa.
     WebChatHeaderComponent,
     WebChatSidebarComponent,
     WebChatInputComponent,
-    WebChatConversaComponent
+    WebChatConversaComponent,
+    WebChatItemComponent
   ],
   exports: [
     WebChatSidebarComponent,
@@ -21,7 +24,8 @@ import { WebChatConversaComponent } from './web-chat-conversa/web-chat-conversa.
     WebChatInputComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AvatarModule
   ]
 })
 export class WebChatComponentsModule { }

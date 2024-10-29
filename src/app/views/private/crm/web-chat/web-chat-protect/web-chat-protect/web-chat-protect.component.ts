@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {AnimationOptions} from "ngx-lottie";
 
 @Component({
   selector: 'app-web-chat-protect',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './web-chat-protect.component.scss'
 })
 export class WebChatProtectComponent {
-
+  options: AnimationOptions = {
+    path: '/assets/json/animation_web_chat_protect.json',
+  };
 }
