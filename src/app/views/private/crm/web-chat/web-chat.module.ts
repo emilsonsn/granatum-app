@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { WebChatRoutingModule } from './web-chat-routing.module';
-import { WebChatComponent } from './web-chat/web-chat.component';
+import {WebChatRoutingModule} from './web-chat-routing.module';
+import {WebChatLayoutModule} from "@app/views/private/crm/web-chat/web-chat-layout/web-chat-layout.module";
 
 
 @NgModule({
-  declarations: [
-    WebChatComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
-    WebChatRoutingModule
+    WebChatRoutingModule,
+    WebChatLayoutModule
   ]
 })
-export class WebChatModule { }
+export class WebChatModule {
+}

@@ -1,0 +1,12 @@
+.web-chat-main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  flex: 1;
+
+  .web-chat-container{
+    flex: 1;
+  }
+}
