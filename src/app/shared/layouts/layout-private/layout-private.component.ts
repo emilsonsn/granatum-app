@@ -59,11 +59,11 @@ export class LayoutPrivateComponent {
           icon: 'fa-solid fa-people-robbery',
           route: 'painel/crm/partners'
         },
-        /*{
+        {
           label: 'WebChat',
           icon: 'fa-brands fa-whatsapp',
           route: 'painel/crm/web-chat'
-        },*/
+        },
       ]
     },
     {

@@ -26,10 +26,10 @@ const routes: Routes = [
     path: 'partners',
     loadChildren: () => import('./partners/partners.module').then(m => m.PartnersModule)
   },
- /* {
+  {
     path: 'web-chat',
     loadChildren: () => import('./web-chat/web-chat.module').then(m => m.WebChatModule)
-  },*/
+  },
 ];
 
 @NgModule({

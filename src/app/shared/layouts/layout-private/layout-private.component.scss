@@ -12,16 +12,19 @@ main {
     height: 100%;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding-top: 0;
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
     background-color: $white-200;
 
     .content {
+      width: 100%;
+      height: 80%;
       flex: 1;
       padding-top: 1rem;
       padding-bottom: 0;
+      overflow: auto;
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
     }
   }
 }

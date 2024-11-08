@@ -12,9 +12,17 @@ body {
   --mat-badge-container-overlap-offset: -15px
 }
 
+.mat-mdc-tab-body-wrapper {
+  flex: 1 !important;
+  height: 100% !important;
+}
 
+.mat-mdc-tab-body-content {
+  width: 100% !important;
+  display: flex !important;
+}
 
-.table-container{
+.table-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -29,7 +37,7 @@ body {
   outline: none;
 }
 
-.loading{
+.loading {
   pointer-events: none;
   position: absolute;
   display: flex;
@@ -280,7 +288,6 @@ mat-form-field {
     #container {
 
 
-
     }
 
   }
@@ -370,7 +377,7 @@ mat-form-field {
   justify-content: center;
 
   mat-spinner {
-    height: 4.5rem!important;
+    height: 4.5rem !important;
   }
 }
 

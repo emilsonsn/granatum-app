@@ -1,31 +1,38 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { WebChatHeaderComponent } from './web-chat-header/web-chat-header.component';
-import { WebChatSidebarComponent } from './web-chat-sidebar/web-chat-sidebar.component';
-import { WebChatInputComponent } from './web-chat-input/web-chat-input.component';
-import { WebChatConversaComponent } from './web-chat-conversa/web-chat-conversa.component';
-import { WebChatItemComponent } from './web-chat-item/web-chat-item.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {WebChatItemComponent} from './web-chat-item/web-chat-item.component';
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
-
+import {
+  WebChatAttendingComponent
+} from "@app/views/private/crm/web-chat/web-chat-components/web-chat-attending/web-chat-attending.component";
+import {
+  WebChatWaitingComponent
+} from "@app/views/private/crm/web-chat/web-chat-components/web-chat-waiting/web-chat-waiting.component";
+import {
+  WebChatCompletedComponent
+} from "@app/views/private/crm/web-chat/web-chat-components/web-chat-completed/web-chat-completed.component";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
 
 
 @NgModule({
   declarations: [
-    WebChatHeaderComponent,
-    WebChatSidebarComponent,
-    WebChatInputComponent,
-    WebChatConversaComponent,
-    WebChatItemComponent
+    WebChatItemComponent,
+    WebChatAttendingComponent,
+    WebChatWaitingComponent,
+    WebChatCompletedComponent
   ],
   exports: [
-    WebChatSidebarComponent,
-    WebChatHeaderComponent,
-    WebChatConversaComponent,
-    WebChatInputComponent
+    WebChatItemComponent,
+    WebChatAttendingComponent,
+    WebChatWaitingComponent,
+    WebChatCompletedComponent
   ],
   imports: [
     CommonModule,
-    AvatarModule
+    AvatarModule,
+    MatTab,
+    MatTabGroup
   ]
 })
-export class WebChatComponentsModule { }
+export class WebChatComponentsModule {
+}
