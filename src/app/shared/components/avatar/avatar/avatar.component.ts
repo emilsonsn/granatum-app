@@ -14,7 +14,7 @@ export class AvatarComponent implements OnChanges {
   @Input() edit: boolean = false;
   @Input() onCircle: boolean = true;
   @Input() qtdBadge: number = 0;
-  hidden = false;
+  @Input() hidden = false;
 
   @Output() method: EventEmitter<any> = new EventEmitter<any>();
 
@@ -24,8 +24,6 @@ export class AvatarComponent implements OnChanges {
     if (changes.imageUrl) {
       this.validateImageUrl();
     }
-
-    this.hidden = this.qtdBadge <= 0;
   }
 
   private validateImageUrl() {

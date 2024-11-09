@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Contact} from "@models/contact";
 
 @Component({
   selector: 'app-web-chat-waiting',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './web-chat-waiting.component.scss'
 })
 export class WebChatWaitingComponent {
-
+  @Input() data: Contact[];
 }

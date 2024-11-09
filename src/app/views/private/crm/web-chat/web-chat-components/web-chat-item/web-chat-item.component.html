@@ -1,20 +1,23 @@
-<div class="web-chat-item-container">
+<div class="web-chat-item-container" (click)="clicked($event, data)">
   <div class="web-chat-item-avatar">
-    <app-avatar [qtdBadge]="qtdBadge" [size]="50" [imageUrl]="'imageUrl'" [altText]="'altText'"></app-avatar>
+    <app-avatar [hidden]="!data.unread" [qtdBadge]="1" [size]="50" [imageUrl]="data?.photo" [altText]="'altText'"></app-avatar>
   </div>
   <div class="web-chat-item-details">
     <div class="web-chat-item-details-primary">
       <div class="web-chat-item-details-primary-left">
         <h4>
-          {{ 'title' }}
-          @if (tag) {
-            <span class="tag">vip</span>
+          {{ data?.name }}
+          @if (data.tag) {
+            <span class="tag">{{ data.tag }}</span>
           }
         </h4>
-        <p>{{ '00:00' }}</p>
+        <p>{{ formatDate(data?.lastMessageTime) }}</p>
       </div>
       <i class="fa-solid fa-ellipsis-vertical"></i>
     </div>
-    <p>{{ 'message' }}</p>
+    <div class="web-chat-item-info">
+      <p>{{ truncateString(data?.lastMessage, 20) }}</p>
+      <button *ngIf="data.status === ContactStatus.Waiting">Aceitar</button>
+    </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input, SimpleChanges} from '@angular/core';
+import {Contact} from "@models/contact";
 
 @Component({
   selector: 'app-web-chat-attending',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './web-chat-attending.component.scss'
 })
 export class WebChatAttendingComponent {
+  @Input() data: Contact[];
 
 }
