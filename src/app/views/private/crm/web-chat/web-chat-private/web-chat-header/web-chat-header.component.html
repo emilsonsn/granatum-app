@@ -1,1 +1,17 @@
-<p>web-chat-header works!</p>
+<div class="web-chat-header">
+  <div class="web-chat-header-avatar">
+    <app-avatar [hidden]="true" [qtdBadge]="1" [size]="50" [imageUrl]="data?.photo"
+                [altText]="'altText'"></app-avatar>
+    <div class="web-chat-header-info">
+      <h3>{{ data?.name }}
+        @if (data.tag) {
+          <span class="tag">{{ data.tag }}</span>
+        }
+      </h3>
+      <p>{{ 'online' }}</p>
+    </div>
+  </div>
+  <button class="button-search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+</div>

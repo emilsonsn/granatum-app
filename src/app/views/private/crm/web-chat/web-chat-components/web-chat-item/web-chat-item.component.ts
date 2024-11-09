@@ -13,7 +13,7 @@ export class WebChatItemComponent {
 
   @Input() data: Contact;
 
-  constructor(private router: Router) {
+  constructor(protected router: Router) {
   }
 
   clicked(event: Event, item: Contact) {

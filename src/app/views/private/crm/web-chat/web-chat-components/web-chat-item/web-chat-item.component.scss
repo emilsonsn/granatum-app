@@ -1,12 +1,18 @@
 @import "variables";
 
+.active{
+  background: $gray-300;
+  transform: scale(1.03);
+}
+
+
 .web-chat-item-container {
   display: flex;
   flex-direction: row;
   height: 100%;
   width: 100%;
   flex: 1;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   gap: 1rem;
   cursor: pointer;
@@ -19,6 +25,8 @@
       display: none;
     }
   }
+
+
 
   &:hover {
     background: $gray-300;

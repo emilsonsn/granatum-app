@@ -16,6 +16,7 @@ import {
 import {
   WebChatSidebarComponent
 } from "@app/views/private/crm/web-chat/web-chat-layout/web-chat-sidebar/web-chat-sidebar.component";
+import {AvatarModule} from "@shared/components/avatar/avatar.module";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {
   imports: [
     CommonModule,
     WebChatPrivateRoutingModule,
-    WebChatComponentsModule
+    WebChatComponentsModule,
+    AvatarModule
   ]
 })
 export class WebChatPrivateModule { }

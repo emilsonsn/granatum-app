@@ -1,0 +1,7 @@
+@import "variables";
+
+:host {
+  flex: 1;
+  background-image: url("src/assets/images/default-background-black.png");
+  opacity: 0.2;
+}

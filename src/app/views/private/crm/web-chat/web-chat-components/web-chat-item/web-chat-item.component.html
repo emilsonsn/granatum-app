@@ -1,4 +1,4 @@
-<div class="web-chat-item-container" (click)="clicked($event, data)">
+<div class="web-chat-item-container" (click)="clicked($event, data)" [ngClass]="{'active': router.url === '/painel/crm/web-chat/' + data.uuid}">
   <div class="web-chat-item-avatar">
     <app-avatar [hidden]="!data.unread" [qtdBadge]="1" [size]="50" [imageUrl]="data?.photo" [altText]="'altText'"></app-avatar>
   </div>
