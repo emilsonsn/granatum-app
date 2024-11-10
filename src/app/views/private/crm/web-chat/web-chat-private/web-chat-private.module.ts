@@ -17,6 +17,7 @@ import {
   WebChatSidebarComponent
 } from "@app/views/private/crm/web-chat/web-chat-layout/web-chat-sidebar/web-chat-sidebar.component";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {AvatarModule} from "@shared/components/avatar/avatar.module";
     CommonModule,
     WebChatPrivateRoutingModule,
     WebChatComponentsModule,
-    AvatarModule
+    AvatarModule,
+    MatSlideToggle
   ]
 })
 export class WebChatPrivateModule { }
