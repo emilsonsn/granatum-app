@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RhRoutingModule } from './rh-routing.module';
 import { ProfessionsComponent } from './professions/professions.component';
-import { VacationsComponent } from './vacations/vacations.component';
+import { VacanciesComponent } from './vacancies/vacancies.component';
 import { SelectionProcessComponent } from './selection-process/selection-process.component';
 import { CandidatesComponent } from './candidates/candidates.component';
 import { ChatComponent } from './chat/chat.component';
@@ -14,7 +14,7 @@ import { MatRippleModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     ProfessionsComponent,
-    VacationsComponent,
+    VacanciesComponent,
     SelectionProcessComponent,
     CandidatesComponent,
     ChatComponent

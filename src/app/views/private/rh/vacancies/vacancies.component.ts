@@ -5,50 +5,58 @@ import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-co
 import { ISmallInformationCard } from '@models/cardInformation';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
-import { DialogProfessionComponent } from '@shared/dialogs/dialog-profession/dialog-profession.component';
-import { Profession, ProfessionCards } from '@models/profession';
-import { ProfessionService } from '@services/profession.service';
+import { Vacancy, VacancyCards } from '@models/vacancy';
+import { VacancyService } from '@services/vacancy.service';
+import { DialogVacancyComponent } from '@shared/dialogs/dialog-vacancy/dialog-vacancy.component';
 
 @Component({
-  selector: 'app-professions',
-  templateUrl: './professions.component.html',
-  styleUrl: './professions.component.scss',
+  selector: 'app-vacancies',
+  templateUrl: './vacancies.component.html',
+  styleUrl: './vacancies.component.scss',
 })
-export class ProfessionsComponent {
-
+export class VacanciesComponent {
   public filters;
   public loading: boolean = false;
 
-  protected dashboardCards = signal<ProfessionCards>({
-    totalProfessionsMonth: 0,
-    totalProfessions: 0,
+  protected dashboardCards = signal<VacancyCards>({
+    activeVacancys: 0,
+    inactiveVacancys: 0,
+    totalVacancysMonth: 0,
   });
 
   protected itemsRequests: Signal<ISmallInformationCard[]> = computed<
     ISmallInformationCard[]
   >(() => [
     {
+      icon: 'fa-solid fa-check-circle',
+      // icon_description: 'fa-solid fa-calendar-day',
+      background: '#28a745',
+      title: this.dashboardCards()?.activeVacancys ?? 0,
+      category: 'Vagas',
+      description: 'Vagas Ativas',
+    },
+    {
       icon: 'fa-solid fa-clock',
-      background: '#FC9108',
-      title: this.dashboardCards()?.totalProfessionsMonth ?? 0,
-      category: 'Profissões',
-      description: 'Total de Profissões no Mês',
+      background: '#E9423E',
+      title: this.dashboardCards()?.inactiveVacancys ?? 0,
+      category: 'Vagas',
+      description: 'Vagas Inativas',
     },
     {
       icon: 'fa-solid fa-envelope-open',
       icon_description: 'fa-solid fa-calendar-day',
       background: '#17a2b8',
-      title: this.dashboardCards()?.totalProfessions ?? 0,
-      category: 'Profissões',
-      description: 'Total de Profissões',
+      title: this.dashboardCards()?.totalVacancysMonth ?? 0,
+      category: 'Vagas',
+      description: 'Total de Vagas no Mês',
     },
   ]);
 
   constructor(
     private readonly _headerService: HeaderService,
     private readonly _dialog: MatDialog,
-    private readonly _professionService: ProfessionService,
-    private readonly _toastr: ToastrService,
+    private readonly _vacancyService: VacancyService,
+    private readonly _toastr: ToastrService
   ) {
     this._headerService.setTitle('Profissões');
     this._headerService.setSubTitle('');
@@ -58,7 +66,7 @@ export class ProfessionsComponent {
     this.getCards();
   }
 
-  public openProfessionDialog(data?) {
+  public openVacancyDialog(data?) {
     const dialogConfig: MatDialogConfig = {
       width: '80%',
       maxWidth: '1000px',
@@ -68,7 +76,7 @@ export class ProfessionsComponent {
     };
 
     this._dialog
-      .open(DialogProfessionComponent, {
+      .open(DialogVacancyComponent, {
         data: data ? { ...data } : null,
         ...dialogConfig,
       })
@@ -86,7 +94,7 @@ export class ProfessionsComponent {
       });
   }
 
-  public onDeleteProfession(profession: Profession) {
+  public onDeleteVacancy(vacancy: Vacancy) {
     const dialogConfig: MatDialogConfig = {
       width: '80%',
       maxWidth: '550px',
@@ -104,7 +112,7 @@ export class ProfessionsComponent {
       .subscribe({
         next: (res) => {
           if (res) {
-            this.delete(profession.id);
+            this.delete(vacancy.id);
           }
         },
       });
@@ -113,7 +121,7 @@ export class ProfessionsComponent {
   public delete(id: number) {
     this._initOrStopLoading();
 
-    this._professionService
+    this._vacancyService
       .delete(id)
       .pipe(
         finalize(() => {
@@ -136,7 +144,7 @@ export class ProfessionsComponent {
   }
 
   public getCards() {
-    this._professionService.getCards().subscribe((c) => {
+    this._vacancyService.getCards().subscribe((c) => {
       this.dashboardCards.set(c.data);
     });
   }

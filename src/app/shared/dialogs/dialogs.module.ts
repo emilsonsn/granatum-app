@@ -39,6 +39,7 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {DialogOrderSolicitationComponent} from './dialog-order-solicitation/dialog-order-solicitation.component';
 import { DialogLeadsComponent } from './dialog-leads/dialog-leads.component';
 import { DialogProfessionComponent } from './dialog-profession/dialog-profession.component';
+import { DialogVacancyComponent } from './dialog-vacancy/dialog-vacancy.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { DialogProfessionComponent } from './dialog-profession/dialog-profession
     DialogTaskComponent,
     DialogOrderSolicitationComponent,
     DialogLeadsComponent,
-    DialogProfessionComponent
+    DialogProfessionComponent,
+    DialogVacancyComponent
   ],
   imports: [
     CommonModule,

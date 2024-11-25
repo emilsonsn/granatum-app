@@ -16,15 +16,15 @@
     </div>
 
     <div id="options">
-      @if (true) {
-        <div id="filter" matRipple (click)="openOrderFilterDialog()">
+      @if (false) {
+        <div id="filter" matRipple>
           <i class="fa-solid fa-filter"></i>
         </div>
       }
 
       <div id="buttons">
-        <button matRipple class="button yellow" (click)="openOrderDialog()">
-          <i class="fa-solid fa-plus"></i> Novo Pedido
+        <button matRipple class="button yellow" (click)="openVacancyDialog()">
+          <i class="fa-solid fa-plus"></i> Nova Vaga
         </button>
       </div>
 
@@ -33,11 +33,10 @@
 </div>
 
 <div id="componentTable" class="col-12 mt-4">
-  <app-table-orders
-    (onViewOrder)="openOrderDialog($event)"
-    (onEditOrder)="openOrderDialog($event)"
-    (onDeleteOrder)="onDeleteOrder($event)"
+  <app-table-vacancies
+    (onEdit)="openVacancyDialog($event)"
+    (onDelete)="onDeleteVacancy($event)"
     [loading]="loading"
     [filters]="filters">
-  </app-table-orders>
+  </app-table-vacancies>
 </div>

@@ -98,7 +98,7 @@ export class LayoutPrivateComponent {
         {
           label: 'Vagas',
           icon: 'fa-solid fa-house',
-          route: '/painel/rh/vacations'
+          route: '/painel/rh/vacancies'
         },
         {
           label: 'Processo Seletivo',

@@ -16,13 +16,13 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { ProfessionService } from '@services/profession.service';
-import { Profession } from '@models/profession';
+import { VacancyService } from '@services/vacancy.service';
+import { Vacancy } from '@models/vacancy';
 
 @Component({
-  selector: 'app-table-professions',
-  templateUrl: './table-professions.component.html',
-  styleUrl: './table-professions.component.scss',
+  selector: 'app-table-vacancies',
+  templateUrl: './table-vacancies.component.html',
+  styleUrl: './table-vacancies.component.scss',
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({ height: '0px', minHeight: '0' })),
@@ -34,7 +34,7 @@ import { Profession } from '@models/profession';
     ]),
   ],
 })
-export class TableProfessionsComponent {
+export class TableVacanciesComponent {
   private subscription: Subscription;
 
   @Input()
@@ -50,10 +50,10 @@ export class TableProfessionsComponent {
   loading: boolean = false;
 
   @Output()
-  public onEdit = new EventEmitter<Profession>();
+  public onEdit = new EventEmitter<Vacancy>();
 
   @Output()
-  public onDelete = new EventEmitter<Profession>();
+  public onDelete = new EventEmitter<Vacancy>();
 
   public columns = [
     {
@@ -69,6 +69,12 @@ export class TableProfessionsComponent {
       classes: '',
     },
     {
+      slug: 'profession_id',
+      order: true,
+      title: 'Profissão',
+      classes: '',
+    },
+    {
       slug: 'actions',
       order: false,
       title: 'Ações',
@@ -76,7 +82,7 @@ export class TableProfessionsComponent {
     },
   ];
 
-  public professions : Profession[] = [];
+  public vacancies: Vacancy[] = [];
 
   public pageControl: PageControl = {
     take: 10,
@@ -91,8 +97,8 @@ export class TableProfessionsComponent {
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _professionService: ProfessionService,
-    private readonly _sessionQuery: SessionQuery,
+    private readonly _vacancyService: VacancyService,
+    private readonly _sessionQuery: SessionQuery
   ) {}
 
   ngOnInit(): void {
@@ -141,7 +147,7 @@ export class TableProfessionsComponent {
   public search(): void {
     this._initOrStopLoading();
 
-    this._professionService
+    this._vacancyService
       .getList(this.pageControl, this.filters)
       .pipe(
         finalize(() => {
@@ -149,7 +155,7 @@ export class TableProfessionsComponent {
         })
       )
       .subscribe((res) => {
-        this.professions = res.data;
+        this.vacancies = res.data;
 
         this.pageControl.page = res.current_page - 1;
         this.pageControl.itemCount = res.total;

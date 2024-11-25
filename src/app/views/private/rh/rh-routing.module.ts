@@ -2,6 +2,10 @@ import { RhModule } from './rh.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfessionsComponent } from './professions/professions.component';
+import { VacanciesComponent } from './vacancies/vacancies.component';
+import { SelectionProcessComponent } from './selection-process/selection-process.component';
+import { CandidatesComponent } from './candidates/candidates.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -9,20 +13,20 @@ const routes: Routes = [
     component: ProfessionsComponent,
   },
   {
-    path: 'vacations',
-    component: ProfessionsComponent,
+    path: 'vacancies',
+    component: VacanciesComponent,
   },
   {
     path: 'selection-process',
-    component: ProfessionsComponent,
+    component: SelectionProcessComponent,
   },
   {
     path: 'candidates',
-    component: ProfessionsComponent,
+    component: CandidatesComponent,
   },
   {
     path: 'chat',
-    component: ProfessionsComponent,
+    component: ChatComponent,
   },
 ];
 
