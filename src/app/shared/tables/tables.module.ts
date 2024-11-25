@@ -22,6 +22,9 @@ import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { TableLeadsComponent } from './table-leads/table-leads.component';
 import { TableTravelComponent } from './table-travel/table-travel.component';
+import { TableProfessionsComponent } from './table-professions/table-professions.component';
+import { TableVacationsComponent } from './table-vacations/table-vacations.component';
+import { TableCandidatesComponent } from './table-candidates/table-candidates.component';
 
 const tables = [
   TableOrdersComponent,
@@ -35,13 +38,16 @@ const tables = [
   TableTypeServiceComponent,
   TableUserComponent,
   TableTypeUserSectorComponent,
+  TableLeadsComponent,
+  TableTravelComponent,
+  TableProfessionsComponent,
+  TableVacationsComponent,
+  TableCandidatesComponent,
 ]
 
 @NgModule({
   declarations: [
     tables,
-    TableLeadsComponent,
-    TableTravelComponent,
   ],
   imports: [
     CommonModule,
@@ -57,8 +63,6 @@ const tables = [
   ],
   exports: [
     tables,
-    TableLeadsComponent,
-    TableTravelComponent
   ],
 })
 export class TablesModule { }

@@ -98,6 +98,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'rh',
+        loadChildren: () => import('./rh/rh.module').then(m => m.RhModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'rh'
+        }
+      },
+      {
         path: '**',
         redirectTo: 'home',
         canMatch: []

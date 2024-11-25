@@ -85,6 +85,39 @@ export class LayoutPrivateComponent {
       ]
     },
     {
+      label: "RH",
+      icon: 'fa-solid fa-house',
+      route: null,
+      isOpen: false,
+      children: [
+        {
+          label: 'Profissões',
+          icon: 'fa-solid fa-house',
+          route: '/painel/rh/professions'
+        },
+        {
+          label: 'Vagas',
+          icon: 'fa-solid fa-house',
+          route: '/painel/rh/vacations'
+        },
+        {
+          label: 'Processo Seletivo',
+          icon: 'fa-solid fa-house',
+          route: '/painel/rh/selection-process'
+        },
+        {
+          label: 'Candidatos',
+          icon: 'fa-solid fa-house',
+          route: '/painel/rh/candidates'
+        },
+        {
+          label: 'Chat',
+          icon: 'fa-solid fa-house',
+          route: '/painel/rh/chat'
+        },
+      ]
+    },
+    {
       label: 'Pedidos',
       icon: 'fa-solid fa-box',
       route: '/painel/orders'
