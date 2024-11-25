@@ -90,6 +90,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'travels',
+        loadChildren: () => import('./travels/travels.module').then(m => m.TravelsModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'travels'
+        }
+      },
+      {
         path: '**',
         redirectTo: 'home',
         canMatch: []

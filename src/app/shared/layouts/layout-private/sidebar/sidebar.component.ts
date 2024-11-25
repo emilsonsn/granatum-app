@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, SimpleChanges} from '@angular/core';
 import {IMenuItem} from "@models/ItemsMenu";
 import {SidebarService} from '@services/sidebar.service';
 import {Router} from "@angular/router";
@@ -17,6 +17,24 @@ export class SidebarComponent {
   ) {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['menuItem'] && changes['menuItem'].currentValue) {
+      this.updateActiveRoutes();
+    }
+  }
+
+  private updateActiveRoutes() {
+    console.log(this.router.url);
+    this.menuItem.forEach(item => {
+      item.active = this.router.url === item.route;
+
+      if (item.children) {
+        item.children.forEach(child => (child.active = this.router.url === child.route));
+      }
+    });
+  }
+
+
   public toggleShowSidebar() {
     this._sidebarService.showSidebar.set(false);
   }
@@ -25,11 +43,26 @@ export class SidebarComponent {
     item.isOpen = !item.isOpen;
   }
 
-  public navigateToRoute(route: string | undefined, event?: Event): void {
+  public navigateToRoute(item: IMenuItem, event?: Event): void {
     event.stopPropagation();
 
-    if (route) {
-      this.router.navigate([route]).then();
+    this.menuItem.forEach(item => {
+      item.active = false;
+
+      if (item.children) {
+        item.children.forEach(child => child.active = false);
+      }
+
+    });
+
+    if (item.route) {
+      this.router.navigate([item.route]).then(_ => {
+        item.active = true;
+      });
     }
+  }
+
+  routerActive(child: IMenuItem) {
+    return child.active;
   }
 }

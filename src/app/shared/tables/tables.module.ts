@@ -21,6 +21,7 @@ import { TableUserComponent } from './table-users/table-users.component';
 import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { TableLeadsComponent } from './table-leads/table-leads.component';
+import { TableTravelComponent } from './table-travel/table-travel.component';
 
 const tables = [
   TableOrdersComponent,
@@ -40,6 +41,7 @@ const tables = [
   declarations: [
     tables,
     TableLeadsComponent,
+    TableTravelComponent,
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ const tables = [
   ],
   exports: [
     tables,
-    TableLeadsComponent
+    TableLeadsComponent,
+    TableTravelComponent
   ],
 })
 export class TablesModule { }

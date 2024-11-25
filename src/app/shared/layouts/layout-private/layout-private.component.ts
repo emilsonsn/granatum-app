@@ -32,38 +32,56 @@ export class LayoutPrivateComponent {
         {
           label: 'Dashboard',
           icon: 'fa-solid fa-chart-line',
-          route: 'painel/crm/dashboard'
+          route: '/painel/crm/dashboard'
         },
         {
           label: 'Leads',
           icon: 'fa-solid fa-people-group',
-          route: 'painel/crm/leads'
+          route: '/painel/crm/leads'
         },
         {
           label: 'Automações',
           icon: 'fa-solid fa-robot',
-          route: 'painel/crm/automations'
+          route: '/painel/crm/automations'
         },
         {
           label: 'Orçamento',
           icon: 'fa-solid fa-receipt',
-          route: 'painel/crm/budget'
+          route: '/painel/crm/budget'
         },
         {
           label: 'Bancos',
           icon: 'fa-solid fa-building-columns',
-          route: 'painel/crm/banks'
+          route: '/painel/crm/banks'
         },
         {
           label: 'Parceiros',
           icon: 'fa-solid fa-people-robbery',
-          route: 'painel/crm/partners'
+          route: '/painel/crm/partners'
         },
         {
           label: 'WebChat',
           icon: 'fa-brands fa-whatsapp',
-          route: 'painel/crm/web-chat'
+          route: '/painel/crm/web-chat'
         },
+      ]
+    },
+    {
+      label: "Viagens",
+      icon: 'fa-solid fa-plane',
+      route: null,
+      isOpen: false,
+      children: [
+        {
+          label: 'Dashboard',
+          icon: 'fa-solid fa-chart-line',
+          route: '/painel/travels/dashboard'
+        },
+        {
+          label: 'Viagens',
+          icon: 'fa-solid fa-plane',
+          route: '/painel/travels'
+        }
       ]
     },
     {
