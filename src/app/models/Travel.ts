@@ -1,5 +1,12 @@
 import {User} from "@models/user";
 
+interface ITravelFile {
+  index: number,
+  id: number,
+  name: string,
+  path: string,
+}
+
 export interface ITravel {
   id?: number;
   description: string;
@@ -11,6 +18,7 @@ export interface ITravel {
   user_id?: number;
   purchase_status?: string;
   user?: User;
+  files?: ITravelFile[];
   attachments?: ITravelAttachment[];
 }
 

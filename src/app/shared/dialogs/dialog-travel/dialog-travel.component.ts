@@ -58,6 +58,17 @@ export class DialogTravelComponent {
       this.isToEdit = 'true';
       this.title = 'Edição de Viagem';
       this.form.patchValue(_data);
+
+      if (_data.files) {
+        this._data.files.forEach((file, index) => {
+          this.filesFromBack.push({
+            index: index,
+            id: file.id,
+            name: file.name,
+            path: file.path
+          });
+        });
+      }
     }
   }
 
@@ -211,14 +222,25 @@ export class DialogTravelComponent {
 
       if (this._data && this._data.id) {
         formData.append('id', this._data.id.toString());
+        this.filesToRemove.forEach(file => {
+          this._travelService.deleteFile(file)
+            .subscribe({
+              next: (res) => {
+
+              },
+              error: (err) => {
+                this._toastr.error(err.error.error);
+              }
+            })
+        })
         this.update(formData);
-      }else{
+      } else {
         this.create(formData);
       }
     }
   }
 
-  create(formData){
+  create(formData) {
     this._travelService.create(formData).subscribe(
       {
         next: (res) => {
@@ -232,7 +254,7 @@ export class DialogTravelComponent {
     );
   }
 
-  update(formData){
+  update(formData) {
     this._travelService.update(formData.get('id'), formData).subscribe(
       {
         next: (res) => {
@@ -243,7 +265,7 @@ export class DialogTravelComponent {
           this._toastr.error(error.error.message);
         }
       }
-    ); 
+    );
   }
 
 

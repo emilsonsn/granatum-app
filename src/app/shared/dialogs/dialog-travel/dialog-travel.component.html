@@ -46,7 +46,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    
+
     <div class="col-md-6">
       <span class="fw-bolder">Valor Total *</span>
       <mat-form-field appearance="outline" class="full-width">
@@ -108,9 +108,7 @@
           <i class="fa-solid fa-plus"></i>
           <span>Adicionar Arquivo</span>
         </div>
-        @if(!isToEdit) {
-          <input type="file" (change)="onFileSelected($event)" [multiple]="true" title=" " />
-        }
+        <input type="file" (change)="onFileSelected($event)" [multiple]="true" title=" " />
       </div>
     </div>
 
