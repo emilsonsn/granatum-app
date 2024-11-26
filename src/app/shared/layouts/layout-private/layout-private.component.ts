@@ -24,48 +24,48 @@ export class LayoutPrivateComponent {
       active: true
     },
     {
-      label: 'CRM',
-      icon: 'fa-solid fa-people-arrows',
+      label: "Pedidos",
+      icon: 'fa-solid fa-box',
       route: null,
       isOpen: false,
       children: [
         {
-          label: 'Dashboard',
-          icon: 'fa-solid fa-chart-line',
-          route: '/painel/crm/dashboard'
+          label: 'Pedidos',
+          icon: 'fa-solid fa-box',
+          route: '/painel/orders'
         },
         {
-          label: 'Leads',
-          icon: 'fa-solid fa-people-group',
-          route: '/painel/crm/leads'
+          label: 'Solicitações',
+          icon: 'fa-solid fa-bookmark',
+          route: '/painel/requests'
         },
         {
-          label: 'Automações',
-          icon: 'fa-solid fa-robot',
-          route: '/painel/crm/automations'
+          label: 'Fornecedores',
+          icon: 'fa-solid fa-truck',
+          route: '/painel/provider'
         },
         {
-          label: 'Orçamento',
-          icon: 'fa-solid fa-receipt',
-          route: '/painel/crm/budget'
+          label: 'Obras',
+          icon: 'fa-solid fa-person-digging',
+          route: '/painel/construction'
         },
         {
-          label: 'Bancos',
-          icon: 'fa-solid fa-building-columns',
-          route: '/painel/crm/banks'
+          label: 'Clientes/Contratantes',
+          icon: 'fa-solid fa-user-tie',
+          route: '/painel/client'
         },
         {
-          label: 'Parceiros',
-          icon: 'fa-solid fa-people-robbery',
-          route: '/painel/crm/partners'
+          label: 'Serviços',
+          icon: 'fa-solid fa-tools',
+          route: '/painel/services'
         },
         {
-          label: 'WebChat',
-          icon: 'fa-brands fa-whatsapp',
-          route: '/painel/crm/web-chat'
+          label: 'Tarefas',
+          icon: 'fa-solid fa-tasks',
+          route: '/painel/tasks'
         },
       ]
-    },
+    },    
     {
       label: "Viagens",
       icon: 'fa-solid fa-plane',
@@ -118,44 +118,52 @@ export class LayoutPrivateComponent {
       ]
     },
     {
-      label: 'Pedidos',
-      icon: 'fa-solid fa-box',
-      route: '/painel/orders'
-    },
-    {
-      label: 'Solicitações',
-      icon: 'fa-solid fa-bookmark',
-      route: '/painel/requests'
+      label: 'CRM',
+      icon: 'fa-solid fa-people-arrows',
+      route: null,
+      isOpen: false,
+      children: [
+        {
+          label: 'Dashboard',
+          icon: 'fa-solid fa-chart-line',
+          route: '/painel/crm/dashboard'
+        },
+        {
+          label: 'Leads',
+          icon: 'fa-solid fa-people-group',
+          route: '/painel/crm/leads'
+        },
+        {
+          label: 'Automações',
+          icon: 'fa-solid fa-robot',
+          route: '/painel/crm/automations'
+        },
+        {
+          label: 'Orçamento',
+          icon: 'fa-solid fa-receipt',
+          route: '/painel/crm/budget'
+        },
+        {
+          label: 'Bancos',
+          icon: 'fa-solid fa-building-columns',
+          route: '/painel/crm/banks'
+        },
+        {
+          label: 'Parceiros',
+          icon: 'fa-solid fa-people-robbery',
+          route: '/painel/crm/partners'
+        },
+        {
+          label: 'WebChat',
+          icon: 'fa-brands fa-whatsapp',
+          route: '/painel/crm/web-chat'
+        },
+      ]
     },
     {
       label: 'Colaboradores',
       icon: 'fa-solid fa-users',
       route: '/painel/collaborator'
-    },
-    {
-      label: 'Fornecedores',
-      icon: 'fa-solid fa-truck',
-      route: '/painel/provider'
-    },
-    {
-      label: 'Obras',
-      icon: 'fa-solid fa-person-digging',
-      route: '/painel/construction'
-    },
-    {
-      label: 'Clientes/Contratantes',
-      icon: 'fa-solid fa-user-tie',
-      route: '/painel/client'
-    },
-    {
-      label: 'Serviços',
-      icon: 'fa-solid fa-tools',
-      route: '/painel/services'
-    },
-    {
-      label: 'Tarefas',
-      icon: 'fa-solid fa-tasks',
-      route: '/painel/tasks'
     },
   ]
 
