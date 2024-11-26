@@ -6,15 +6,33 @@
 
 <div class="d-flex align-items-center justify-content-between p-4">
   <span class="fw-bold fs-5">{{ title }}</span>
-  <div matRipple class="close" (click)="onCancel()">
-    <i class="fa-solid fa-close"></i>
+  <div class="d-flex align-items-center gap-2">
+    @if(_data?.id) {
+      <div id="headerButtons">
+        @if(_data.purchase_date && hasGranatum && !_data.has_granatum) {
+          <div matRipple class="headerBtn" (click)="throwToGranatum()">Lançar no Granatum</div>
+        }
+
+        @if(_data.has_granatum) {
+          <div matRipple class="btn btn-success">
+            <i class="fa-solid fa-circle-check"></i>
+            Já lançado no granatum
+          </div>
+        }
+        <div matRipple class="headerBtn" (click)="onSolicitation()" *ngIf="!_data.has_granatum" >Solicitar ao Financeiro</div>
+      </div>
+    }
+
+    <div matRipple class="close" (click)="onCancel()">
+      <i class="fa-solid fa-close"></i>
+    </div>
   </div>
 </div>
 <mat-divider></mat-divider>
 <div mat-dialog-content>
   <form [formGroup]="form" class="row">
     <div class="col-md-12">
-      <span class="fw-bolder">Titulo *</span>
+      <span class="fw-bolder">Descrição *</span>
       <mat-form-field appearance="outline" class="full-width">
         <input matInput formControlName="description" placeholder="Titulo da viagem" />
         <mat-error *ngIf="form.get('description')?.invalid">
@@ -24,9 +42,9 @@
     </div>
 
     <div class="col-md-6">
-      <span class="fw-bolder">Tipo *</span>
+      <span class="fw-bolder">Tipo de translado *</span>
       <mat-form-field appearance="outline" class="full-width">
-        <input matInput formControlName="type" placeholder="Tipo da viagem" />
+        <input matInput formControlName="type" placeholder="Tipo da translado" />
         <mat-error *ngIf="form.get('type')?.invalid">
           Tipo é obrigatório.
         </mat-error>

@@ -39,6 +39,10 @@ export class TravelService {
     return this.http.post(`${this.apiUrl}/${id}?_method=PATCH`, data);
   }
 
+  updateSolicitation(id: number, data: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/solicitation/${id}`, data);
+  }
+
   // Deletar viagem
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);

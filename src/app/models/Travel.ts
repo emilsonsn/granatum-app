@@ -8,6 +8,7 @@ export interface ITravel {
   total_value: number;
   observations?: string | null;
   purchase_date: string;
+  has_granatum: boolean;
   user_id?: number;
   purchase_status?: string;
   user?: User;

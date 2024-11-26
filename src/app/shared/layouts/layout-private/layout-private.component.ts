@@ -192,14 +192,32 @@ export class LayoutPrivateComponent {
       if (user) {
         this.user = user;
 
-        if (user?.company_position.position == 'Requester')
+        if (user?.company_position.position == 'Requester'){
+
+          this.menuItem.forEach((item, indice) => {
+            if(item.label == 'Pedidos'){
+              this.menuItem[indice].children = this.menuItem[indice].children?.filter(menu =>{
+                return menu.label == 'Pedidos' ||
+                menu.label == 'Solicitações' ||
+                menu.label == 'Fornecedores'
+              });              
+            }
+
+            if(item.label == 'Viagens'){
+              this.menuItem[indice].children = this.menuItem[indice].children?.filter(menu =>{
+                return menu.label == 'Viagens'
+              });              
+            }
+          });
+
           this.permitedMenuItem = this.menuItem.filter(item =>
             item.label == 'Pedidos' ||
-            item.label == 'Solicitações' ||
-            item.label == 'Fornecedores'
+            item.label == 'Viagens'
           );
-        else
+        }
+        else{
           this.permitedMenuItem = this.menuItem;
+        }
       }
     })
 

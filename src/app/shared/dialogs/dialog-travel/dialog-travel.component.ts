@@ -1,11 +1,13 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
 import heic2any from "heic2any";
 import {TravelService} from "@services/travel/travel.service";
 import {ITravel} from "@models/Travel";
 import dayjs from "dayjs";
+import { SessionQuery } from '@store/session.query';
+import { DialogOrderSolicitationComponent } from '../dialog-order-solicitation/dialog-order-solicitation.component';
 
 @Component({
   selector: 'app-dialog-travel',
@@ -35,11 +37,15 @@ export class DialogTravelComponent {
     file: File,
   }[] = [];
 
+  hasGranatum = false;
+
   constructor(
     private fb: FormBuilder,
     private readonly _toastr: ToastrService,
     private readonly _travelService: TravelService,
     private dialogRef: MatDialogRef<DialogTravelComponent>,
+    private readonly _sessionQuery: SessionQuery,
+    private readonly _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public _data: ITravel
   ) {
     this.form = this.fb.group({
@@ -61,6 +67,14 @@ export class DialogTravelComponent {
     }
   }
 
+  public loadPermissionGranatum() {
+    this._sessionQuery.user$.subscribe(user => {
+      if (user && (user?.company_position.position === 'Financial' || user?.company_position.position === 'Admin')) {
+        this.hasGranatum = true;
+      }
+    })
+  }
+
   public onCancel(): void {
     this.dialogRef.close(false);
   }
@@ -75,7 +89,40 @@ export class DialogTravelComponent {
     });
   }
 
+  public onSolicitation() {
+    const data = {}
+    this._dialog
+      .open(DialogOrderSolicitationComponent, {
+        data,
+        width: '80%',
+        maxWidth: '550px',
+        maxHeight: '90%',
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.updateSolicitation(res);
+        }
+      });
+  }
+
+  public updateSolicitation(res: any) {
+    this._travelService.updateSolicitation(this._data.id, res)
+    .subscribe({
+      next: (res) => {
+        this._toastr.success(res.message);
+        this.dialogRef.close();
+      },
+      error: (error) => {
+        this._toastr.error(error.error.message);
+      },
+    });
+  }
+
+  public throwToGranatum(){}
+
   public async onFileSelected(event: Event): Promise<void> {
+    debugger;
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
 
@@ -209,7 +256,7 @@ export class DialogTravelComponent {
         }
       }
 
-      if (this._data && this._data.id) {
+      if (this._data && this._data?.id) {
         formData.append('id', this._data.id.toString());
         this.update(formData);
       }else{
