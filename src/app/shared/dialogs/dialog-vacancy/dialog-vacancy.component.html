@@ -24,7 +24,7 @@
     </div>
     <div class="col-12 mb-3">
       <div>
-        <app-editor [placeholderText]="'Descrição'" (emit)="setDescription($event)"></app-editor>
+        <app-editor [placeholderText]="'Descrição'" [actualValue]="_data?.description" (htmlEmitter)="setDescription($event)"></app-editor>
       </div>
     </div>
     <div class="col-md-6 mb-3">

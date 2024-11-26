@@ -29,16 +29,23 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   @Input() placeholderText : string;
 
+  @Input() actualValue : string = '';
+
   @Output()
-  emit: EventEmitter<any> = new EventEmitter<any>();
+  htmlEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit(): void {
     this.editor = new Editor();
+
+    if(this.actualValue) {
+      this.html = this.actualValue;
+      this.editor.setContent(this.html);
+    }
   }
 
   onHtmlChange(value: string): void {
     this.html = value;
-    this.emit.emit(this.html);
+    this.htmlEmitter.emit(this.html);
   }
 
   ngOnDestroy(): void {
