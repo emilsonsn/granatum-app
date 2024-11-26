@@ -25,7 +25,7 @@
         </tr>
         }
         @else {
-        @if(!vacancies?.length) {
+        @if(!selectionProcess?.length) {
         <tr>
           <td [attr.colspan]="columns.length + 1" class="text-center">
             <div>Nenhum resultado encontrado</div>
@@ -33,28 +33,48 @@
         </tr>
         }
         @else {
-        @for (vacancy of vacancies; track vacancy) {
+        @for (process of selectionProcess; track process) {
         <tr class="table-line-hover" style="outline: none;"> <!-- (click)="toggleExpanded(vacancy)" -->
           <td>
             <div>
-              {{ vacancy?.title}}
+              {{ process?.title}}
             </div>
           </td>
           <td>
             <div>
-              {{ vacancy?.profession?.title}}
+              {{ process?.vacancy?.title}}
+            </div>
+          </td>
+          <td>
+            <div>
+              {{ process?.total_candidates}}
+            </div>
+          </td>
+          <td>
+            <div>
+              {{ process?.available_vacancies}}
             </div>
           </td>
           @if(showActions) {
           <td>
             <div class="d-flex justify-content-end gap-2">
               <div matTooltip="Editar" matRipple class="buttonTemplate"
-                (click)="onEdit.emit(vacancy); $event.stopPropagation()">
+                (click)="onEdit.emit(process); $event.stopPropagation()">
+                <i class="fa-solid fa-globe"></i>
+              </div>
+
+              <div matTooltip="Editar" matRipple class="buttonTemplate"
+                (click)="onEdit.emit(process); $event.stopPropagation()">
+                <i class="fa-solid fa-circle-info"></i>
+              </div>
+
+              <div matTooltip="Editar" matRipple class="buttonTemplate"
+                (click)="onEdit.emit(process); $event.stopPropagation()">
                 <i class="fa-solid fa-pen-to-square"></i>
               </div>
 
               <div matTooltip="Deletar" matRipple class="buttonTemplate delete"
-                (click)="onDelete.emit(vacancy); $event.stopPropagation()">
+                (click)="onDelete.emit(process); $event.stopPropagation()">
                 <i class="fa-solid fa-trash"></i>
               </div>
             </div>
@@ -63,7 +83,7 @@
         </tr>
         <tr>
           <td colspan="7" class="p-0">
-            <div [@detailExpand]="vacancy == expanded ? 'expanded' : 'collapsed'" style="overflow: hidden;">
+            <div [@detailExpand]="process == expanded ? 'expanded' : 'collapsed'" style="overflow: hidden;">
               <!-- Expanded Content -->
             </div>
           </td>

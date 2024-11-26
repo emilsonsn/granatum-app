@@ -1,9 +1,12 @@
+import { Vacancy } from "./vacancy";
+
 export interface SelectionProcess {
   id?: number;
   title: string;
   total_candidates: number;
   available_vacancies: number;
   vacancy_id: number;
+  vacancy?: Vacancy;
   is_active: true;
   created_at?: string;
   updated_at?: string;

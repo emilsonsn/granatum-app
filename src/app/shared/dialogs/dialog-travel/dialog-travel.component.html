@@ -36,13 +36,17 @@
     <div class="col-md-6">
       <span class="fw-bolder">Transporte *</span>
       <mat-form-field appearance="outline" class="full-width">
-        <input matInput formControlName="transport" placeholder="Transporte da viagem" />
+        <mat-select formControlName="transport" placeholder="Transporte da viagem" required>
+          <mat-option *ngFor="let option of transportOptions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
         <mat-error *ngIf="form.get('transport')?.invalid">
           Transporte é obrigatório.
         </mat-error>
       </mat-form-field>
     </div>
-
+    
     <div class="col-md-6">
       <span class="fw-bolder">Valor Total *</span>
       <mat-form-field appearance="outline" class="full-width">

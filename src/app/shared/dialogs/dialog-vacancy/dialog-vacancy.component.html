@@ -18,14 +18,9 @@
   <form [formGroup]="form" class="row">
     <div class="col-md-6 mb-3">
       <mat-form-field appearance="outline">
-        <mat-label>Nome </mat-label>
+        <mat-label>Título </mat-label>
         <input matInput type="text" formControlName="title">
       </mat-form-field>
-    </div>
-    <div class="col-12 mb-3">
-      <div>
-        <app-editor [placeholderText]="'Descrição'" [actualValue]="_data?.description" (htmlEmitter)="setDescription($event)"></app-editor>
-      </div>
     </div>
     <div class="col-md-6 mb-3">
       <mat-form-field>
@@ -45,6 +40,12 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div class="col-12 mb-3">
+      <div>
+        <app-editor [placeholderText]="'Descrição'" [actualValue]="_data?.description" (htmlEmitter)="setDescription($event)"></app-editor>
+      </div>
+    </div>
+    
   </form>
 
 </mat-dialog-content>

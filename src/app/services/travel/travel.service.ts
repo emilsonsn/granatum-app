@@ -36,7 +36,7 @@ export class TravelService {
 
   // Atualizar viagem
   update(id: number, data: ITravel): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/${id}`, data);
+    return this.http.post(`${this.apiUrl}/${id}?_method=PATCH`, data);
   }
 
   // Deletar viagem

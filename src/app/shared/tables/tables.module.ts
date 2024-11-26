@@ -25,6 +25,7 @@ import { TableTravelComponent } from './table-travel/table-travel.component';
 import { TableProfessionsComponent } from './table-professions/table-professions.component';
 import { TableCandidatesComponent } from './table-candidates/table-candidates.component';
 import { TableVacanciesComponent } from './table-vacancies/table-vacancies.component';
+import { TableSelectionProcessComponent } from './table-selection-processes/table-selection-processes';
 
 const tables = [
   TableOrdersComponent,
@@ -43,6 +44,7 @@ const tables = [
   TableProfessionsComponent,
   TableVacanciesComponent,
   TableCandidatesComponent,
+  TableSelectionProcessComponent
 ]
 
 @NgModule({

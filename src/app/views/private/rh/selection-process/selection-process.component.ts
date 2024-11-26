@@ -69,7 +69,7 @@ export class SelectionProcessComponent {
   public openSelectionProcessDialog(data?) {
     const dialogConfig: MatDialogConfig = {
       width: '80%',
-      maxWidth: '1000px',
+      maxWidth: '600px',
       maxHeight: '90%',
       hasBackdrop: true,
       closeOnNavigation: true,

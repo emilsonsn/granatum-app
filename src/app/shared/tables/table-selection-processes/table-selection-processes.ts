@@ -18,11 +18,13 @@ import {
 } from '@angular/animations';
 import { VacancyService } from '@services/vacancy.service';
 import { Vacancy } from '@models/vacancy';
+import { SelectionProcess } from '@models/selectionProccess';
+import { SelectionProcessService } from '@services/selection-process.service';
 
 @Component({
-  selector: 'app-table-vacancies',
-  templateUrl: './table-vacancies.component.html',
-  styleUrl: './table-vacancies.component.scss',
+  selector: 'app-table-selection-processes',
+  templateUrl: './table-selection-processes.component.html',
+  styleUrl: './table-selection-processes.component.scss',
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({ height: '0px', minHeight: '0' })),
@@ -34,7 +36,7 @@ import { Vacancy } from '@models/vacancy';
     ]),
   ],
 })
-export class TableVacanciesComponent {
+export class TableSelectionProcessComponent {
   private subscription: Subscription;
 
   @Input()
@@ -50,10 +52,10 @@ export class TableVacanciesComponent {
   loading: boolean = false;
 
   @Output()
-  public onEdit = new EventEmitter<Vacancy>();
+  public onEdit = new EventEmitter<SelectionProcess>();
 
   @Output()
-  public onDelete = new EventEmitter<Vacancy>();
+  public onDelete = new EventEmitter<SelectionProcess>();
 
   public columns = [
     {
@@ -63,9 +65,21 @@ export class TableVacanciesComponent {
       classes: '',
     },
     {
-      slug: 'profession_id',
+      slug: 'vacancy',
       order: true,
-      title: 'Profissão',
+      title: 'Vaga',
+      classes: '',
+    },
+    {
+      slug: 'total_candidates',
+      order: true,
+      title: 'Total de candidatos',
+      classes: '',
+    },
+    {
+      slug: 'available_vacancies',
+      order: true,
+      title: 'Vagas disponíveis',
       classes: '',
     },
     {
@@ -76,7 +90,7 @@ export class TableVacanciesComponent {
     },
   ];
 
-  public vacancies: Vacancy[] = [];
+  public selectionProcess: SelectionProcess[] = [];
 
   public pageControl: PageControl = {
     take: 10,
@@ -91,7 +105,7 @@ export class TableVacanciesComponent {
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _vacancyService: VacancyService,
+    private readonly _selectionProcessService: SelectionProcessService,
     private readonly _sessionQuery: SessionQuery
   ) {}
 
@@ -141,7 +155,7 @@ export class TableVacanciesComponent {
   public search(): void {
     this._initOrStopLoading();
 
-    this._vacancyService
+    this._selectionProcessService
       .getList(this.pageControl, this.filters)
       .pipe(
         finalize(() => {
@@ -149,7 +163,7 @@ export class TableVacanciesComponent {
         })
       )
       .subscribe((res) => {
-        this.vacancies = res.data;
+        this.selectionProcess = res.data;
 
         this.pageControl.page = res.current_page - 1;
         this.pageControl.itemCount = res.total;

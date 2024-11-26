@@ -18,6 +18,9 @@ export class DialogTravelComponent {
   isToEdit: string;
   title: string = 'Cadastro de Viagem';
 
+  transportOptions = ['Carro próprio', 'Uber', 'Taxi', 'Motouber', 'Avião'];
+
+
   public allowedTypes = [/^image\//, /^application\/pdf$/];
   protected filesToRemove: number[] = [];
   protected filesFromBack: {
@@ -198,11 +201,6 @@ export class DialogTravelComponent {
           formData.append(`attachments[${index}]`, file.file, file.file.name);
         });
 
-        // Verifica se a viagem está sendo editada (caso seja um edit)
-        if (this._data && this._data.id) {
-          formData.append('id', this._data.id.toString());
-        }
-
         // Se houver arquivos a remover
         if (this.filesToRemove.length > 0) {
           this.filesToRemove.forEach(fileId => {
@@ -211,18 +209,41 @@ export class DialogTravelComponent {
         }
       }
 
-      this._travelService.create(formData).subscribe(
-        {
-          next: () => {
-            this._toastr.success('Viagem salva com sucesso');
-            this.dialogRef.close(formData);
-          },
-          error: () => {
-            this._toastr.error('Erro ao salvar a viagem');
-          }
-        }
-      );
+      if (this._data && this._data.id) {
+        formData.append('id', this._data.id.toString());
+        this.update(formData);
+      }else{
+        this.create(formData);
+      }
     }
+  }
+
+  create(formData){
+    this._travelService.create(formData).subscribe(
+      {
+        next: (res) => {
+          this._toastr.success(res.message);
+          this.dialogRef.close(formData);
+        },
+        error: (error) => {
+          this._toastr.error(error.error.message);
+        }
+      }
+    );
+  }
+
+  update(formData){
+    this._travelService.update(formData.get('id'), formData).subscribe(
+      {
+        next: (res) => {
+          this._toastr.success(res.message);
+          this.dialogRef.close(formData);
+        },
+        error: (error) => {
+          this._toastr.error(error.error.message);
+        }
+      }
+    ); 
   }
 
 

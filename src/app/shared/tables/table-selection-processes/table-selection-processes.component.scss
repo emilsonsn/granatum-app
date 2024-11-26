@@ -1,0 +1,18 @@
+@import "_variables";
+
+mat-spinner {
+  height: 4.5rem !important;
+}
+
+.table-line-hover {
+
+  td {
+    background-color: transparent;
+  }
+
+  &:hover {
+    // cursor: pointer;
+    background-color: $white-500;
+  }
+
+}

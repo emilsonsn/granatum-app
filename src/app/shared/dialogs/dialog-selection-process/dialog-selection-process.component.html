@@ -16,19 +16,7 @@
   <mat-divider class="my-3"></mat-divider>
 
   <form [formGroup]="form" class="row">
-    <div class="col-md-6 mb-3">
-      <mat-form-field appearance="outline">
-        <mat-label>Nome </mat-label>
-        <input matInput type="text" formControlName="title">
-      </mat-form-field>
-    </div>
-    <div class="col-md-6 mb-3">
-      <mat-form-field appearance="outline">
-        <mat-label>Quantidade de Vagas </mat-label>
-        <input matInput type="text" formControlName="available_vacancies" mask="0*">
-      </mat-form-field>
-    </div>
-    <div class="col-md-6 mb-3">
+    <div class="col-md-12 mb-3">
       <mat-form-field>
         <mat-label>Vaga </mat-label>
         <mat-select formControlName="vacancy_id" placeholder="Buscar">
@@ -46,6 +34,25 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div class="col-md-12 mb-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Título </mat-label>
+        <input matInput type="text" formControlName="title">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 mb-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Total de candidatos</mat-label>
+        <input matInput type="text" formControlName="total_candidates" mask="0*">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 mb-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Vagas disponíveis</mat-label>
+        <input matInput type="text" formControlName="available_vacancies" mask="0*">
+      </mat-form-field>
+    </div>
+    
   </form>
 
 </mat-dialog-content>

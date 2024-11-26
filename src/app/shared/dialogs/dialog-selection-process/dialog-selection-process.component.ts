@@ -56,7 +56,7 @@ export class DialogSelectionProcessComponent {
       title: [null, Validators.required],
       available_vacancies: [null, Validators.required],
       vacancy_id: [null, Validators.required],
-      total_candidates: 0,
+      total_candidates: [null, Validators.required],
       is_active: [true],
     });
 
