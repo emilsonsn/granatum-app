@@ -58,7 +58,7 @@ export class VacanciesComponent {
     private readonly _vacancyService: VacancyService,
     private readonly _toastr: ToastrService
   ) {
-    this._headerService.setTitle('Profissões');
+    this._headerService.setTitle('Vagas');
     this._headerService.setSubTitle('');
   }
 

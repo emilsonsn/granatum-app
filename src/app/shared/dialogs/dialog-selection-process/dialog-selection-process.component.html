@@ -1,0 +1,66 @@
+<mat-dialog-content>
+
+  @if(loading) {
+  <div matRipple class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  }
+
+  <div class="d-flex align-items-center justify-content-between">
+    <span class="fw-bold fs-5">{{ _data ? "Editar Processo Seletivo" : "Novo Processo Seletivo" }}</span>
+    <div matRipple class="close" (click)="onCancel()">
+      <i class="fa-solid fa-close"></i>
+    </div>
+  </div>
+
+  <mat-divider class="my-3"></mat-divider>
+
+  <form [formGroup]="form" class="row">
+    <div class="col-md-6 mb-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome </mat-label>
+        <input matInput type="text" formControlName="title">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 mb-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Quantidade de Vagas </mat-label>
+        <input matInput type="text" formControlName="available_vacancies" mask="0*">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 mb-3">
+      <mat-form-field>
+        <mat-label>Vaga </mat-label>
+        <mat-select formControlName="vacancy_id" placeholder="Buscar">
+          <mat-option>
+            <ngx-mat-select-search [formControl]="vacancyFilterCtrl" placeholderLabel="Procure pela vaga"
+              i18n-placeholderLabel noEntriesFoundLabel="Vaga não encontrada" i18n-noEntriesFoundLabel>
+            </ngx-mat-select-search>
+          </mat-option>
+          @if(form.get('vacancy_id').value) {
+          <mat-option class="trash" (click)="clearProfessionId()">Limpar campo</mat-option>
+          }
+          <mat-option *ngFor="let vacancy of filteredVacancies | async" [value]="vacancy.id">
+            {{ vacancy.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="w-100 me-2">
+    <div id="actionsDialog" class="flex-sm-row flex-column">
+      <div id="buttonsDialog" class="flex-sm-row flex-column">
+        <div class="col-auto">
+          <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
+        </div>
+        <div class="col-auto">
+          <button matRipple id="submit" class="button yellow" (click)="onConfirm()">{{ _data ? "Editar" : "Criar"
+            }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

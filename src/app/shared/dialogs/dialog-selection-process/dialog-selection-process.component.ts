@@ -7,7 +7,9 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Profession } from '@models/profession';
+import { Vacancy } from '@models/vacancy';
 import { ProfessionService } from '@services/profession.service';
+import { SelectionProcessService } from '@services/selection-process.service';
 import { VacancyService } from '@services/vacancy.service';
 import { ToastrService } from 'ngx-toastr';
 import {
@@ -20,42 +22,42 @@ import {
 } from 'rxjs';
 
 @Component({
-  selector: 'app-dialog-vacancy',
-  templateUrl: './dialog-vacancy.component.html',
-  styleUrl: './dialog-vacancy.component.scss',
+  selector: 'app-dialog-selection-process',
+  templateUrl: './dialog-selection-process.component.html',
+  styleUrl: './dialog-selection-process.component.scss',
 })
-export class DialogVacancyComponent {
+export class DialogSelectionProcessComponent {
   public loading: boolean = false;
   public form: FormGroup;
   protected _onDestroy = new Subject<void>();
 
   // Filters
-  protected professionSelect: Profession[] = [];
-  protected professionCtrl: FormControl<any> = new FormControl<any>(null);
-  protected professionFilterCtrl: FormControl<any> = new FormControl<string>(
-    ''
+  protected vacancySelect: Vacancy[] = [];
+  protected vacancyCtrl: FormControl<any> = new FormControl<any>(null);
+  protected vacancyFilterCtrl: FormControl<any> = new FormControl<string>('');
+  protected filteredVacancies: ReplaySubject<any[]> = new ReplaySubject<any[]>(
+    1
   );
-  protected filteredProfessions: ReplaySubject<any[]> = new ReplaySubject<
-    any[]
-  >(1);
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected readonly _data,
-    private readonly _dialogRef: MatDialogRef<DialogVacancyComponent>,
+    private readonly _dialogRef: MatDialogRef<DialogSelectionProcessComponent>,
     private readonly _fb: FormBuilder,
-    private readonly _professionService: ProfessionService,
     private readonly _vacancyService: VacancyService,
-    private readonly _toastr: ToastrService
+    private readonly _toastr: ToastrService,
+    private readonly _selectionProcessService: SelectionProcessService,
   ) {
-    this.getProfessionsFromBack();
+    this.getVacanciesFromBack();
   }
 
   ngOnInit() {
     this.form = this._fb.group({
       title: [null, Validators.required],
-      description: [null, Validators.required],
-      profession_id: [null, Validators.required],
+      available_vacancies: [null, Validators.required],
+      vacancy_id: [null, Validators.required],
+      total_candidates: 0,
+      is_active: [true],
     });
 
     if (this._data) {
@@ -76,7 +78,7 @@ export class DialogVacancyComponent {
   }
 
   public post() {
-    this._vacancyService
+    this._selectionProcessService
       .post(this.form.getRawValue())
       .pipe(
         finalize(() => {
@@ -95,7 +97,7 @@ export class DialogVacancyComponent {
   }
 
   public patch(id: number) {
-    this._vacancyService
+    this._selectionProcessService
       .patch(id, this.form.getRawValue())
       .pipe(
         finalize(() => {
@@ -113,10 +115,6 @@ export class DialogVacancyComponent {
       });
   }
 
-  protected setDescription(html : string) {
-    this.form.patchValue({ description: html });
-  }
-
   // Utils
   private _initOrStopLoading() {
     this.loading = !this.loading;
@@ -127,24 +125,24 @@ export class DialogVacancyComponent {
   }
 
   // Filters
-  protected prepareFilterProfessionCtrl() {
-    this.professionFilterCtrl.valueChanges
+  protected prepareFilterVacancyCtrl() {
+    this.vacancyFilterCtrl.valueChanges
       .pipe(
         takeUntil(this._onDestroy),
         debounceTime(100),
         map((search: string | null) => {
           if (!search) {
-            return this.professionSelect.slice();
+            return this.vacancySelect.slice();
           } else {
             search = search.toLowerCase();
-            return this.professionSelect.filter((profession) =>
-              profession.title.toLowerCase().includes(search)
+            return this.vacancySelect.filter((vacancy) =>
+              vacancy.title.toLowerCase().includes(search)
             );
           }
         })
       )
       .subscribe((filtered) => {
-        this.filteredProfessions.next(filtered);
+        this.filteredVacancies.next(filtered);
       });
   }
 
@@ -153,12 +151,12 @@ export class DialogVacancyComponent {
   }
 
   // Getters
-  public getProfessionsFromBack() {
-    this._professionService.getList().subscribe((res) => {
-      this.professionSelect = res.data;
+  public getVacanciesFromBack() {
+    this._vacancyService.getList().subscribe((res) => {
+      this.vacancySelect = res.data;
 
-      this.filteredProfessions.next(this.professionSelect.slice());
-      this.prepareFilterProfessionCtrl();
+      this.filteredVacancies.next(this.vacancySelect.slice());
+      this.prepareFilterVacancyCtrl();
     });
   }
 }

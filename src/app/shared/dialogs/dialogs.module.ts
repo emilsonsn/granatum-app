@@ -40,6 +40,7 @@ import {DialogOrderSolicitationComponent} from './dialog-order-solicitation/dial
 import { DialogLeadsComponent } from './dialog-leads/dialog-leads.component';
 import { DialogProfessionComponent } from './dialog-profession/dialog-profession.component';
 import { DialogVacancyComponent } from './dialog-vacancy/dialog-vacancy.component';
+import { DialogSelectionProcessComponent } from './dialog-selection-process/dialog-selection-process.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { DialogVacancyComponent } from './dialog-vacancy/dialog-vacancy.componen
     DialogOrderSolicitationComponent,
     DialogLeadsComponent,
     DialogProfessionComponent,
-    DialogVacancyComponent
+    DialogVacancyComponent,
+    DialogSelectionProcessComponent
   ],
   imports: [
     CommonModule,
