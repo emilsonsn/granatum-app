@@ -40,7 +40,7 @@ export class DialogProfessionComponent {
     this._initOrStopLoading();
 
     if (this._data) {
-      this.patch(this._data.id);
+      this.patch(this._data?.id);
     } else {
       this.post();
     }

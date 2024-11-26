@@ -284,7 +284,7 @@ export class DialogOrderComponent {
       .open(DialogOrderSolicitationComponent, {
         data,
         width: '80%',
-        maxWidth: '850px',
+        maxWidth: '550px',
         maxHeight: '90%',
       })
       .afterClosed()

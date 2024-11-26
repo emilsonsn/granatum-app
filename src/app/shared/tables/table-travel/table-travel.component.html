@@ -71,6 +71,13 @@
                   </div>
                 </td>
 
+
+                <td class="text-center">
+                  <div [ngClass]="'status ' + order?.purchase_status?.toLowerCase()">
+                    {{ order.purchase_status | status }}
+                  </div>
+                </td>
+
                 <td class="text-center">
                   <div>
                     {{ order.total_value | currency}}
@@ -78,12 +85,12 @@
                 </td>
 
                 <td class="text-center">
-                  <div class="d-flex justify-content-end" *ngIf="isFinancial">
+                  <div class="d-flex justify-content-end">
                     <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(order)">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
 
-                    <div matRipple class="buttonTemplate" (click)="onDeleteOrder.emit(order)">
+                    <div matRipple class="buttonTemplate" (click)="onDeleteOrder.emit(order)" *ngIf="isFinancial">
                       <i class="fa-solid fa-trash"></i>
                     </div>
                   </div>
