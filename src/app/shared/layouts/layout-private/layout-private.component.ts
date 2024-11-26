@@ -86,33 +86,33 @@ export class LayoutPrivateComponent {
     },
     {
       label: "RH",
-      icon: 'fa-solid fa-house',
+      icon: 'fa-solid fa-people-group',
       route: null,
       isOpen: false,
       children: [
         {
           label: 'Profissões',
-          icon: 'fa-solid fa-house',
-          route: '/painel/rh/professions'
+          icon: 'fa-solid fa-hammer',
+          route: '/painel/rh/professions'          
         },
         {
           label: 'Vagas',
-          icon: 'fa-solid fa-house',
+          icon: 'fa-solid fa-passport',
           route: '/painel/rh/vacancies'
         },
         {
           label: 'Processo Seletivo',
-          icon: 'fa-solid fa-house',
+          icon: 'fa-solid fa-clipboard',
           route: '/painel/rh/selection-process'
         },
         {
           label: 'Candidatos',
-          icon: 'fa-solid fa-house',
+          icon: 'fa-solid fa-person',
           route: '/painel/rh/candidates'
         },
         {
           label: 'Chat',
-          icon: 'fa-solid fa-house',
+          icon: 'fa-brands fa-whatsapp',
           route: '/painel/rh/chat'
         },
       ]
