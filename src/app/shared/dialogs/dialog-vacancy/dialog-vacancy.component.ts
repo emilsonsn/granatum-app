@@ -63,6 +63,10 @@ export class DialogVacancyComponent {
     }
   }
 
+  setDescription(html : string) {
+    this.form.patchValue({ description: html });
+  }
+
   public onConfirm() {
     if (!this.form.valid || this.loading) return;
 

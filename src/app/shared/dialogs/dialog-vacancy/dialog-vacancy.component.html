@@ -22,15 +22,15 @@
         <input matInput type="text" formControlName="title">
       </mat-form-field>
     </div>
-    <div class="col-md-6 mb-3">
-      <mat-form-field appearance="outline">
-        <mat-label>Descrição </mat-label>
-        <input matInput type="text" formControlName="description">
-      </mat-form-field>
+    <div class="col-12 mb-3">
+      <div>
+        <app-editor [placeholderText]="'Descrição'" (emit)="setDescription($event)"></app-editor>
+      </div>
     </div>
     <div class="col-md-6 mb-3">
       <mat-form-field>
-        <mat-select formControlName="profession_id" placeholder="Profissão">
+        <mat-label>Profissão </mat-label>
+        <mat-select formControlName="profession_id" placeholder="Buscar">
           <mat-option>
             <ngx-mat-select-search [formControl]="professionFilterCtrl" placeholderLabel="Procure pela profissão"
               i18n-placeholderLabel noEntriesFoundLabel="Profissão não encontrada" i18n-noEntriesFoundLabel>

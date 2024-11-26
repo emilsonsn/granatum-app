@@ -8,11 +8,15 @@ import {
 import {MatDivider} from "@angular/material/divider";
 import {KanbanComponent} from "@shared/components/kanban/kanban.component";
 import {CdkDrag, CdkDragPlaceholder, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
+import { NgxEditorModule, NgxEditorService } from 'ngx-editor';
+import { EditorComponent } from './editor/editor.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const components: any[] = [
   AccountManagerComponent,
   SmallInformationCardComponent,
-  KanbanComponent
+  KanbanComponent,
+  EditorComponent,
 ]
 
 @NgModule({
@@ -20,11 +24,14 @@ const components: any[] = [
   imports: [
     CommonModule,
     LottieComponent,
+    NgxEditorModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatDivider,
     CdkDropListGroup,
     CdkDropList,
     CdkDrag,
-    CdkDragPlaceholder
+    CdkDragPlaceholder,
   ],
   exports: components
 })
