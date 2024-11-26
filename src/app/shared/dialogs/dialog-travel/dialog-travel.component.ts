@@ -133,7 +133,6 @@ export class DialogTravelComponent {
   public throwToGranatum(){}
 
   public async onFileSelected(event: Event): Promise<void> {
-    debugger;
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
 

@@ -144,7 +144,7 @@
         </div>
         <div class="col-auto">
           <button matRipple id="submit" class="button yellow" (click)="!loading ? onSubmit(form) : null">{{
-              isToEdit ? 'Criar' : 'Salvar'
+              !isToEdit ? 'Criar' : 'Salvar'
             }}</button>
         </div>
       </div>
