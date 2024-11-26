@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
-import {Subscription} from "rxjs";
+import {finalize, Subscription} from "rxjs";
 import {Order, PageControl} from "@models/application";
 import {ToastrService} from "ngx-toastr";
-import {RequestService} from "@services/request.service";
 import {SessionQuery} from "@store/session.query";
 import {ITravel} from "@models/Travel";
+import {Column} from "@models/Column";
+import {TravelService} from "@services/travel/travel.service";
 
 @Component({
   selector: 'app-table-travel',
@@ -35,34 +36,52 @@ export class TableTravelComponent {
   @Output()
   public onOrderModal = new EventEmitter<ITravel>();
 
-  public columns = [
+  public columns: Column[] = [
     {
-      slug: "request_type",
+      slug: "id",
       order: false,
-      title: "Tipo de Solicitação",
+      title: "ID",
+      classes: "text-center justify-content-center",
+    },
+    {
+      slug: "type",
+      order: false,
+      title: "Tipo",
+      classes: "text-center justify-content-center",
+    },
+    {
+      slug: "description",
+      order: false,
+      title: "Descrição",
+      classes: "text-center justify-content-center",
+    },
+    {
+      slug: "user",
+      order: false,
+      title: "Colaborador",
       classes: "",
     },
     {
-      slug: "amount",
+      slug: "transport",
+      order: false,
+      title: "Transporte",
+      classes: "text-center justify-content-center",
+    },
+    {
+      slug: "total_value",
       order: false,
       title: "Valor",
-      classes: "",
-    },
-    {
-      slug: "status",
-      order: false,
-      title: "Status",
-      classes: "",
+      classes: "text-center justify-content-center",
     },
     {
       slug: "actions",
       order: false,
-      title: "Ações",
-      classes: "justify-content-end me-5",
+      title: "Ações",
+      classes: "text-center justify-content-center",
     },
   ];
 
-  public requests: ITravel[] = [];
+  public travels: ITravel[] = [];
 
   public pageControl: PageControl = {
     take: 10,
@@ -77,7 +96,7 @@ export class TableTravelComponent {
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _requestService: RequestService,
+    private readonly _travelService: TravelService,
     private readonly _sessionQuery: SessionQuery
   ) {
   }
@@ -132,18 +151,18 @@ export class TableTravelComponent {
   search(): void {
     this._initOrStopLoading();
 
-    /*this._requestService
-      .getRequests(this.pageControl, this.filters)
+    this._travelService
+      .search(this.pageControl, this.filters)
       .pipe(finalize(() => {
         this._initOrStopLoading()
       }))
       .subscribe((res) => {
-        this.requests = res.data;
+        this.travels = res.data;
 
         this.pageControl.page = res.current_page - 1;
         this.pageControl.itemCount = res.total;
         this.pageControl.pageCount = res.last_page;
-      });*/
+      });
   }
 
   onClickOrderBy(slug: string, order: boolean) {

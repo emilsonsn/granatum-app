@@ -1,0 +1,229 @@
+import {Component, Inject} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {ToastrService} from "ngx-toastr";
+import heic2any from "heic2any";
+import {TravelService} from "@services/travel/travel.service";
+import {ITravel} from "@models/Travel";
+import dayjs from "dayjs";
+
+@Component({
+  selector: 'app-dialog-travel',
+  templateUrl: './dialog-travel.component.html',
+  styleUrl: './dialog-travel.component.scss'
+})
+export class DialogTravelComponent {
+  form: FormGroup;
+  loading: boolean;
+  isToEdit: string;
+  title: string = 'Cadastro de Viagem';
+
+  public allowedTypes = [/^image\//, /^application\/pdf$/];
+  protected filesToRemove: number[] = [];
+  protected filesFromBack: {
+    index: number,
+    id: number,
+    name: string,
+    path: string, // Wasabi
+  }[] = [];
+  protected filesToSend: {
+    id: number,
+    preview: string,
+    file: File,
+  }[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private readonly _toastr: ToastrService,
+    private readonly _travelService: TravelService,
+    private dialogRef: MatDialogRef<DialogTravelComponent>,
+    @Inject(MAT_DIALOG_DATA) public _data: ITravel
+  ) {
+    this.form = this.fb.group({
+      description: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      transport: ['', [Validators.required]],
+      total_value: ['', [Validators.required, Validators.min(0)]],
+      purchase_date: [new Date(), [Validators.required]],
+      observations: [''],
+    });
+
+
+    console.log(_data);
+
+    if (_data) {
+      this.isToEdit = 'true';
+      this.title = 'Edição de Viagem';
+      this.form.patchValue(_data);
+    }
+  }
+
+  public onCancel(): void {
+    this.dialogRef.close(false);
+  }
+
+  public async convertFileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  public async onFileSelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    const files: FileList = input.files;
+    const fileArray: File[] = Array.from(files);
+
+    for (const file of fileArray) {
+      let fileType = file.type;
+      let convertedFile: File | null = null;
+
+      // Detecta e converte arquivos HEIC
+      if (file.name.toLowerCase().endsWith('.heic') || fileType === '') {
+        try {
+          // Converte HEIC para JPEG
+          const convertedBlob = await heic2any({
+            blob: file,
+            toType: 'image/jpeg',
+          });
+
+          // Asegure que o Blob é um único Blob e não um array
+          const blob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+
+          // Cria o arquivo convertido
+          convertedFile = new File([blob], file.name.replace(/\.heic$/i, '.jpg'), {type: 'image/jpeg'});
+          fileType = 'image/jpeg';
+        } catch (error) {
+          this._toastr.error('Erro ao converter HEIC para JPEG.');
+          continue; // Pula para o próximo arquivo
+        }
+      }
+
+      const processedFile = convertedFile || file;
+
+      // Verifica se o tipo é permitido
+      if (this.allowedTypes.some((type) => type.test(fileType))) {
+        let base64: string | null = null;
+
+        // Converte imagem para Base64
+        if (fileType.startsWith('image/')) {
+          try {
+            base64 = await this.convertFileToBase64(processedFile);
+          } catch (error) {
+            this._toastr.error('Erro ao processar a imagem.');
+            continue;
+          }
+        }
+
+        // Adiciona arquivo à lista
+        this.filesToSend.push({
+          id: Date.now(),
+          preview: base64,
+          file: processedFile,
+        });
+      } else {
+        const readableType = fileType.startsWith('image/')
+          ? 'Imagem'
+          : fileType === 'application/pdf'
+            ? 'PDF'
+            : 'Arquivo desconhecido';
+        this._toastr.error(`${readableType} não é permitido`);
+      }
+    }
+  }
+
+  public removeFileFromSendToFiles(index: number) {
+    if (index > -1) {
+      this.filesToSend.splice(index, 1);
+    }
+  }
+
+  public prepareFileToRemoveFromBack(fileId, index) {
+    this.filesFromBack.splice(index, 1);
+    this.filesToRemove.push(fileId);
+  }
+
+  public openImgInAnotherTab(url: string) {
+    window.open(url, '_blank');
+  }
+
+  applyDateMask(event: any): void {
+    let value = event.target.value;
+
+    // Remove qualquer coisa que não seja número
+    // value = value.replace(/\D/g, '');
+
+    value = value.replace(/[a-zA-Z]/g, "");
+
+    // Adiciona a máscara 'dd/MM/yyyy' conforme o valor do input
+    if (value.length <= 2) {
+      value = value.replace(/(\d{2})(\d{1,})/, '$1/$2');
+    }
+    // Second condition: format as MM/DD/
+    else if (value.length <= 4) {
+      value = value.replace(/(\d{2})(\d{2})(\d{0,})/, '$1/$2/');
+    }
+    // Third condition: format as MM/DD/YYYY
+    else {
+      value = value.replace(/(\d{2})(\d{2})(\d{2})(\d{0,})/, '$1/$2/$3');
+    }
+
+    // Atualiza o valor do input
+    event.target.value = value;
+  }
+
+  onSubmit(form: FormGroup) {
+    if (!form.valid) {
+      form.markAllAsTouched();
+    } else {
+      // Criação do FormData
+      const formData = new FormData();
+
+      // Adiciona os campos do formulário ao FormData
+      formData.append('description', form.value.description);
+      formData.append('type', form.value.type);
+      formData.append('transport', form.value.transport);
+      formData.append('total_value', form.value.total_value);
+      formData.append('purchase_date', dayjs(form.value.purchase_date).format('YYYY-MM-DD'));
+      formData.append('observations', form.value.observations || '');
+
+      if (this.filesToSend.length > 0) {
+        // Adiciona arquivos com índices (attachments[0], attachments[1], etc.)
+        this.filesToSend.forEach((file, index) => {
+          formData.append(`attachments[${index}]`, file.file, file.file.name);
+        });
+
+        // Verifica se a viagem está sendo editada (caso seja um edit)
+        if (this._data && this._data.id) {
+          formData.append('id', this._data.id.toString());
+        }
+
+        // Se houver arquivos a remover
+        if (this.filesToRemove.length > 0) {
+          this.filesToRemove.forEach(fileId => {
+            formData.append('remove_attachments[]', fileId.toString());
+          });
+        }
+      }
+
+      this._travelService.create(formData).subscribe(
+        {
+          next: () => {
+            this._toastr.success('Viagem salva com sucesso');
+            this.dialogRef.close(formData);
+          },
+          error: () => {
+            this._toastr.error('Erro ao salvar a viagem');
+          }
+        }
+      );
+    }
+  }
+
+
+}

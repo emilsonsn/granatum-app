@@ -1,0 +1,133 @@
+@if(loading) {
+  <div matRipple class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
+<div class="d-flex align-items-center justify-content-between p-4">
+  <span class="fw-bold fs-5">{{ title }}</span>
+  <div matRipple class="close" (click)="onCancel()">
+    <i class="fa-solid fa-close"></i>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <form [formGroup]="form" class="row">
+    <div class="col-md-12">
+      <span class="fw-bolder">Titulo *</span>
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput formControlName="description" placeholder="Titulo da viagem" />
+        <mat-error *ngIf="form.get('description')?.invalid">
+          Titilo é obrigatória.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <span class="fw-bolder">Tipo *</span>
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput formControlName="type" placeholder="Tipo da viagem" />
+        <mat-error *ngIf="form.get('type')?.invalid">
+          Tipo é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <span class="fw-bolder">Transporte *</span>
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput formControlName="transport" placeholder="Transporte da viagem" />
+        <mat-error *ngIf="form.get('transport')?.invalid">
+          Transporte é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <span class="fw-bolder">Valor Total *</span>
+      <mat-form-field appearance="outline" class="full-width">
+        <input type="text" formControlName="total_value" matInput placeholder="R$ 0,00" currencyMask />
+        <mat-error *ngIf="form.get('total_value')?.invalid">
+          Valor Total é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <span class="fw-bolder">Data da Compra *</span>
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput [matDatepicker]="picker" formControlName="purchase_date" maxlength="10" required
+               (input)="applyDateMask($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form.get('purchase_date')?.invalid">
+          Data da Compra é obrigatória.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-12">
+      <span class="fw-bolder">Observações *</span>
+      <mat-form-field appearance="outline" class="full-width">
+        <textarea matInput formControlName="observations" placeholder="Observações"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-12">
+      <span class="fw-bolder">Anexos</span>
+      <div id="files">
+        @for(img of filesFromBack; track img) {
+          <div class="file" matTooltip="{{img.name}}" (click)="openImgInAnotherTab(img.path)">
+            <div class="delete">
+              <i class="fa-solid fa-close" (click)="prepareFileToRemoveFromBack(img.id, $index);"></i>
+            </div>
+            <img [src]="img.path" alt="{{img.name}}" style="max-width: 100%; max-height: 100%;" />
+          </div>
+        }
+
+        @for(img of filesToSend; track img) {
+          <div class="file" matTooltip="{{img.file.name}}">
+            <div class="delete">
+              <i class="fa-solid fa-close" (click)="removeFileFromSendToFiles($index);"></i>
+            </div>
+            @if(img.preview) {
+              <img [src]="img.preview" alt="{{img.file.name}}" style="max-width: 100%; max-height: 100%;" />
+            }
+            @else {
+              <i class="fa-solid fa-file"></i>
+            }
+          </div>
+        }
+      </div>
+      <div matRipple id="inputFileAdd" class="mt-2">
+        <div id="text">
+          <i class="fa-solid fa-plus"></i>
+          <span>Adicionar Arquivo</span>
+        </div>
+        @if(!isToEdit) {
+          <input type="file" (change)="onFileSelected($event)" [multiple]="true" title=" " />
+        }
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions>
+  <div class="w-100 me-2">
+    <div id="actionsDialog" class="flex-sm-row flex-column">
+      <div id="buttonsDialog" class="flex-sm-row flex-column">
+        <div class="col-auto">
+          <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
+        </div>
+        <div class="col-auto">
+          <button matRipple id="submit" class="button yellow" (click)="!loading ? onSubmit(form) : null">{{
+              isToEdit ? 'Criar' : 'Salvar'
+            }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-actions>

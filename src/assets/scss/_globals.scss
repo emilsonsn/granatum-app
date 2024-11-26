@@ -22,7 +22,13 @@ body {
   display: flex !important;
 }
 
-.table-container {
+.table td, .table th {
+  vertical-align: middle;
+  padding: 10px; /* ajuste conforme necessário */
+}
+
+
+.table-container{
   height: 100%;
   width: 100%;
   display: flex;

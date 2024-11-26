@@ -24,7 +24,6 @@ export class SidebarComponent {
   }
 
   private updateActiveRoutes() {
-    console.log(this.router.url);
     this.menuItem.forEach(item => {
       item.active = this.router.url === item.route;
 

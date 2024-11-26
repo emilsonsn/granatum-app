@@ -1,0 +1,66 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from "@env/environment";
+import {ITravel} from "@models/Travel";
+import {ApiResponsePageable, PageControl} from "@models/application";
+import {Utils} from "@shared/utils";
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TravelService {
+  private apiUrl = `${environment.api}/travel`;
+
+  constructor(private http: HttpClient) {
+  }
+
+  // Buscar viagens
+  search(pageControl: PageControl, filters?): Observable<ApiResponsePageable<ITravel>> {
+    const paginate = Utils.mountPageControl(pageControl);
+    const filterParams = Utils.mountPageControl(filters);
+
+    return this.http.get<ApiResponsePageable<ITravel>>(`${this.apiUrl}/search?${paginate}${filterParams}`);
+  }
+
+
+  // Buscar viagem por ID
+  getById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  // Criar viagem
+  create(data: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, data);
+  }
+
+  // Atualizar viagem
+  update(id: number, data: ITravel): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}`, data);
+  }
+
+  // Deletar viagem
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  // Deletar anexo
+  deleteFile(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/file/${id}`);
+  }
+
+  // Obter categorias
+  getCategories(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getCategories`);
+  }
+
+  // Obter banco
+  getBank(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getBank`);
+  }
+
+  // Realizar lançamento
+  upRelease(orderId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/granatum/${orderId}`, {});
+  }
+}

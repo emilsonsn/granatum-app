@@ -10,7 +10,7 @@ import { provideLottieOptions } from 'ngx-lottie';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DATE_PIPE_DEFAULT_OPTIONS, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import {NativeDateAdapter, provideNativeDateAdapter} from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideNgxMask } from 'ngx-mask';
 import {
@@ -129,3 +129,21 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+
+export class CustomDateAdapter extends NativeDateAdapter {
+  // Personalize o comportamento do adaptador de data, se necessário
+  parse(value: any): Date | null {
+    const str = value;
+    if (str && typeof str === 'string') {
+      const parts = str.split('/');
+      if (parts.length === 3) {
+        const day = Number(parts[0]);
+        const month = Number(parts[1]) - 1;  // O mês começa em 0 no JavaScript
+        const year = Number(parts[2]);
+        return new Date(year, month, day);
+      }
+    }
+    return super.parse(value);
+  }
+}

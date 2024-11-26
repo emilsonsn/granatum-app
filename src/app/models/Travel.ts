@@ -1,3 +1,5 @@
+import {User} from "@models/user";
+
 export interface ITravel {
   id?: number;
   description: string;
@@ -8,6 +10,7 @@ export interface ITravel {
   purchase_date: string;
   user_id?: number;
   purchase_status?: string;
+  user?: User;
   attachments?: ITravelAttachment[];
 }
 

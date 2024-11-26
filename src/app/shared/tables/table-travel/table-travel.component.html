@@ -2,21 +2,18 @@
   <div class="overflow-auto">
     <table class="table table-responsive">
       <thead>
-        @for(col of columns; track col) {
+        @for (col of columns; track col) {
           <th [class.hasorder]="col.order"
               [class.active-order]="pageControl.orderField === col.slug"
               (click)="onClickOrderBy(col.slug, col.order)">
             <div class="d-flex {{col.classes}}">
               {{ col.title }}
-              <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
-                {{ pageControl.order === 'DESC' ? 'arrow_downward' : 'arrow_upward' }}
-              </i>
             </div>
           </th>
         }
       </thead>
       <tbody>
-        @if(loading) {
+        @if (loading) {
           <tr>
             <td [attr.colspan]="columns.length + 1">
               <div id="mat-loading">
@@ -24,35 +21,64 @@
               </div>
             </td>
           </tr>
-        }
-        @else {
-          @if(!requests?.length) {
+        } @else {
+          @if (!travels?.length) {
             <tr>
               <td [attr.colspan]="columns.length + 1" class="text-center">
                 <div>Nenhum resultado encontrado</div>
               </td>
             </tr>
-          }
-          @else {
-            @for (order of requests; track order) {
+          } @else {
+            @for (order of travels; track order) {
               <tr class="table-line-hover" style="outline: none;">
-
-                <td>
+                <td class="text-center">
                   <div>
-                    {{ order.total_value | currency }}
+                    {{ order.id }}
                   </div>
                 </td>
 
-                <td>
+                <td class="text-center">
+                  <div>
+                    {{ order.type }}
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div>
+                    {{ order.description }}
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div
+                    class="d-flex align-items-center gap-2"
+                    style="white-space: nowrap"
+                  >
+                    <app-avatar
+                      [imageUrl]="order.user?.photo"
+                      [altText]="order.user?.name"
+                      [hidden]="true"
+                      [color]="'#e7b403'"
+                      [onCircle]="true"
+                    ></app-avatar>
+                    {{ order.user?.name }}
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div>
+                    {{ order.transport }}
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div>
+                    {{ order.total_value | currency}}
+                  </div>
+                </td>
+
+                <td class="text-center">
                   <div class="d-flex justify-content-end" *ngIf="isFinancial">
-                    <div matRipple class="buttonTemplate" (click)="onOrderModal.emit(order)">
-                      <i class="fa-solid fa-folder"></i>
-                    </div>
-
-                    <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(order)">
-                      <i class="fa-solid fa-eye"></i>
-                    </div>
-
                     <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(order)">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
