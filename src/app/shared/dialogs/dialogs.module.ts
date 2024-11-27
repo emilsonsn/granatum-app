@@ -45,6 +45,8 @@ import {ACE_CONFIG, AceConfigInterface} from "ngx-ace-wrapper";
 import { DialogProfessionComponent } from './dialog-profession/dialog-profession.component';
 import { DialogVacancyComponent } from './dialog-vacancy/dialog-vacancy.component';
 import { DialogSelectionProcessComponent } from './dialog-selection-process/dialog-selection-process.component';
+import { DialogCandidateComponent } from './dialog-candidate/dialog-candidate.component';
+import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
   mode: 'json',
@@ -89,7 +91,8 @@ const MY_DATE_FORMATS = {
     DialogLeadsComponent,
     DialogProfessionComponent,
     DialogVacancyComponent,
-    DialogSelectionProcessComponent
+    DialogSelectionProcessComponent,
+    DialogCandidateComponent
   ],
   imports: [
     CommonModule,
@@ -113,6 +116,7 @@ const MY_DATE_FORMATS = {
     MatTooltipModule,
     MatDividerModule,
     MatRippleModule,
+    MatTabsModule,
     TextFieldModule,
     CdkTextareaAutosize,
     CurrencyMaskModule,

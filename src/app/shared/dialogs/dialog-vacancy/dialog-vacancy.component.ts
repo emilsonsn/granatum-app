@@ -29,7 +29,7 @@ export class DialogVacancyComponent {
   public form: FormGroup;
   protected _onDestroy = new Subject<void>();
 
-  // Filters
+  // Selects
   protected professionSelect: Profession[] = [];
   protected professionCtrl: FormControl<any> = new FormControl<any>(null);
   protected professionFilterCtrl: FormControl<any> = new FormControl<string>(
@@ -126,7 +126,7 @@ export class DialogVacancyComponent {
     this._dialogRef.close();
   }
 
-  // Filters
+  // Selects
   protected prepareFilterProfessionCtrl() {
     this.professionFilterCtrl.valueChanges
       .pipe(
