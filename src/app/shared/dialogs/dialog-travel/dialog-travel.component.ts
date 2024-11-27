@@ -130,7 +130,9 @@ export class DialogTravelComponent {
     });
   }
 
-  public throwToGranatum(){}
+  public throwToGranatum(){
+    
+  }
 
   public async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;

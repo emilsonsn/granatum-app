@@ -87,7 +87,7 @@
       @if(_data) {
       <div class="col-md-6 mb-2">
         <mat-form-field> <!-- EMILSON - CANDIDATOS -->
-          <mat-label>Processos </mat-label>
+          <mat-label>Processos Seletivos</mat-label>
           <mat-select formControlName="processes" placeholder="Buscar" multiple>
             <mat-option>
               <ngx-mat-select-search [formControl]="professionFilterCtrl" placeholderLabel="Procure pelo processo"
@@ -115,7 +115,7 @@
       <div class="col-12 mb-1">
         <span class="fw-bold">Endereço</span>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <mat-form-field appearance="outline">
           <mat-label>CEP</mat-label>
           <input matInput type="text" mask="00000-000" formControlName="cep">
@@ -127,13 +127,13 @@
           <input matInput type="text" formControlName="neighborhood">
         </mat-form-field>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
         <mat-form-field appearance="outline">
           <mat-label>Rua</mat-label>
           <input matInput type="text" formControlName="street">
         </mat-form-field>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4">
         <mat-form-field>
           <mat-select formControlName="state" placeholder="Estado">
             @for (state of states; track state) {
@@ -156,7 +156,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4">
         <mat-form-field appearance="outline">
           <mat-label>Número</mat-label>
           <input matInput type="text" formControlName="number">

@@ -29,6 +29,8 @@ import { Profession } from '@models/profession';
 import { ProfessionService } from '@services/profession.service';
 import { Estados } from '@models/utils';
 import { UtilsService } from '@services/utils.service';
+import { SelectionProcessService } from '@services/selection-process.service';
+import { SelectionProcess } from '@models/selectionProccess';
 
 @Component({
   selector: 'app-dialog-candidate',
@@ -55,8 +57,8 @@ export class DialogCandidateComponent {
     any[]
   >(1);
 
+  protected processesSelect: SelectionProcess[] = [];
   protected processesCtrl: FormControl<any> = new FormControl<any>(null);
-  protected processesFilterCtrl: FormControl<any> = new FormControl<string>('');
   protected filteredProcesses: ReplaySubject<any[]> = new ReplaySubject<any[]>(
     1
   );
@@ -89,12 +91,16 @@ export class DialogCandidateComponent {
     private readonly _sessionQuery: SessionQuery,
     private readonly _dialog: MatDialog,
     private readonly _professionService: ProfessionService,
+    private readonly _selectionProcess: SelectionProcessService,
     private readonly _utilsService: UtilsService
   ) {
     this.getProfessionsFromBack();
+    this.getProcessFromBack();
   }
 
   ngOnInit() {
+    const processes = this._data.processes.map( process => process.id);
+
     this.form = this.fb.group({
       name: [null, [Validators.required]],
       surname: [null, [Validators.required]],
@@ -110,12 +116,15 @@ export class DialogCandidateComponent {
       number: [null, [Validators.required]],
       profession_id: [null, [Validators.required]],
       // attachments: [null, [Validators.required]], ->. filesToSend
-      processes: [this._data?.processes ?? ''],
+      processes: [processes ?? ''],
       is_active: [this._data?.is_active ?? true, [Validators.required]],
     });
 
     if (this._data) {
-      this.form.patchValue(this._data);
+      this.form.patchValue({
+        ...this._data,
+        processes: processes
+      });
 
       if (this._data.attachments) {
         this._data.attachments.forEach((file, index) => {
@@ -472,10 +481,10 @@ export class DialogCandidateComponent {
         debounceTime(100),
         map((search: string | null) => {
           if (!search) {
-            return this._data?.processesObj.slice();
+            return this.processesSelect.slice();
           } else {
             search = search.toLowerCase();
-            return this._data?.processesObj.filter((process) =>
+            return this.processesSelect.filter((process) =>
               process.title.toLowerCase().includes(search)
             );
           }
@@ -493,6 +502,15 @@ export class DialogCandidateComponent {
 
       this.filteredProfessions.next(this.professionSelect.slice());
       this.prepareFilterProfessionCtrl();
+    });
+  }
+
+  public getProcessFromBack() {
+    this._selectionProcess.getList().subscribe((res) => {
+      this.processesSelect = res.data;
+
+      this.filteredProcesses.next(this.processesSelect.slice());
+      this.prepareFilterProcessesCtrl();
     });
   }
 }

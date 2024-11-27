@@ -19,7 +19,9 @@ export interface Candidate {
   profession: Profession;
   profession_id: number;
   attachments: string[] | File[];
-  processes: string;
+  processes: [
+    {id: number}
+  ];
   processesObj: SelectionProcess[]; // EMILSON - CANDIDATOS
   created_at?: string;
   updated_at?: string;
@@ -33,9 +35,9 @@ export interface CandidateCards {
 }
 
 export enum MaritalStatus {
-  Single = "Single",
-  Married = "Married",
-  Divorced = "Divorced",
-  Widowed = "Widowed",
-  Separated = "Separated"
+  Single = "Solteiro(a)",
+  Married = "Casado(a)",
+  Divorced = "Divorciado(a)",
+  Widowed = "Viúvo(a)",
+  Separated = "Separado(a)"
 }
