@@ -152,6 +152,10 @@ export class TableSelectionProcessComponent {
     this.search();
   }
 
+  goToCandidatingPage(id) {
+    window.open(`/public/vaga?selection_process=${id}`, '_blank');
+  }
+
   public search(): void {
     this._initOrStopLoading();
 

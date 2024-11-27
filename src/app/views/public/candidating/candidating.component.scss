@@ -1,0 +1,82 @@
+.candidating-container {
+    display: flex;
+    height: 100vh;
+    gap: 2rem;
+    padding: 2rem;
+    overflow-y: hidden;
+  
+    .left-panel {
+      flex: 2;
+      overflow-y: auto;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+
+      .capa{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+        img{
+            width: 100%;
+            max-width: 400px;
+        }
+      }
+    }
+  
+    .right-panel {
+      flex: 1;
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+  
+      form {
+        .cep-group {
+          display: flex;
+          gap: 1rem;
+  
+          button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+  
+            &:hover {
+              background-color: #0056b3;
+            }
+          }
+        }
+        button.submit-button {
+          background-color: #28a745;
+          color: #fff;
+          padding: 0.8rem;
+          border: none;
+          cursor: pointer;
+          border-radius: 4px;
+  
+          &:hover {
+            background-color: #218838;
+          }
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .candidating-container {
+      flex-direction: column;
+      overflow-y: auto;
+        .left-panel {
+        width: 100%;
+        overflow-y: none;
+        min-height: 60%;
+        padding: 10px;
+        margin: 30px 5px;
+      }
+    }
+  }

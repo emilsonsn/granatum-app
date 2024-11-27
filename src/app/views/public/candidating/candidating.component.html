@@ -1,0 +1,113 @@
+<div class="candidating-container">
+    <div class="left-panel">
+      <div class="capa">
+        <img src="https://andradeengenhariaeletrica.com.br/wp-content/uploads/2023/05/Sem-Titulo-1-1024x512.png" alt="">
+      </div>
+      <h2>{{ selectionProcess?.vacancy?.title }}</h2>
+      <p class="description" [innerHTML]="selectionProcess?.vacancy?.description"></p>
+      <div class="details">
+        <p><strong>Total de Candidatos:</strong> {{ selectionProcess?.total_candidates }}</p>
+        <p><strong>Vagas Disponíveis:</strong> {{ selectionProcess?.available_vacancies }}</p>
+      </div>
+    </div>
+  
+    <div class="right-panel">
+      <h3>Formulário de Candidatura</h3>
+      <form class="row" [formGroup]="candidatingForm" (ngSubmit)="submitApplication()">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nome</mat-label>
+              <input matInput id="name" type="text" formControlName="name" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Sobrenome</mat-label>
+              <input matInput id="surname" type="text" formControlName="surname" />
+            </mat-form-field>
+          </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput id="email" type="email" formControlName="email" />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>CPF</mat-label>
+            <input matInput id="cpf" type="text" formControlName="cpf" />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Telefone</mat-label>
+            <input matInput id="phone" type="tel" formControlName="phone" />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3 d-flex align-items-center gap-2">
+          <mat-form-field appearance="outline" class="flex-grow-1">
+            <mat-label>CEP</mat-label>
+            <input matInput id="cep" type="text" formControlName="cep" />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Estado</mat-label>
+            <input matInput id="state" type="text" formControlName="state" readonly />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Cidade</mat-label>
+            <input matInput id="city" type="text" formControlName="city" readonly />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Bairro</mat-label>
+            <input matInput id="neighborhood" type="text" formControlName="neighborhood" readonly />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Rua</mat-label>
+            <input matInput id="street" type="text" formControlName="street" readonly />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Número</mat-label>
+            <input matInput id="number" type="text" formControlName="number" />
+          </mat-form-field>
+        </div>
+      
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Estado Civil</mat-label>
+            <mat-select id="marital_status" formControlName="marital_status">
+              <mat-option value="Solteiro(a)">Solteiro(a)</mat-option>
+              <mat-option value="Casado(a)">Casado(a)</mat-option>
+              <mat-option value="Divorciado(a)">Divorciado(a)</mat-option>
+              <mat-option value="Viúvo(a)">Viúvo(a)</mat-option>
+              <mat-option value="Separado(a)">Separado(a)</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      
+        <div class="d-flex justify-content-end">
+          <button style="width: 100%;" mat-raised-button color="primary" type="submit">Enviar Candidatura</button>
+        </div>
+        
+      </form>      
+    </div>
+  </div>
+  

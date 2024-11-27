@@ -58,8 +58,8 @@
           @if(showActions) {
           <td>
             <div class="d-flex justify-content-end gap-2">
-              <div matTooltip="Editar" matRipple class="buttonTemplate"
-                (click)="onEdit.emit(process); $event.stopPropagation()">
+              <div matTooltip="Candidatar" matRipple class="buttonTemplate"
+                (click)="goToCandidatingPage(process.id); $event.stopPropagation()">
                 <i class="fa-solid fa-globe"></i>
               </div>
 
