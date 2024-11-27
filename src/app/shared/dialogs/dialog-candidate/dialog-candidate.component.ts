@@ -99,7 +99,7 @@ export class DialogCandidateComponent {
   }
 
   ngOnInit() {
-    const processes = this._data.processes.map( process => process.id);
+    const processes = this._data?.processes?.map( process => process.id);
 
     this.form = this.fb.group({
       name: [null, [Validators.required]],
@@ -148,10 +148,6 @@ export class DialogCandidateComponent {
 
     this.form.get('cep').valueChanges.subscribe((res) => {
       this.autocompleteCep();
-    });
-
-    this.form.valueChanges.subscribe((res) => {
-      console.log(res);
     });
   }
 
