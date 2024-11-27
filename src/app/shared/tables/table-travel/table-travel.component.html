@@ -1,5 +1,5 @@
 <div class="table-container">
-  <div class="overflow-auto">
+  <div class="overflow-auto" style="flex: 1">
     <table class="table table-responsive">
       <thead>
         @for (col of columns; track col) {
@@ -84,7 +84,7 @@
                   </div>
                 </td>
 
-                <td class="text-center">
+                <td *ngIf="!deshboard" class="text-center">
                   <div class="d-flex justify-content-end">
                     <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(order)">
                       <i class="fa-solid fa-pen-to-square"></i>

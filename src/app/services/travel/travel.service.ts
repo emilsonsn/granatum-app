@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from "@env/environment";
-import {ITravel} from "@models/Travel";
-import {ApiResponsePageable, PageControl} from "@models/application";
+import {ITravel, ITravelCard} from "@models/Travel";
+import {ApiResponse, ApiResponsePageable, PageControl} from "@models/application";
 import {Utils} from "@shared/utils";
 
 @Injectable({
@@ -27,6 +27,10 @@ export class TravelService {
   // Buscar viagem por ID
   getById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  getCards(): Observable<ApiResponse<ITravelCard>> {
+    return this.http.get<ApiResponse<ITravelCard>>(`${this.apiUrl}/cards`);
   }
 
   // Criar viagem

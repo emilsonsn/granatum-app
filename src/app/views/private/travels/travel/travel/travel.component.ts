@@ -1,11 +1,12 @@
-import {Component, computed, Signal} from '@angular/core';
-import {ITravel} from "@models/Travel";
+import {Component, computed, signal, Signal} from '@angular/core';
+import {ITravel, ITravelCard} from "@models/Travel";
 import {ISmallInformationCard} from "@models/cardInformation";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {DialogTravelComponent} from "@shared/dialogs/dialog-travel/dialog-travel.component";
 import {DialogConfirmComponent} from "@shared/dialogs/dialog-confirm/dialog-confirm.component";
 import {TravelService} from "@services/travel/travel.service";
 import {ToastrService} from "ngx-toastr";
+import {ApiResponse} from "@models/application";
 
 @Component({
   selector: 'app-travel',
@@ -16,28 +17,39 @@ export class TravelComponent {
   loading: boolean;
   filters: any;
 
+  dashboardCards = signal<ITravelCard>(
+    {
+      pendingTravels: 0,
+      resolvedTravels: 0,
+      totalValueTravels: 0,
+      totalValueMonthTravelsSum: 0,
+      pendingMonthTravelsSum: 0,
+      resolvedMonthTravelsSum: 0,
+    }
+  );
+
   itemsTravel: Signal<ISmallInformationCard[]> = computed<ISmallInformationCard[]>(() => [
     {
-      icon: 'fa-solid fa-envelope-open',
+      icon: 'fa-solid fa-plane-circle-exclamation',
       // icon_description: 'fa-solid fa-calendar-day',
-      // background: '#17a2b8',
-      title: "0",
-      category: 'Viagens em aberto',
-      description: 'Viagens em aberto',
+      background: '#FBAB27',
+      title: this.dashboardCards().pendingTravels.toString(),
+      category: 'Viagens pendentes',
+      description: 'Viagens pendentes',
     },
     {
-      icon: 'fa-solid fa-calendar-times',
+      icon: 'fa-solid fa-plane-departure',
       // icon_description: 'fa-solid fa-calendar-day',
-      background: '#dc3545',
-      title: "0",
-      category: 'Viagens vencidas',
-      description: 'Viagens vencidas',
+      background: '#356fdc',
+      title: this.dashboardCards().totalValueTravels.toString(),
+      category: 'Viagens Totais',
+      description: 'Viagens Totais',
     },
     {
-      icon: 'fa-solid fa-check-circle',
+      icon: 'fa-solid fa-plane-circle-check',
       // icon_description: 'fa-solid fa-calendar-day',
       background: '#28a745',
-      title: "0",
+      title: this.dashboardCards().resolvedTravels.toString(),
       category: 'Viagens resolvidas',
       description: 'Viagens resolvidas',
     },
@@ -49,6 +61,9 @@ export class TravelComponent {
     private readonly _dialog: MatDialog,
     private readonly _toastrService: ToastrService
   ) {
+    _travelService.getCards().subscribe((c: ApiResponse<ITravelCard>) => {
+      this.dashboardCards.set(c.data);
+    })
   }
 
   openRequestDialog($event?: ITravel) {

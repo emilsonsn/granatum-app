@@ -29,3 +29,12 @@ export interface ITravelAttachment {
   path: string;
   travel_id?: number;
 }
+
+export interface ITravelCard {
+  pendingTravels: number;
+  resolvedTravels: number;
+  totalValueTravels: number;
+  totalValueMonthTravelsSum: number;
+  pendingMonthTravelsSum: number;
+  resolvedMonthTravelsSum: number;
+}

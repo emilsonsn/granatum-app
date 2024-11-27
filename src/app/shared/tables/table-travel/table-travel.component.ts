@@ -19,6 +19,9 @@ export class TableTravelComponent {
   filters;
 
   @Input()
+  deshboard: boolean = false;
+
+  @Input()
   searchTerm?: string = '';
 
   @Input()
@@ -68,15 +71,15 @@ export class TableTravelComponent {
       classes: "text-center justify-content-center",
     },
     {
-      slug: "total_value",
+      slug: "status",
       order: false,
-      title: "Valor",
+      title: "Status",
       classes: "text-center justify-content-center",
     },
     {
-      slug: "actions",
+      slug: "total_value",
       order: false,
-      title: "Ações",
+      title: "Valor",
       classes: "text-center justify-content-center",
     },
   ];
@@ -126,6 +129,15 @@ export class TableTravelComponent {
       this._onSearch();
     } else if (filters?.previousValue && filters?.currentValue) {
       this._onSearch();
+    }
+
+    if (!this.deshboard) {
+      this.columns.push({
+        slug: "actions",
+        order: false,
+        title: "Ações",
+        classes: "text-center justify-content-center",
+      });
     }
 
   }
