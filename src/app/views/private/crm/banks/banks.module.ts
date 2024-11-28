@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BanksRoutingModule } from './banks-routing.module';
 import { BanksComponent } from './banks/banks.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { BanksComponent } from './banks/banks.component';
   ],
   imports: [
     CommonModule,
-    BanksRoutingModule
+    BanksRoutingModule,
+    SharedModule
   ]
 })
 export class BanksModule { }
