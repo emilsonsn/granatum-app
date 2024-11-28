@@ -1,0 +1,117 @@
+<div class="table-container">
+  <div class="overflow-auto">
+    <table class="table table-responsive">
+      <thead>
+        @for (col of columns; track col) {
+          <th
+            [class.hasorder]="col.order"
+            [ngStyle]="{ cursor: 'pointer' }"
+            [class.active-order]="pageControl.orderField === col.slug"
+          >
+            <!--(click)="onClickOrderBy(col.slug, col.order)" -->
+            <div
+              class="{{col.align}}"
+              style="color: #a2a1a8"
+            >
+              {{ col.title }}
+              <i class="material-icons" *ngIf="pageControl.orderField === col.slug">
+                {{
+                  pageControl.order === "DESC" ? "arrow_downward" : "arrow_upward"
+                }}
+              </i>
+            </div>
+          </th>
+        }
+      </thead>
+      <tbody>
+      <tr *ngIf="loading">
+        <td [attr.colspan]="columns.length + 1">
+          <div id="mat-loading">
+            <mat-spinner></mat-spinner>
+          </div>
+        </td>
+      </tr>
+        @if (!loading) {
+          <tr *ngIf="!leads.length">
+            <td [attr.colspan]="columns.length + 1" class="text-center">
+              <div>Nenhum resultado encontrado</div>
+            </td>
+          </tr>
+          @for (lead of leads; track lead) {
+            <tr
+              class="table-line-hover"
+              style="outline: none; cursor: pointer"
+            >
+              <td>
+                <div
+                  class="d-flex align-items-center gap-2"
+                  style="white-space: nowrap"
+                >
+                  {{ lead?.name }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center">
+                  {{ lead?.email }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center">
+                  {{ lead?.phone }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center">
+                  {{ lead?.origin.substring(0, 20) + "..." }}
+                </div>
+              </td>
+
+              <td>
+                <div class="text-center">
+                  {{ lead?.observations }}
+                </div>
+              </td>
+
+              <td>
+                <div class="d-flex align-items-center" style="gap: 1rem;">
+                  <app-avatar
+                    [imageUrl]="lead?.responsible.photo"
+                    [altText]="lead?.responsible.name"
+                    [color]="'#e7b403'"
+                    [onCircle]="true"
+                  ></app-avatar>
+                  {{ lead?.responsible.name }}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-content-end">
+                  <!--  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(lead)">
+                      <i class="fa-solid fa-eye"></i>
+                    </div>-->
+
+                  <div matRipple class="buttonTemplate" (click)="onClientClick.emit(lead)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </div>
+
+                  <div matRipple class="buttonTemplate" (click)="onDeleteClientClick.emit(lead?.id)">
+                    <i class="fa-solid fa-trash"></i>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+  <mat-paginator
+    [length]="pageControl.itemCount"
+    [pageSize]="pageControl.take"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [hidePageSize]="false"
+    [pageIndex]="pageControl.page - 1"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+</div>

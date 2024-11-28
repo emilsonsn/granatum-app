@@ -36,6 +36,6 @@ export class DialogOrderSolicitationComponent {
   }
 
   public onCancel(){
-    this._dialogRef.close()
+    this._dialogRef.close(true)
   }
 }

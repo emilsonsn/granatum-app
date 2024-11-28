@@ -1,0 +1,58 @@
+<div class="web-chat-sidebar-main">
+
+  <form class="search-form">
+    <label for="default-search" class="search-label">Search</label>
+    <div class="search-container">
+      <div class="search-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <input type="search" id="default-search" class="search-input" placeholder="Pesquisar..." required/>
+    </div>
+
+    <div class="web-chat-sidebar-buttons">
+      <button type="button" class="button-plus" aria-label="plus">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </form>
+
+
+  <div class="web-chat-sidebar-header-secondary">
+    <h4>
+      <strong>
+        Conversas
+      </strong>
+    </h4>
+
+    <div class="web-chat-sidebar-buttons">
+      <button>
+        <i class="fa-solid fa-arrow-up-short-wide" aria-hidden="true"></i>
+      </button>
+    </div>
+
+  </div>
+  <div class="web-chat-sidebar">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Attending])" matBadgePosition="above after" matBadgeColor="accent">Atendendo</span>
+        </ng-template>
+        <app-web-chat-attending [data]="groupedContacts[ContactStatus.Attending]"></app-web-chat-attending>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Waiting])" matBadgePosition="above after" matBadgeColor="accent">Esperando</span>
+        </ng-template>
+        <app-web-chat-waiting [data]="groupedContacts[ContactStatus.Waiting]"></app-web-chat-waiting>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Completed])" matBadgePosition="above after" matBadgeColor="accent">Finalizado</span>
+        </ng-template>
+        <app-web-chat-completed [data]="groupedContacts[ContactStatus.Completed]"></app-web-chat-completed>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

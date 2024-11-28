@@ -1,0 +1,38 @@
+<div class="row mt-4">
+  @for (item of itemsShopping(); track item) {
+    <div class="col-lg-4 col-md-6">
+      <app-small-information-card [data]="item"></app-small-information-card>
+    </div>
+  }
+</div>
+
+<mat-divider class="mb-4"></mat-divider>
+
+<div class="row">
+  <div class="col-lg-6 col-md-12 mb-4">
+    <div class="card w-100 p-3 pb-0" style="height: 500px">
+      <app-table-travel
+        [dashboard]="true"
+        [loading]="loading"
+        [filters]="filtersDay"
+      >
+      </app-table-travel>
+      <mat-divider></mat-divider>
+      <h3 class="title-styled"><i class="fa-solid fa-calendar-day"></i><span>Viagens pendentes do dia</span></h3>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12 mb-4">
+    <div class="card w-100 p-3 pb-0" style="height: 500px">
+      <app-table-travel
+        [dashboard]="true"
+        [loading]="loading"
+        [filters]="filtersMonth"
+        (onViewOrder)="openRequestDialog($event)"
+        (onDeleteOrder)="deleteDialog($event)"
+      >
+      </app-table-travel>
+      <mat-divider></mat-divider>
+      <h3 class="title-styled"><i class="fa-regular fa-calendar"></i><span>Viagens pendentes do mês</span></h3>
+    </div>
+  </div>
+</div>

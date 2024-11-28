@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./views/session/session.module').then(m => m.SessionModule)
   },
   {
+    path: 'public',
+    loadChildren: () => import('./views/public/public.module').then(m => m.PublicModule)
+  },
+  {
     path: 'painel',
     loadChildren: () => import('./views/private/private.module').then(m => m.PrivateModule),
     canActivate: [hasSessionGuard]

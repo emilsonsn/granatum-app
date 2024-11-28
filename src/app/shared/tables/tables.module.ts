@@ -20,6 +20,13 @@ import { TableTypeUserSectorComponent } from './table-type-user-sector/table-typ
 import { TableUserComponent } from './table-users/table-users.component';
 import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
+import { TableLeadsComponent } from './table-leads/table-leads.component';
+import { TableTravelComponent } from './table-travel/table-travel.component';
+import { TableProfessionsComponent } from './table-professions/table-professions.component';
+import { TableCandidatesComponent } from './table-candidates/table-candidates.component';
+import { TableVacanciesComponent } from './table-vacancies/table-vacancies.component';
+import { TableSelectionProcessComponent } from './table-selection-processes/table-selection-processes';
+import {MatTooltip} from "@angular/material/tooltip";
 
 const tables = [
   TableOrdersComponent,
@@ -33,6 +40,12 @@ const tables = [
   TableTypeServiceComponent,
   TableUserComponent,
   TableTypeUserSectorComponent,
+  TableLeadsComponent,
+  TableTravelComponent,
+  TableProfessionsComponent,
+  TableVacanciesComponent,
+  TableCandidatesComponent,
+  TableSelectionProcessComponent
 ]
 
 @NgModule({
@@ -50,9 +63,10 @@ const tables = [
     MatRippleModule,
     PipesModule,
     AvatarModule,
+    MatTooltip,
   ],
   exports: [
-    tables
+    tables,
   ],
 })
 export class TablesModule { }

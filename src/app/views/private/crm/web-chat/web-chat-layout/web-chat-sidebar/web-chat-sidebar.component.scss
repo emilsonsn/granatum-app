@@ -1,0 +1,161 @@
+@import "variables";
+
+:host {
+  display: flex;
+  flex: 0.5;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 1rem;
+}
+
+
+.web-chat-sidebar-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+
+}
+
+.web-chat-sidebar-header-secondary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  h4 {
+    font-size: 1.17em;
+  }
+}
+
+.web-chat-sidebar-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  .button-plus {
+    background: $primary;
+    color: $secondary;
+    border-color: transparent;
+  }
+
+  button {
+    border-radius: 0.4rem;
+    border: 1px solid rgb(30, 30, 30);
+    background: transparent;
+    color: rgb(30, 30, 30);
+    height: 40px;
+    width: 40px;
+    justify-content: space-between;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  }
+}
+
+.web-chat-sidebar {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 20%;
+}
+
+.mat-badge-medium.mat-badge-overlap .mat-badge-content {
+  margin: -8px !important;
+  margin-left: 0 !important;
+}
+
+
+.mat-badge-content {
+  background: $primary !important;
+  color: $secondary !important;
+}
+
+.mat-mdc-tab-group {
+  flex: 1 !important;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.search-label {
+  display: none;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  color: #6b7280; /* Gray color */
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 10px 8px 40px;
+  font-size: 14px;
+  color: #111827; /* Dark gray color */
+  border: 1px solid #d1d5db; /* Light gray border */
+  border-radius: 8px;
+  background-color: #f9fafb; /* Light background color */
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: $secondary;; /* Blue border on focus */
+}
+
+.search-button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #1d4ed8; /* Blue color */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #1e40af; /* Darker blue on hover */
+}
+
+.search-button:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+

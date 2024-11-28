@@ -53,11 +53,11 @@ export class OrderService {
   }
 
   public getBank(): Observable<ApiResponse<Banco[]>> {
-    return this._http.get<ApiResponse<Banco[]>>(`${environment.api}/${this.sessionEndpoint}/getBank`);
+    return this._http.get<ApiResponse<Banco[]>>(`${environment.api}/${this.sessionEndpoint}/get-bank`);
   }
 
   public getCategories(): Observable<ApiResponse<any[]>> {
-    return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/getCategories`);
+    return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/get-categories`);
   }
 
 }

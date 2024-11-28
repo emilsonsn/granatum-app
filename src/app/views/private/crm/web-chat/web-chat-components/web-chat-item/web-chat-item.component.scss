@@ -1,0 +1,129 @@
+@import "variables";
+
+.active{
+  background: $gray-300;
+  transform: scale(1.03);
+}
+
+
+.web-chat-item-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 999;
+
+
+  .web-chat-item-details {
+    .web-chat-item-details-primary i {
+      display: none;
+    }
+  }
+
+
+
+  &:hover {
+    background: $gray-300;
+    transform: scale(1.03);
+
+    .web-chat-item-details {
+      .web-chat-item-details-primary i {
+        display: block;
+      }
+    }
+  }
+
+  .web-chat-item-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+  }
+
+  .web-chat-item-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .web-chat-item-details-primary {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+
+      .web-chat-item-details-primary-left {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        justify-content: space-between;
+        align-items: center;
+
+        h4 {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.2rem;
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin: 0;
+
+          .tag {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: $secondary;
+            padding: 0.1rem 0.5rem;
+            border: 1px solid $gray-300;
+            border-radius: 0.5rem;
+            background: $primary;
+          }
+        }
+
+        p {
+          font-size: 0.875rem;
+          color: $gray-500;
+          margin: 0;
+        }
+      }
+    }
+
+    .web-chat-item-info {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        font-size: 0.875rem;
+        color: $gray-500;
+        margin: 0;
+      }
+
+      button {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: $secondary;
+        background: $primary;
+        border: none;
+        cursor: pointer;
+        border-radius: 0.4rem;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}

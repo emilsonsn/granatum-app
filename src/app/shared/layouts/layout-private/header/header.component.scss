@@ -6,6 +6,8 @@ $header-button-box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba
 
 
 header {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
   display: flex;
   justify-content: space-between;
   align-items: center;

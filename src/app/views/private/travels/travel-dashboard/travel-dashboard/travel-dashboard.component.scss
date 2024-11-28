@@ -1,0 +1,15 @@
+@import "variables";
+
+.title-styled {
+
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: $gray-600;
+  border-radius: 0.5rem;
+  margin: 0;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+}

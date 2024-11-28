@@ -1,0 +1,122 @@
+[
+  {
+    "uuid": "fdf6aa7d-fbc0-4489-804f-4d12992267f4",
+    "name": "Maria Silva",
+    "lastMessage": "Hello, how are you?",
+    "lastMessageTime": "2024-11-08 12:07:59",
+    "phone": "5583991234567",
+    "remoteJid": "5583991234567@whatsapp.com",
+    "status": "attending",
+    "photo": "https://avatar.iran.liara.run/public/57",
+    "tag": "vip",
+    "unread": true
+  },
+  {
+    "uuid": "7be103eb-9e3b-4f2c-9072-6b33f1669ea0",
+    "name": "John Souza",
+    "lastMessage": "I need help with my order.",
+    "lastMessageTime": "2024-11-08 11:45:13",
+    "phone": "5583992345678",
+    "remoteJid": "5583992345678@whatsapp.com",
+    "status": "waiting",
+    "photo": "https://avatar.iran.liara.run/public/49",
+    "tag": null,
+    "unread": true
+  },
+  {
+    "uuid": "a8751dec-0a27-457f-912a-1a2c80119cd",
+    "name": "Ana Costa",
+    "lastMessage": "When can I get a response?",
+    "lastMessageTime": "2024-11-08 10:15:30",
+    "phone": "5583993456789",
+    "remoteJid": "5583993456789@whatsapp.com",
+    "status": "attending",
+    "photo": "https://avatar.iran.liara.run/public/90",
+    "tag": "priority",
+    "unread": false
+  },
+  {
+    "uuid": "6b1f4d4c-9b4d-42fc-9aa0-454577904bd0",
+    "name": "Carlos Santos",
+    "lastMessage": "Thanks for the quick response!",
+    "lastMessageTime": "2024-11-08 09:55:47",
+    "phone": "5583994567890",
+    "remoteJid": "5583994567890@whatsapp.com",
+    "status": "completed",
+    "photo": "https://avatar.iran.liara.run/public/18",
+    "tag": "vip",
+    "unread": true
+  },
+  {
+    "uuid": "35dbc3bb-874c-4b69-b0d5-5e94252638b2",
+    "name": "Beatriz Almeida",
+    "lastMessage": "Can I ask another question?",
+    "lastMessageTime": "2024-11-08 08:30:11",
+    "phone": "5583995678901",
+    "remoteJid": "5583995678901@whatsapp.com",
+    "status": "waiting",
+    "photo": "https://avatar.iran.liara.run/public/91",
+    "tag": null,
+    "unread": true
+  },
+  {
+    "uuid": "21a4fc63-604f-4c62-8ee9-9859c6ac959b",
+    "name": "Rafael Lima",
+    "lastMessage": "I'm interested in the product.",
+    "lastMessageTime": "2024-11-07 17:22:34",
+    "phone": "5583996789012",
+    "remoteJid": "5583996789012@whatsapp.com",
+    "status": "attending",
+    "photo": "https://avatar.iran.liara.run/public/19",
+    "tag": null,
+    "unread": true
+  },
+  {
+    "uuid": "43925254-0221-4041-b5dd-88c889c3f42e",
+    "name": "Luciana Ribeiro",
+    "lastMessage": "Please confirm my order.",
+    "lastMessageTime": "2024-11-07 16:08:52",
+    "phone": "5583997890123",
+    "remoteJid": "5583997890123@whatsapp.com",
+    "status": "waiting",
+    "photo": "https://avatar.iran.liara.run/public/95",
+    "tag": "vip",
+    "unread": true
+  },
+  {
+    "uuid": "ea66fcc8-ecf4-4b1c-8fc2-f4577f8ec04c",
+    "name": "Gabriel Oliveira",
+    "lastMessage": "What is the delivery time?",
+    "lastMessageTime": "2024-11-07 15:35:21",
+    "phone": "5583998901234",
+    "remoteJid": "5583998901234@whatsapp.com",
+    "status": "attending",
+    "photo": "https://avatar.iran.liara.run/public/41",
+    "tag": "priority",
+    "unread": false
+  },
+  {
+    "uuid": "baa2d93a-7527-4576-80c0-80ccb94950c7",
+    "name": "Fernanda Dias",
+    "lastMessage": "I have questions about the warranty.",
+    "lastMessageTime": "2024-11-07 14:45:00",
+    "phone": "5583999012345",
+    "remoteJid": "5583999012345@whatsapp.com",
+    "status": "waiting",
+    "photo": "https://avatar.iran.liara.run/public/68",
+    "tag": null,
+    "unread": true
+  },
+  {
+    "uuid": "918993ce-7371-4cf6-a798-5db2ea9c1f72",
+    "name": "Paul Barreto",
+    "lastMessage": "I really liked the service!",
+    "lastMessageTime": "2024-11-07 13:20:49",
+    "phone": "5583990123456",
+    "remoteJid": "5583990123456@whatsapp.com",
+    "status": "completed",
+    "photo": "https://avatar.iran.liara.run/public/45",
+    "tag": "vip",
+    "unread": false
+  }
+]

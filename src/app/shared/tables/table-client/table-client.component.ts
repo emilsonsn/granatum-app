@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { Order, PageControl } from '@models/application';
-import { Client } from '@models/client';
-import { ClientService } from '@services/client.service';
-import { ToastrService } from 'ngx-toastr';
-import { finalize } from 'rxjs';
+import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
+import {Order, PageControl} from '@models/application';
+import {Client} from '@models/client';
+import {ClientService} from '@services/client.service';
+import {ToastrService} from 'ngx-toastr';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-table-client',
@@ -75,20 +75,19 @@ export class TableClientComponent {
   constructor(
     private readonly _toastr: ToastrService,
     private readonly _clientService: ClientService,
-  ) {}
+  ) {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const { filters, searchTerm, loading } = changes;
+    const {filters, searchTerm, loading} = changes;
 
-    if ( searchTerm?.previousValue && searchTerm?.currentValue !== searchTerm?.previousValue ) {
+    if (searchTerm?.previousValue && searchTerm?.currentValue !== searchTerm?.previousValue) {
+      this._onSearch();
+    } else if (!loading?.currentValue) {
+      this._onSearch();
+    } else if (filters?.previousValue && filters?.currentValue) {
       this._onSearch();
     }
-    else if (!loading?.currentValue) {
-      this._onSearch();
-    }
-    else if(filters?.previousValue && filters?.currentValue) {
-			this._onSearch();
-		}
 
   }
 
@@ -113,13 +112,13 @@ export class TableClientComponent {
       .getClients(this.pageControl, this.filters)
       .pipe(finalize(() => this._initOrStopLoading()))
       .subscribe({
-        next:res => {
-            this.clients = res.data;
+        next: res => {
+          this.clients = res.data;
 
           this.pageControl.page = res.current_page - 1;
           this.pageControl.itemCount = res.total;
           this.pageControl.pageCount = res.last_page;
-      },
+        },
         error: err => {
           this._toastr.error(
             err?.error?.message || "Ocorreu um erro ao buscar os dados"

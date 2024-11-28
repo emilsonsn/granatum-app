@@ -9,7 +9,24 @@ body {
   line-height: 1.6;
   font-family: 'Open Sans', sans-serif !important;
   scroll-behavior: smooth;
+  --mat-badge-container-overlap-offset: -15px
 }
+
+.mat-mdc-tab-body-wrapper {
+  flex: 1 !important;
+  height: 100% !important;
+}
+
+.mat-mdc-tab-body-content {
+  width: 100% !important;
+  display: flex !important;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  padding: 10px; /* ajuste conforme necessário */
+}
+
 
 .table-container{
   height: 100%;
@@ -26,7 +43,7 @@ body {
   outline: none;
 }
 
-.loading{
+.loading {
   pointer-events: none;
   position: absolute;
   display: flex;
@@ -277,7 +294,6 @@ mat-form-field {
     #container {
 
 
-
     }
 
   }
@@ -367,7 +383,7 @@ mat-form-field {
   justify-content: center;
 
   mat-spinner {
-    height: 4.5rem!important;
+    height: 4.5rem !important;
   }
 }
 

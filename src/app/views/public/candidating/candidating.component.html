@@ -1,0 +1,152 @@
+<div class="candidating-container">
+  <div class="left-panel">
+    <div id="geralTemplate">
+      <div class="capa">
+        <img src="https://andradeengenhariaeletrica.com.br/wp-content/uploads/2023/05/Sem-Titulo-1-1024x512.png" alt="">
+      </div>
+      <h2>{{ selectionProcess?.vacancy?.title }}</h2>
+      <div style="overflow: auto; width: 100%; margin-bottom: 1rem;">
+        <div [innerHTML]="selectionProcess?.vacancy?.description"></div>
+      </div>
+      <div class="details">
+        @for(card of cards; track card) {
+        <div class="card">
+          <div class="d-flex gap-2">
+            <div class="icon">
+              <i class={{card?.icon}} [ngStyle]="{'color': card.background}"></i>
+            </div>
+            <div class="title">
+              {{card?.title}}
+            </div>
+          </div>
+          <div class="value">
+            {{ selectionProcess ? selectionProcess[card?.field] : 0 }}
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div id="formTemplate" class="p-md-4 p-2 py-3">
+      <form class="row" [formGroup]="candidatingForm" (ngSubmit)="onSubmit()">
+        <h3>Formulário de Candidatura</h3>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Nome</mat-label>
+            <input matInput id="name" type="text" formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Sobrenome</mat-label>
+            <input matInput id="surname" type="text" formControlName="surname" />
+          </mat-form-field>
+        </div>
+
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput id="email" type="email" formControlName="email" />
+          </mat-form-field>
+        </div>
+
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>CPF</mat-label>
+            <input matInput id="cpf" type="text" formControlName="cpf" />
+          </mat-form-field>
+        </div>
+
+        <div class="mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Telefone</mat-label>
+            <input matInput id="phone" type="tel" formControlName="phone" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>CEP</mat-label>
+            <input matInput type="text" mask="00000-000" formControlName="cep">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input matInput type="text" formControlName="neighborhood">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Rua</mat-label>
+            <input matInput type="text" formControlName="street">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field>
+            <mat-select formControlName="state" placeholder="Estado">
+              @for (state of states; track state) {
+              <mat-option [value]="state">{{ state }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <input matInput type="text" formControlName="city">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Número</mat-label>
+            <input matInput type="text" formControlName="number">
+          </mat-form-field>
+        </div>
+
+        <div class="mb-3">
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="marital_status" placeholder="Estado Civil">
+              @for (status of maritalStatusesEnum; track status) {
+              <mat-option [value]="status">{{ status }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12">          
+          <span>Adicione seu Currículo e CTPS Digital</span>
+          <div id="files">
+            @for(img of filesToSend; track img) {
+            <div class="file" matTooltip="{{img.file.name}}">
+              <div class="delete">
+                <i class="fa-solid fa-close" (click)="removeFileFromSendToFiles($index);"></i>
+              </div>
+              @if(img.preview) {
+              <img [src]="img.preview" alt="{{img.file.name}}" style="max-width: 100%; max-height: 100%;" />
+              }
+              @else {
+              <i class="fa-solid fa-file"></i>
+              }
+            </div>
+            }
+          </div>
+          <div matRipple id="inputFileAdd" class="mt-2">
+            <div id="text">
+              <i class="fa-solid fa-plus"></i>
+              <span>Adicionar Arquivo</span>
+            </div>
+            <input type="file" (change)="onFileSelected($event)" [multiple]="true" title=" " />
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button style="width: 100%;" mat-raised-button color="primary" type="submit">Enviar Candidatura</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

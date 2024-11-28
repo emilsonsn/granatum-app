@@ -1,9 +1,8 @@
-import { CollaboratorModule } from './collaborator/collaborator.module';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LayoutPrivateComponent } from "@shared/layouts/layout-private/layout-private.component";
-import { SessionService } from '../../store/session.service';
-import { permissionGuard } from '@app/guards/permission.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LayoutPrivateComponent} from "@shared/layouts/layout-private/layout-private.component";
+import {SessionService} from '@store/session.service';
+import {permissionGuard} from '@app/guards/permission.guard';
 
 const routes: Routes = [
   {
@@ -83,6 +82,30 @@ const routes: Routes = [
         }
       },
       {
+        path: 'crm',
+        loadChildren: () => import('./crm/crm.module').then(m => m.CrmModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'crm'
+        }
+      },
+      {
+        path: 'travels',
+        loadChildren: () => import('./travels/travels.module').then(m => m.TravelsModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'travels'
+        }
+      },
+      {
+        path: 'rh',
+        loadChildren: () => import('./rh/rh.module').then(m => m.RhModule),
+        canActivate: [permissionGuard],
+        data: {
+          page: 'rh'
+        }
+      },
+      {
         path: '**',
         redirectTo: 'home',
         canMatch: []
@@ -99,7 +122,8 @@ export class PrivateRoutingModule {
 
   constructor(
     private readonly _sessionService: SessionService
-  ) {}
+  ) {
+  }
 
 }
 
