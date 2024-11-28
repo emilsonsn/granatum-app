@@ -35,13 +35,7 @@ export class CandidatingComponent implements OnInit {
       background: '#4CA750',
       title: 'Vagas Disponíveis',
       field: 'available_vacancies',
-    },
-    {
-      icon: 'fa-solid fa-ban',
-      background: '#dc3545',
-      title: 'Total de Candidatos',
-      field: 'total_candidates',
-    },
+    }
   ];
 
   public allowedTypes = [/^image\//, /^application\/pdf$/];
@@ -121,6 +115,7 @@ export class CandidatingComponent implements OnInit {
 
   protected onSubmit() {
     if (!this.candidatingForm.valid || this.loading) {
+      console.log(this.candidatingForm.controls);
       this.candidatingForm.markAllAsTouched();
       this._toastr.error('Por favor, preencha todos os campos!');
       return;
@@ -142,18 +137,16 @@ export class CandidatingComponent implements OnInit {
     formData.append('cep', this.candidatingForm.get('cep').value);
     formData.append('state', this.candidatingForm.get('state').value);
     formData.append('city', this.candidatingForm.get('city').value);
-    formData.append(
-      'neighborhood',
-      this.candidatingForm.get('neighborhood').value
-    );
+    formData.append('neighborhood', this.candidatingForm.get('neighborhood').value);
     formData.append('street', this.candidatingForm.get('street').value);
     formData.append('number', this.candidatingForm.get('number').value);
-    formData.append(
-      'profession_id',
-      this.candidatingForm.get('profession_id').value
-    );
-    formData.append('processes', this.selectionProcess?.id);
-    formData.append('is_active', this.candidatingForm.get('is_active').value);
+    formData.append('profession_id', this.selectionProcess?.vacancy?.profession_id);
+    formData.append('processes', this.selectionProcess?.id);    
+
+    if(this.filesToSend.length < 2){
+      this._toastr.warning('Adicione seu Currículo e CTPS Digital');
+      return;
+    }
 
     if (this.filesToSend.length > 0) {
       // Adiciona arquivos com índices (attachments[0], attachments[1], etc.)
@@ -187,7 +180,8 @@ export class CandidatingComponent implements OnInit {
           this._toastr.success(res.message);
         },
         error: (error) => {
-          this._toastr.error(error.error.message);
+          console.log(error.error);
+          this._toastr.error(error.error.error);
         },
       });
   }

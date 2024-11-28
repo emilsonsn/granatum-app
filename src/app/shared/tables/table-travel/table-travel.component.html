@@ -31,7 +31,7 @@
           } @else {
             @for (order of travels; track order) {
               <tr class="table-line-hover" style="outline: none;">
-                <td class="text-center">
+                <td class="text-center" *ngIf="!dashboard">
                   <div>
                     {{ order.id }}
                   </div>
@@ -43,7 +43,7 @@
                   </div>
                 </td>
 
-                <td class="text-center">
+                <td class="text-center" *ngIf="!dashboard">
                   <div>
                     {{ order.description }}
                   </div>
@@ -72,7 +72,7 @@
                 </td>
 
 
-                <td class="text-center">
+                <td class="text-center" *ngIf="!dashboard">
                   <div [ngClass]="'status ' + order?.purchase_status?.toLowerCase()">
                     {{ order.purchase_status | status }}
                   </div>
@@ -84,7 +84,7 @@
                   </div>
                 </td>
 
-                <td *ngIf="!deshboard" class="text-center">
+                <td class="text-center">
                   <div class="d-flex justify-content-end">
                     <div matRipple class="buttonTemplate" (click)="onViewOrder.emit(order)">
                       <i class="fa-solid fa-pen-to-square"></i>

@@ -69,7 +69,7 @@ export class SelectionProcessKanbanComponent {
       // Atualiza o backend após mover o item
       this._selectionProcessService.updateCandidateStatus(movedItem.candidate_id, $event.container.data.id)
         .subscribe(() => {
-          this._toastr.success('Status atualizado com sucesso!');
+          // this._toastr.success('Status atualizado com sucesso!');
         }, () => {
           this._toastr.error('Erro ao atualizar o status.');
         });

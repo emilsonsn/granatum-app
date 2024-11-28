@@ -45,6 +45,11 @@
                 </td>
                 <td>
                   <div>
+                    {{ process?.vacancy?.profession?.title }}
+                  </div>
+                </td>
+                <td>
+                  <div>
                     {{ process?.total_candidates }}
                   </div>
                 </td>
@@ -55,7 +60,7 @@
                 </td>
                 @if (showActions) {
                   <td>
-                    <div class="d-flex justify-content-end gap-2">
+                    <div class="d-flex gap-2">
                       <div matTooltip="Candidatar" matRipple class="buttonTemplate"
                            (click)="goToCandidatingPage(process.id); $event.stopPropagation()">
                         <i class="fa-solid fa-globe"></i>

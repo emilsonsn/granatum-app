@@ -74,9 +74,15 @@ export class TableSelectionProcessComponent {
       classes: '',
     },
     {
+      slug: 'profession',
+      order: true,
+      title: 'Profissão',
+      classes: '',
+    },
+    {
       slug: 'total_candidates',
       order: true,
-      title: 'Total de candidatos',
+      title: 'Nª máximo de candidatos',
       classes: '',
     },
     {
@@ -89,7 +95,7 @@ export class TableSelectionProcessComponent {
       slug: 'actions',
       order: false,
       title: 'Ações',
-      classes: 'justify-content-end me-3 pe-3',
+      classes: 'justify-content-center',
     },
   ];
 

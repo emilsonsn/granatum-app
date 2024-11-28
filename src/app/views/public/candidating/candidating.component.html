@@ -25,7 +25,6 @@
         </div>
         }
       </div>
-
     </div>
   </div>
 
@@ -67,25 +66,25 @@
           </mat-form-field>
         </div>
 
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>CEP</mat-label>
             <input matInput type="text" mask="00000-000" formControlName="cep">
           </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Bairro</mat-label>
             <input matInput type="text" formControlName="neighborhood">
           </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Rua</mat-label>
             <input matInput type="text" formControlName="street">
           </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6 mb-3">
           <mat-form-field>
             <mat-select formControlName="state" placeholder="Estado">
               @for (state of states; track state) {
@@ -94,13 +93,13 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Cidade</mat-label>
             <input matInput type="text" formControlName="city">
           </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Número</mat-label>
             <input matInput type="text" formControlName="number">
@@ -117,8 +116,8 @@
           </mat-form-field>
         </div>
 
-        <div class="col-12">
-          <span class="fw-bolder">Anexos</span>
+        <div class="col-12">          
+          <span>Adicione seu Currículo e CTPS Digital</span>
           <div id="files">
             @for(img of filesToSend; track img) {
             <div class="file" matTooltip="{{img.file.name}}">

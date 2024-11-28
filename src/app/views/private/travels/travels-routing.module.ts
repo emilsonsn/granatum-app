@@ -9,7 +9,12 @@ const routes: Routes = [
   {
     path: "dashboard",
     loadChildren: () => import('./travel-dashboard/travel-dashboard.module').then(m => m.TravelDashboardModule)
+  },
+  {
+    path: "solicitation",
+    loadChildren: () => import('./travel-solicitation/travel-solicitation.module').then(m => m.TravelSolicitationModule)
   }
+
 ];
 
 @NgModule({

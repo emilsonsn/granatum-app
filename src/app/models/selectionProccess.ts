@@ -1,4 +1,5 @@
 import {Candidate} from "@models/candidate";
+import { Profession } from "./profession";
 
 export {SelectionProcess, Vacancy, Statuses, CandidateStatus}
 
@@ -22,6 +23,7 @@ interface Vacancy {
   title: string;
   description: string;
   profession_id: number;
+  profession: Profession;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;

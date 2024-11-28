@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, signal} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
@@ -8,6 +8,8 @@ import {ITravel} from "@models/Travel";
 import dayjs from "dayjs";
 import { SessionQuery } from '@store/session.query';
 import { DialogOrderSolicitationComponent } from '../dialog-order-solicitation/dialog-order-solicitation.component';
+import { Banco } from '@models/requestOrder';
+import { ApiResponse } from '@models/application';
 
 @Component({
   selector: 'app-dialog-travel',
@@ -37,7 +39,11 @@ export class DialogTravelComponent {
     file: File,
   }[] = [];
 
-  hasGranatum = false;
+  NotColaborator = false;
+  isFinancial = false;
+
+  public bancos = signal<Banco[]>([]);
+  public categories = signal<any[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -52,20 +58,30 @@ export class DialogTravelComponent {
       description: ['', [Validators.required]],
       type: ['', [Validators.required]],
       transport: ['', [Validators.required]],
+      bank_id: [''],
+      category_id: [''],
       total_value: ['', [Validators.required, Validators.min(0)]],
       purchase_date: [new Date(), [Validators.required]],
       observations: [''],
     });
+  }
 
+  ngOnInit(){
 
-    console.log(_data);
+    this._travelService.getBank().subscribe((b: ApiResponse<Banco[]>) => {
+      this.bancos.set(b.data);
+    })
 
-    if (_data) {
+    this._travelService.getCategories().subscribe((b: ApiResponse<any[]>) => {
+      this.categories.set(b.data);
+    })
+
+    if (this._data) {
       this.isToEdit = 'true';
       this.title = 'Edição de Viagem';
-      this.form.patchValue(_data);
+      this.form.patchValue(this._data);
 
-      if (_data.files) {
+      if (this._data.files) {
         this._data.files.forEach((file, index) => {
           this.filesFromBack.push({
             index: index,
@@ -76,12 +92,18 @@ export class DialogTravelComponent {
         });
       }
     }
+
+    this.loadPermissionGranatum();
   }
 
   public loadPermissionGranatum() {
     this._sessionQuery.user$.subscribe(user => {
-      if (user && (user?.company_position.position === 'Financial' || user?.company_position.position === 'Admin')) {
-        this.hasGranatum = true;
+      if (user && user?.company_position.position !== 'Requester') {
+        this.NotColaborator = true;
+      }
+
+      if (user && user?.company_position.position === 'Financial' || user?.company_position.position === 'Admin' ) {
+        this.isFinancial = true;
       }
     })
   }
@@ -121,17 +143,30 @@ export class DialogTravelComponent {
     this._travelService.updateSolicitation(this._data.id, res)
     .subscribe({
       next: (res) => {
+        console.log('entrei');
         this._toastr.success(res.message);
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       },
       error: (error) => {
-        this._toastr.error(error.error.message);
+        console.log('entrei');
+        this._toastr.error(error);
       },
     });
   }
 
   public throwToGranatum(){
-    
+    if(this._data.id){
+      this._travelService.upRelease(this._data.id)
+      .subscribe({
+        next: (res) => {
+          this._toastr.success(res.message);
+          this.dialogRef.close(true);        
+        },
+        error: (error) => {
+          this._toastr.error(error.error.error);
+        }
+      });
+    }
   }
 
   public async onFileSelected(event: Event): Promise<void> {
@@ -250,6 +285,8 @@ export class DialogTravelComponent {
       formData.append('description', form.value.description);
       formData.append('type', form.value.type);
       formData.append('transport', form.value.transport);
+      formData.append('bank_id', form.value.bank_id ?? '');
+      formData.append('category_id', form.value.category_id ?? '');
       formData.append('total_value', form.value.total_value);
       formData.append('purchase_date', dayjs(form.value.purchase_date).format('YYYY-MM-DD'));
       formData.append('observations', form.value.observations || '');

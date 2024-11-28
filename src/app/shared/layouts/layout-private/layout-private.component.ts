@@ -81,8 +81,13 @@ export class LayoutPrivateComponent {
         },
         {
           label: 'Viagens',
-          icon: 'fa-solid fa-plane',
+          icon: 'fa-solid fa-plane-departure',
           route: '/painel/travels'
+        },
+        {
+          label: 'Solicitações',
+          icon: 'fa-solid fa-plane-circle-exclamation',
+          route: '/painel/travels/solicitation'
         }
       ]
     },
@@ -112,11 +117,11 @@ export class LayoutPrivateComponent {
           icon: 'fa-solid fa-person',
           route: '/painel/rh/candidates'
         },
-        {
-          label: 'Chat',
-          icon: 'fa-brands fa-whatsapp',
-          route: '/painel/rh/chat'
-        },
+        // {
+        //   label: 'WebChat',
+        //   icon: 'fa-brands fa-whatsapp',
+        //   route: '/painel/rh/chat'
+        // },
       ]
     },
     {
@@ -225,13 +230,11 @@ export class LayoutPrivateComponent {
       }
     });
 
-
     // Escuta as mudanças nos queryParams diretamente
     this._activatedRoute.queryParams.subscribe(params => {
       this.titleProcess = params['title_process'];
     });
   }
-
 
   ngOnDestroy(): void {
     if (this.resizeSubscription) {

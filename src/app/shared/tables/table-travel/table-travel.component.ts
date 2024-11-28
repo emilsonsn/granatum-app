@@ -19,7 +19,7 @@ export class TableTravelComponent {
   filters;
 
   @Input()
-  deshboard: boolean = false;
+  dashboard: boolean = false;
 
   @Input()
   searchTerm?: string = '';
@@ -82,6 +82,45 @@ export class TableTravelComponent {
       title: "Valor",
       classes: "text-center justify-content-center",
     },
+    {
+      slug: "actions",
+      order: false,
+      title: "Ações",
+      classes: "text-center justify-content-center",
+    }
+  ];
+
+  public columnsDashboard: Column[] = [
+    {
+      slug: "type",
+      order: false,
+      title: "Tipo",
+      classes: "text-center justify-content-center",
+    },
+    {
+      slug: "user",
+      order: false,
+      title: "Colaborador",
+      classes: "",
+    },
+    {
+      slug: "transport",
+      order: false,
+      title: "Transporte",
+      classes: "text-center justify-content-center",
+    },
+    {
+      slug: "total_value",
+      order: false,
+      title: "Valor",
+      classes: "text-center justify-content-center",
+    },
+    {
+      slug: "actions",
+      order: false,
+      title: "Ações",
+      classes: "text-center justify-content-center",
+    }
   ];
 
   public travels: ITravel[] = [];
@@ -109,6 +148,10 @@ export class TableTravelComponent {
     //   () => { this._onSearch() }
     // );
 
+    if(this.dashboard){
+      this.columns = this.columnsDashboard;
+    }
+
     this.loadPermissions();
   }
 
@@ -129,15 +172,6 @@ export class TableTravelComponent {
       this._onSearch();
     } else if (filters?.previousValue && filters?.currentValue) {
       this._onSearch();
-    }
-
-    if (!this.deshboard) {
-      this.columns.push({
-        slug: "actions",
-        order: false,
-        title: "Ações",
-        classes: "text-center justify-content-center",
-      });
     }
 
   }
