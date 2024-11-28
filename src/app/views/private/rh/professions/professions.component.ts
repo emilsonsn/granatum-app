@@ -8,6 +8,7 @@ import { finalize } from 'rxjs';
 import { DialogProfessionComponent } from '@shared/dialogs/dialog-profession/dialog-profession.component';
 import { Profession, ProfessionCards } from '@models/profession';
 import { ProfessionService } from '@services/profession.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-professions',
@@ -15,9 +16,9 @@ import { ProfessionService } from '@services/profession.service';
   styleUrl: './professions.component.scss',
 })
 export class ProfessionsComponent {
-
   public filters;
   public loading: boolean = false;
+  public formFilters: FormGroup;
 
   protected dashboardCards = signal<ProfessionCards>({
     totalProfessionsMonth: 0,
@@ -49,6 +50,7 @@ export class ProfessionsComponent {
     private readonly _dialog: MatDialog,
     private readonly _professionService: ProfessionService,
     private readonly _toastr: ToastrService,
+    private readonly _fb: FormBuilder,
   ) {
     this._headerService.setTitle('Profissões');
     this._headerService.setSubTitle('');
@@ -56,6 +58,10 @@ export class ProfessionsComponent {
 
   ngOnInit() {
     this.getCards();
+
+    this.formFilters = this._fb.group({
+      search_term : ''
+    });
   }
 
   public openProfessionDialog(data?) {
@@ -128,6 +134,18 @@ export class ProfessionsComponent {
           this._toastr.error(err.error.error);
         },
       });
+  }
+
+  // Filters
+  public updateFilters() {
+    this.filters = this.formFilters.getRawValue();
+  }
+
+  public clearFormFilters() {
+    this.formFilters.patchValue({
+      search_term : ''
+    });
+    this.updateFilters();
   }
 
   // Utils
