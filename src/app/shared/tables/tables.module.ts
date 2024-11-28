@@ -26,6 +26,7 @@ import { TableProfessionsComponent } from './table-professions/table-professions
 import { TableCandidatesComponent } from './table-candidates/table-candidates.component';
 import { TableVacanciesComponent } from './table-vacancies/table-vacancies.component';
 import { TableSelectionProcessComponent } from './table-selection-processes/table-selection-processes';
+import { TableFunnelComponent } from './table-funnel/table-funnel.component';
 import {MatTooltip} from "@angular/material/tooltip";
 
 const tables = [
@@ -45,7 +46,8 @@ const tables = [
   TableProfessionsComponent,
   TableVacanciesComponent,
   TableCandidatesComponent,
-  TableSelectionProcessComponent
+  TableSelectionProcessComponent,
+  TableFunnelComponent
 ]
 
 @NgModule({

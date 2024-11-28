@@ -47,6 +47,7 @@ import { DialogVacancyComponent } from './dialog-vacancy/dialog-vacancy.componen
 import { DialogSelectionProcessComponent } from './dialog-selection-process/dialog-selection-process.component';
 import { DialogCandidateComponent } from './dialog-candidate/dialog-candidate.component';
 import { MatTabGroup, MatTabsModule } from '@angular/material/tabs';
+import { DialogFunnelComponent } from './dialog-funnel/dialog-funnel.component';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
   mode: 'json',
@@ -92,7 +93,8 @@ const MY_DATE_FORMATS = {
     DialogProfessionComponent,
     DialogVacancyComponent,
     DialogSelectionProcessComponent,
-    DialogCandidateComponent
+    DialogCandidateComponent,
+    DialogFunnelComponent
   ],
   imports: [
     CommonModule,
