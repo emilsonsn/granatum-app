@@ -12,6 +12,7 @@ import { CandidatingComponent } from './candidating/candidating.component';
 import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -23,11 +24,12 @@ import { MatButtonModule } from '@angular/material/button';
     PublicRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-    MatSelectModule,  
+    MatSelectModule,
     FormsModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    MatTooltipModule,
     SharedModule,
     MatButtonModule,
     MatDivider,

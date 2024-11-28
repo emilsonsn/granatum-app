@@ -24,8 +24,8 @@ export class SelectionProcessService {
     return this._http.get<ApiResponsePageable<SelectionProcess>>(`${environment.api}/${this.endpoint}/search?${paginate}${filterParams}`);
   }
 
-  public getById(id: number): Observable<ApiResponsePageable<SelectionProcess>> {
-    return this._http.get<ApiResponsePageable<SelectionProcess>>(`${environment.api}/${this.endpoint}/${id}`);
+  public getById(id: number): Observable<ApiResponse<SelectionProcess>> {
+    return this._http.get<ApiResponse<SelectionProcess>>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
   public post(SelectionProcess: SelectionProcess): Observable<ApiResponse<SelectionProcess>> {
