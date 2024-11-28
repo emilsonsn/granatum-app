@@ -26,6 +26,7 @@ import { TableProfessionsComponent } from './table-professions/table-professions
 import { TableCandidatesComponent } from './table-candidates/table-candidates.component';
 import { TableVacanciesComponent } from './table-vacancies/table-vacancies.component';
 import { TableSelectionProcessComponent } from './table-selection-processes/table-selection-processes';
+import {MatTooltip} from "@angular/material/tooltip";
 
 const tables = [
   TableOrdersComponent,
@@ -62,6 +63,7 @@ const tables = [
     MatRippleModule,
     PipesModule,
     AvatarModule,
+    MatTooltip,
   ],
   exports: [
     tables,

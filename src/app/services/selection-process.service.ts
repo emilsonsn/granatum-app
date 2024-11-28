@@ -24,8 +24,8 @@ export class SelectionProcessService {
     return this._http.get<ApiResponsePageable<SelectionProcess>>(`${environment.api}/${this.endpoint}/search?${paginate}${filterParams}`);
   }
 
-  public getById(id: number): Observable<ApiResponse<SelectionProcess>> {
-    return this._http.get<ApiResponse<SelectionProcess>>(`${environment.api}/${this.endpoint}/${id}`);
+  public getById(id: number): Observable<SelectionProcess> {
+    return this._http.get<SelectionProcess>(`${environment.api}/${this.endpoint}/${id}`);
   }
 
   public post(SelectionProcess: SelectionProcess): Observable<ApiResponse<SelectionProcess>> {
@@ -42,6 +42,17 @@ export class SelectionProcessService {
 
   public getCards(): Observable<ApiResponse<SelectionProcessCards>> {
     return this._http.get<ApiResponse<SelectionProcessCards>>(`${environment.api}/${this.endpoint}/cards`);
+  }
+
+  public updateCandidateStatus(candidateId: number, statusId: number): Observable<any> {
+    const endpoint = `${environment.api}/${this.endpoint}/update-status`;
+
+    const body = {
+      candidate_id: candidateId,
+      status_id: statusId
+    };
+
+    return this._http.patch(endpoint, body);
   }
 
 }

@@ -6,6 +6,9 @@ import { VacanciesComponent } from './vacancies/vacancies.component';
 import { SelectionProcessComponent } from './selection-process/selection-process.component';
 import { CandidatesComponent } from './candidates/candidates.component';
 import { ChatComponent } from './chat/chat.component';
+import {
+  SelectionProcessKanbanComponent
+} from "@app/views/private/rh/selection-process-kanban/selection-process-kanban.component";
 
 const routes: Routes = [
   {
@@ -19,6 +22,10 @@ const routes: Routes = [
   {
     path: 'selection-process',
     component: SelectionProcessComponent,
+  },
+  {
+    path: 'selection-process/kanban/:id',
+    component: SelectionProcessKanbanComponent,
   },
   {
     path: 'candidates',

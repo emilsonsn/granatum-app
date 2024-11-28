@@ -55,6 +55,9 @@ export class TableSelectionProcessComponent {
   public onEdit = new EventEmitter<SelectionProcess>();
 
   @Output()
+  public OnInfo = new EventEmitter<SelectionProcess>();
+
+  @Output()
   public onDelete = new EventEmitter<SelectionProcess>();
 
   public columns = [

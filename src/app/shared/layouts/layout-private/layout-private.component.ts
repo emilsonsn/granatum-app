@@ -1,11 +1,12 @@
 import {Component, ElementRef, Renderer2} from '@angular/core';
 import {IMenuItem} from "@models/ItemsMenu";
 import {SidebarService} from '@services/sidebar.service';
-import {Subscription} from "rxjs";
+import {filter, Subscription} from "rxjs";
 import {User} from "@models/user";
 import {UserService} from "@services/user.service";
 import {SessionService} from '@store/session.service';
 import {SessionQuery} from '@store/session.query';
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-layout-private',
@@ -13,6 +14,7 @@ import {SessionQuery} from '@store/session.query';
   styleUrl: './layout-private.component.scss'
 })
 export class LayoutPrivateComponent {
+  titleProcess: string = '';
 
   public permitedMenuItem: IMenuItem[] = [];
 
@@ -65,7 +67,7 @@ export class LayoutPrivateComponent {
           route: '/painel/tasks'
         },
       ]
-    },    
+    },
     {
       label: "Viagens",
       icon: 'fa-solid fa-plane',
@@ -93,7 +95,7 @@ export class LayoutPrivateComponent {
         {
           label: 'Profissões',
           icon: 'fa-solid fa-hammer',
-          route: '/painel/rh/professions'          
+          route: '/painel/rh/professions'
         },
         {
           label: 'Vagas',
@@ -174,6 +176,8 @@ export class LayoutPrivateComponent {
   constructor(
     private renderer: Renderer2,
     private elementRef: ElementRef,
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
     private readonly _sidebarService: SidebarService,
     private readonly _userService: UserService,
     private readonly _sessionService: SessionService,
@@ -200,13 +204,13 @@ export class LayoutPrivateComponent {
                 return menu.label == 'Pedidos' ||
                 menu.label == 'Solicitações' ||
                 menu.label == 'Fornecedores'
-              });              
+              });
             }
 
             if(item.label == 'Viagens'){
               this.menuItem[indice].children = this.menuItem[indice].children?.filter(menu =>{
                 return menu.label == 'Viagens'
-              });              
+              });
             }
           });
 
@@ -219,8 +223,13 @@ export class LayoutPrivateComponent {
           this.permitedMenuItem = this.menuItem;
         }
       }
-    })
+    });
 
+
+    // Escuta as mudanças nos queryParams diretamente
+    this._activatedRoute.queryParams.subscribe(params => {
+      this.titleProcess = params['title_process'];
+    });
   }
 
 

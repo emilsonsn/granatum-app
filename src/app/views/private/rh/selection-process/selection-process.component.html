@@ -36,6 +36,7 @@
   <app-table-selection-processes
     (onEdit)="openSelectionProcessDialog($event)"
     (onDelete)="onDeleteSelectionProcess($event)"
+    (OnInfo)="onInfoSelectionProcess($event)"
     [loading]="loading"
     [filters]="filters">
   </app-table-selection-processes>

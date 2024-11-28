@@ -1,13 +1,16 @@
-import { Component, computed, Signal, signal } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { HeaderService } from '@services/header.service';
-import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
-import { ISmallInformationCard } from '@models/cardInformation';
-import { ToastrService } from 'ngx-toastr';
-import { finalize } from 'rxjs';
-import { SelectionProcess, SelectionProcessCards } from '@models/selectionProccess';
-import { SelectionProcessService } from '@services/selection-process.service';
-import { DialogSelectionProcessComponent } from '@shared/dialogs/dialog-selection-process/dialog-selection-process.component';
+import {Component, computed, Signal, signal} from '@angular/core';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {HeaderService} from '@services/header.service';
+import {DialogConfirmComponent} from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
+import {ISmallInformationCard} from '@models/cardInformation';
+import {ToastrService} from 'ngx-toastr';
+import {finalize} from 'rxjs';
+import {SelectionProcess, SelectionProcessCards} from '@models/selectionProccess';
+import {SelectionProcessService} from '@services/selection-process.service';
+import {
+  DialogSelectionProcessComponent
+} from '@shared/dialogs/dialog-selection-process/dialog-selection-process.component';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-selection-process',
@@ -56,7 +59,8 @@ export class SelectionProcessComponent {
     private readonly _headerService: HeaderService,
     private readonly _dialog: MatDialog,
     private readonly _toastr: ToastrService,
-    private readonly _selectionProcessService : SelectionProcessService,
+    private readonly router: Router,
+    private readonly _selectionProcessService: SelectionProcessService,
   ) {
     this._headerService.setTitle('Processos Seletivos');
     this._headerService.setSubTitle('');
@@ -77,7 +81,7 @@ export class SelectionProcessComponent {
 
     this._dialog
       .open(DialogSelectionProcessComponent, {
-        data: data ? { ...data } : null,
+        data: data ? {...data} : null,
         ...dialogConfig,
       })
       .afterClosed()
@@ -105,7 +109,7 @@ export class SelectionProcessComponent {
 
     this._dialog
       .open(DialogConfirmComponent, {
-        data: { text: `Tem certeza? Essa ação não pode ser revertida!` },
+        data: {text: `Tem certeza? Essa ação não pode ser revertida!`},
         ...dialogConfig,
       })
       .afterClosed()
@@ -147,5 +151,9 @@ export class SelectionProcessComponent {
     this._selectionProcessService.getCards().subscribe((c) => {
       this.dashboardCards.set(c.data);
     });
+  }
+
+  onInfoSelectionProcess($event: SelectionProcess) {
+    this.router.navigate(['/painel/rh/selection-process/kanban/', $event.id]).then();
   }
 }

@@ -80,6 +80,7 @@ export class HeaderComponent implements OnInit {
 
   // Utils
   @Input() user!: User;
+  @Input() titleProcess!: string;
 
   public get isMobile() {
     return this._sidebarService.mobile();
