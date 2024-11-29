@@ -29,6 +29,7 @@ import { TableFunnelComponent } from './table-funnel/table-funnel.component';
 import {MatTooltip} from "@angular/material/tooltip";
 import { TableBankComponent } from './table-bank/table-bank.component';
 import { TablePartnerComponent } from './table-partner/table-partner.component';
+import { TableAutomationsComponent } from './table-automations/table-automations.component';
 
 const tables = [
   TableOrdersComponent,
@@ -51,6 +52,7 @@ const tables = [
   TableFunnelComponent,
   TableBankComponent,
   TablePartnerComponent,
+  TableAutomationsComponent,
 ]
 
 @NgModule({

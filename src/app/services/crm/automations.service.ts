@@ -1,25 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { ApiResponsePageable, PageControl } from '@models/application';
-import { FunnelStep } from '@models/Funnel';
+import { Automations } from '@models/automations';
 import { Observable } from 'rxjs';
-import { Utils } from '@shared/utils';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FunnelStepService {
-  private readonly baseUrl = `${environment.api}/funnel-step`;
+export class AutomationsService {
+  private readonly baseUrl = `${environment.api}/automations`;
 
   constructor(private readonly _http: HttpClient) { }
 
-  getFunnelsSteps(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<FunnelStep>> {
+  getAutomations(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<Automations>> {
 
-    let filterParams = '';
-    if(filters) filterParams = Utils.mountPageControl(filters);
-
-    return this._http.get<ApiResponsePageable<FunnelStep>>(`${this.baseUrl}/search?${filterParams}`);
+    return this._http.get<ApiResponsePageable<Automations>>(`${this.baseUrl}/search`);
   }
 
   // Get a list of funnels steps with optional query parameters
@@ -33,13 +29,13 @@ export class FunnelStepService {
   }
 
   // Create a new funnel step
-  create(funnelStepData: any): Observable<any> {
-    return this._http.post(`${this.baseUrl}/create`, funnelStepData);
+  create(automationsData: any): Observable<any> {
+    return this._http.post(`${this.baseUrl}/create`, automationsData);
   }
 
   // Update an existing funnel step
-  update(id: string, funnelStepData: any): Observable<any> {
-    return this._http.patch(`${this.baseUrl}/${id}`, funnelStepData);
+  update(id: string, automationsData: Automations): Observable<any> {
+    return this._http.post(`${this.baseUrl}/${id}?_method=patch`, automationsData);
   }
 
   // Delete a funnel step by ID
