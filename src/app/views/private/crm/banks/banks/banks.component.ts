@@ -49,7 +49,7 @@ export class BanksComponent {
       .subscribe({
         next: (res) => {
           if (res) {
-            if (res.get('id')) {
+            if (res.get('id') != 'null') {
               this._patchBanks(res.get('id'), res);
               return;
             }
