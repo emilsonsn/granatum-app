@@ -18,7 +18,6 @@ import { TableTypeProviderComponent } from './table-type-provider/table-type-pro
 import { TableTypeServiceComponent } from './table-type-service/table-type-service.component';
 import { TableTypeUserSectorComponent } from './table-type-user-sector/table-type-user-sector.component';
 import { TableUserComponent } from './table-users/table-users.component';
-import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { TableLeadsComponent } from './table-leads/table-leads.component';
 import { TableTravelComponent } from './table-travel/table-travel.component';
@@ -29,6 +28,7 @@ import { TableSelectionProcessComponent } from './table-selection-processes/tabl
 import { TableFunnelComponent } from './table-funnel/table-funnel.component';
 import {MatTooltip} from "@angular/material/tooltip";
 import { TableBankComponent } from './table-bank/table-bank.component';
+import { TablePartnerComponent } from './table-partner/table-partner.component';
 
 const tables = [
   TableOrdersComponent,
@@ -49,7 +49,8 @@ const tables = [
   TableCandidatesComponent,
   TableSelectionProcessComponent,
   TableFunnelComponent,
-  TableBankComponent
+  TableBankComponent,
+  TablePartnerComponent,
 ]
 
 @NgModule({

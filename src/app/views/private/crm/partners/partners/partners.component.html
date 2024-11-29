@@ -1,1 +1,32 @@
-<p>partners works!</p>
+<div id="componentHeaderTemplate" class="mt-3">
+  <div id="componentHeader">
+
+    <div>
+      <!-- <app-search-input
+        (onSearchInputChanged)="handleSearchTerm($event)">
+      </app-search-input> -->
+    </div>
+
+    <div id="options">
+      @if (false) {
+        <div id="filter" matRipple (click)="openOrderFilterDialog()">
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      }
+      <div id="buttons">
+        <button matRipple class="button yellow" (click)="openPartnerDialog()">
+          <i class="fa-solid fa-plus"></i> Novo parceiro
+        </button>
+    </div>
+
+    </div>
+  </div>
+  <div id="componentTable" class="col-12 mt-4">
+    <app-table-partner [loading]="loading"
+                     (onPartnerClick)="openPartnerDialog($event)"
+                     (onDeletePartnerClick)="onDeletePartner($event)">>
+    </app-table-partner>
+  </div>
+</div>
+
+
