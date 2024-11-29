@@ -133,7 +133,9 @@ export class DialogPartnerComponent {
       formData.append('cnpj_cpf', form.get('cnpj_cpf')?.value);
       formData.append('is_active', this.form.get('is_active').value);
 
-      formData.append('image', this.profileImageFile);
+      if(this.profileImageFile){
+        formData.append('image', this.profileImageFile);
+      }
 
       this._dialogRef.close(formData)
     }

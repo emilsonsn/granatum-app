@@ -34,7 +34,7 @@ export class BankService {
   }
 
   // Update an existing funnel step
-  update(id: string, bankData: any): Observable<any> {
+  update(id: string, bankData: Bank): Observable<any> {
     return this._http.post(`${this.baseUrl}/${id}?_method=patch`, bankData);
   }
 

@@ -49,9 +49,8 @@ export class BanksComponent {
       .subscribe({
         next: (res) => {
           if (res) {
-            const id = +res.get('id');
-            if (id) {
-              this._patchBanks(id, res.value);
+            if (res.get('id')) {
+              this._patchBanks(res.get('id'), res);
               return;
             }
 
@@ -61,7 +60,7 @@ export class BanksComponent {
       })
   }
 
-  private _patchBanks(id: number, leadData: any) {
+  private _patchBanks(id: number, leadData: Bank) {
     this._initOrStopLoading();
     this._bankService.update(id.toString(), leadData).subscribe({
       next: () => {
