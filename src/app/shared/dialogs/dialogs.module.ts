@@ -52,6 +52,7 @@ import { DialogBankComponent } from './dialog-bank/dialog-bank.component';
 import { DialogPartnerComponent } from './dialog-partner/dialog-partner.component';
 import { DialogAutomationsComponent } from './dialog-automations/dialog-automations.component';
 import { DialogHrCampaignComponent } from './dialog-hr-campaign/dialog-hr-campaign.component';
+import { DialogBudgetComponent } from './dialog-budget/dialog-budget.component';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
   mode: 'json',
@@ -102,7 +103,8 @@ const MY_DATE_FORMATS = {
     DialogBankComponent,
     DialogPartnerComponent,
     DialogAutomationsComponent,
-    DialogHrCampaignComponent
+    DialogHrCampaignComponent,
+    DialogBudgetComponent
   ],
   imports: [
     CommonModule,

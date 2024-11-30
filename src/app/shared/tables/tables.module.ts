@@ -31,6 +31,7 @@ import { TableBankComponent } from './table-bank/table-bank.component';
 import { TablePartnerComponent } from './table-partner/table-partner.component';
 import { TableAutomationsComponent } from './table-automations/table-automations.component';
 import { TableHrCampaignComponent } from './table-hr-campaign/table-hr-campaign.component';
+import { TableBudgetComponent } from './table-budget/table-budget.component';
 
 const tables = [
   TableOrdersComponent,
@@ -55,6 +56,7 @@ const tables = [
   TablePartnerComponent,
   TableAutomationsComponent,
   TableHrCampaignComponent,
+  TableBudgetComponent,
 ]
 
 @NgModule({

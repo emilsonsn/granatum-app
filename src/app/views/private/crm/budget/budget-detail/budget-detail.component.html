@@ -1,0 +1,237 @@
+<mat-tab-group>
+  <mat-tab label="Capa">
+    <div class="col-12 mt-3">
+      <div style="height: 68vh;">
+        <input type="file" id="cover" (change)="onFileSelected('cover' ,$event)" accept="image/*" hidden>
+        <div class="upload-container" (click)="triggerFileInput('cover')" [ngClass]="{'drag-over': isDragOver}"
+             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('cover', $event)">
+          <div class="upload-placeholder" *ngIf="!images.cover">
+            <i class="fa-solid fa-upload"></i>
+            <p>Arraste a imagem aqui ou clique para fazer upload</p>
+          </div>
+          <img *ngIf="images.cover" [src]="images.cover" alt="Foto de Perfil" class="uploaded-image">
+          <div *ngIf="images.cover" class="remove-image" (click)="removeImage('cover', $event)">
+            <i class="fa-solid fa-trash"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Apresentação">
+    <div class="row mt-3" style="width:100%; height: 68vh;">
+      <div class="col-8 mt-3">
+          <app-editor [placeholderText]="'Texto de apresentação 1'" [actualValue]="form.get('presentation_text_1').value" (htmlEmitter)="setDescription('presentation_text_1', $event)"></app-editor>
+      </div>
+      <div class="col-4 mt-3">
+        <div style="height: 100%;">
+          <input type="file" id="presentation_image_1" (change)="onFileSelected('presentation_image_1' ,$event)" accept="image/*" hidden>
+          <div class="upload-container" (click)="triggerFileInput('presentation_image_1')" [ngClass]="{'drag-over': isDragOver}"
+               (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('presentation_image_1', $event)">
+            <div class="upload-placeholder" *ngIf="!images.presentation_image_1">
+              <i class="fa-solid fa-upload"></i>
+              <p>Arraste a imagem aqui ou clique para fazer upload</p>
+            </div>
+            <img *ngIf="images.presentation_image_1" [src]="images.presentation_image_1" alt="Foto de Perfil" class="uploaded-image">
+            <div *ngIf="images.presentation_image_1" class="remove-image" (click)="removeImage('presentation_image_1', $event)">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 mt-3">
+        <app-editor [placeholderText]="'Texto de apresentação 2'" [actualValue]="form.get('presentation_text_2').value" (htmlEmitter)="setDescription('presentation_text_2', $event)"></app-editor>
+    </div>
+    <div class="col-4 mt-3">
+      <div style="height: 100%;">
+        <input type="file" id="presentation_image_2" (change)="onFileSelected('presentation_image_2' ,$event)" accept="image/*" hidden>
+        <div class="upload-container" (click)="triggerFileInput('presentation_image_2')" [ngClass]="{'drag-over': isDragOver}"
+             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('presentation_image_2', $event)">
+          <div class="upload-placeholder" *ngIf="!images.presentation_image_2">
+            <i class="fa-solid fa-upload"></i>
+            <p>Arraste a imagem aqui ou clique para fazer upload</p>
+          </div>
+          <img *ngIf="images.presentation_image_2" [src]="images.presentation_image_2" alt="Foto de Perfil" class="uploaded-image">
+          <div *ngIf="images.presentation_image_2" class="remove-image" (click)="removeImage('presentation_image_2', $event)">
+            <i class="fa-solid fa-trash"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8 mt-3">
+      <app-editor [placeholderText]="'Texto de apresentação 3'" [actualValue]="form.get('presentation_text_3').value" (htmlEmitter)="setDescription('presentation_text_3',$event)"></app-editor>
+  </div>
+  <div class="col-4 mt-3">
+    <div style="height: 100%;">
+      <input type="file" id="presentation_image_3" (change)="onFileSelected('presentation_image_3' ,$event)" accept="image/*" hidden>
+      <div class="upload-container" (click)="triggerFileInput('presentation_image_3')" [ngClass]="{'drag-over': isDragOver}"
+           (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('presentation_image_3', $event)">
+        <div class="upload-placeholder" *ngIf="!images.presentation_image_3">
+          <i class="fa-solid fa-upload"></i>
+          <p>Arraste a imagem aqui ou clique para fazer upload</p>
+        </div>
+        <img *ngIf="images.presentation_image_3" [src]="images.presentation_image_3" alt="Foto de Perfil" class="uploaded-image">
+        <div *ngIf="images.presentation_image_3" class="remove-image" (click)="removeImage('presentation_image_3', $event)">
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Desenvolvimento">
+    <div class="row mt-3" style="width:100%; height: 68vh;">
+      <div class="col-8 mt-3">
+        <app-editor [placeholderText]="'Texto de desenvolvimento 1'" [actualValue]="form.get('development_text_1').value" (htmlEmitter)="setDescription('development_text_1',$event)"></app-editor>
+      </div>
+      <div class="col-4 mt-3">
+        <div style="height: 100%;">
+          <input type="file" id="development_image_1" (change)="onFileSelected('development_image_1' ,$event)" accept="image/*" hidden>
+          <div class="upload-container" (click)="triggerFileInput('development_image_1')" [ngClass]="{'drag-over': isDragOver}"
+               (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('development_image_1', $event)">
+            <div class="upload-placeholder" *ngIf="!images.development_image_1">
+              <i class="fa-solid fa-upload"></i>
+              <p>Arraste a imagem aqui ou clique para fazer upload</p>
+            </div>
+            <img *ngIf="images.development_image_1" [src]="images.development_image_1" alt="Foto de Perfil" class="uploaded-image">
+            <div *ngIf="images.development_image_1" class="remove-image" (click)="removeImage('development_image_1', $event)">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-8 mt-3">
+        <app-editor [placeholderText]="'Texto de desenvolvimento 2'" [actualValue]="form.get('development_text_2').value" (htmlEmitter)="setDescription('development_text_2',$event)"></app-editor>
+      </div>
+      <div class="col-4 mt-3">
+        <div style="height: 100%;">
+          <input type="file" id="development_image_2" (change)="onFileSelected('development_image_2' ,$event)" accept="image/*" hidden>
+          <div class="upload-container" (click)="triggerFileInput('development_image_2')" [ngClass]="{'drag-over': isDragOver}"
+               (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('development_image_2', $event)">
+            <div class="upload-placeholder" *ngIf="!images.development_image_2">
+              <i class="fa-solid fa-upload"></i>
+              <p>Arraste a imagem aqui ou clique para fazer upload</p>
+            </div>
+            <img *ngIf="images.development_image_2" [src]="images.development_image_2" alt="Foto de Perfil" class="uploaded-image">
+            <div *ngIf="images.development_image_2" class="remove-image" (click)="removeImage('development_image_2', $event)">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-8 mt-3">
+        <app-editor [placeholderText]="'Texto de desenvolvimento 3'" [actualValue]="form.get('development_text_3').value" (htmlEmitter)="setDescription('development_text_3',$event)"></app-editor>
+      </div>
+      <div class="col-4 mt-3">
+        <div style="height: 100%;">
+          <input type="file" id="development_image_3" (change)="onFileSelected('development_image_3' ,$event)" accept="image/*" hidden>
+          <div class="upload-container" (click)="triggerFileInput('development_image_3')" [ngClass]="{'drag-over': isDragOver}"
+               (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('development_image_3', $event)">
+            <div class="upload-placeholder" *ngIf="!images.development_image_3">
+              <i class="fa-solid fa-upload"></i>
+              <p>Arraste a imagem aqui ou clique para fazer upload</p>
+            </div>
+            <img *ngIf="images.development_image_3" [src]="images.development_image_3" alt="Foto de Perfil" class="uploaded-image">
+            <div *ngIf="images.development_image_3" class="remove-image" (click)="removeImage('development_image_3', $event)">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-8 mt-3">
+        <app-editor [placeholderText]="'Texto de desenvolvimento 4'" [actualValue]="form.get('development_text_4').value" (htmlEmitter)="setDescription('development_text_4',$event)"></app-editor>
+      </div>
+      <div class="col-4 mt-3">
+        <div style="height: 100%;">
+          <input type="file" id="development_image_4" (change)="onFileSelected('development_image_4' ,$event)" accept="image/*" hidden>
+          <div class="upload-container" (click)="triggerFileInput('development_image_4')" [ngClass]="{'drag-over': isDragOver}"
+               (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('development_image_4', $event)">
+            <div class="upload-placeholder" *ngIf="!images.development_image_4">
+              <i class="fa-solid fa-upload"></i>
+              <p>Arraste a imagem aqui ou clique para fazer upload</p>
+            </div>
+            <img *ngIf="images.development_image_4" [src]="images.development_image_4" alt="Foto de Perfil" class="uploaded-image">
+            <div *ngIf="images.development_image_4" class="remove-image" (click)="removeImage('development_image_4', $event)">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </mat-tab>
+  <mat-tab label="Formas de pagamento">
+    <div class="mt-3" style="height: 68vh; width: 100%; ;background-color: white;">
+      <app-editor [placeholderText]="'Texto para formas de pagamento'" [actualValue]="form.get('payment_methods').value" (htmlEmitter)="setDescription('payment_methods',$event)"></app-editor>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Conclusão">
+
+    <div class="row mt-3" style="width:100%; height: 68vh;">
+
+      <div class="col-8 mt-3">
+          <app-editor [placeholderText]="'Texto de conclusão 1'" [actualValue]="form.get('conclusion_text_1').value" (htmlEmitter)="setDescription('conclusion_text_1',$event)"></app-editor>
+      </div>
+
+      <div class="col-4 mt-3">
+        <div style="height: 100%;">
+          <input type="file" id="conclusion_image_1" (change)="onFileSelected('conclusion_image_1' ,$event)" accept="image/*" hidden>
+          <div class="upload-container" (click)="triggerFileInput('conclusion_image_1')" [ngClass]="{'drag-over': isDragOver}"
+               (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('conclusion_image_1', $event)">
+            <div class="upload-placeholder" *ngIf="!images.conclusion_image_1">
+              <i class="fa-solid fa-upload"></i>
+              <p>Arraste a imagem aqui ou clique para fazer upload</p>
+            </div>
+            <img *ngIf="images.conclusion_image_1" [src]="images.conclusion_image_1" alt="Foto de Perfil" class="uploaded-image">
+            <div *ngIf="images.conclusion_image_1" class="remove-image" (click)="removeImage('conclusion_image_1', $event)">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 mt-3">
+        <app-editor [placeholderText]="'Texto de conclusão 2'" [actualValue]="form.get('conclusion_text_2').value" (htmlEmitter)="setDescription('conclusion_text_2',$event)"></app-editor>
+    </div>
+    <div class="col-4 mt-3">
+      <div style="height: 100%;">
+        <input type="file" id="conclusion_image_2" (change)="onFileSelected('conclusion_image_2' ,$event)" accept="image/*" hidden>
+        <div class="upload-container" (click)="triggerFileInput('conclusion_image_2')" [ngClass]="{'drag-over': isDragOver}"
+             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('conclusion_image_2', $event)">
+          <div class="upload-placeholder" *ngIf="!images.conclusion_image_2">
+            <i class="fa-solid fa-upload"></i>
+            <p>Arraste a imagem aqui ou clique para fazer upload</p>
+          </div>
+          <img *ngIf="images.conclusion_image_2" [src]="images.conclusion_image_2" alt="Foto de Perfil" class="uploaded-image">
+          <div *ngIf="images.conclusion_image_2" class="remove-image" (click)="removeImage('conclusion_image_2', $event)">
+            <i class="fa-solid fa-trash"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Capa final">
+    <div class="col-12 mt-3">
+      <div style="height: 68vh;">
+        <input type="file" id="final_cover" (change)="onFileSelected('final_cover' ,$event)" accept="image/*" hidden>
+        <div class="upload-container" (click)="triggerFileInput('final_cover')" [ngClass]="{'drag-over': isDragOver}"
+             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop('final_cover', $event)">
+          <div class="upload-placeholder" *ngIf="!images.final_cover">
+            <i class="fa-solid fa-upload"></i>
+            <p>Arraste a imagem aqui ou clique para fazer upload</p>
+          </div>
+          <img *ngIf="images.final_cover" [src]="images.final_cover" alt="Foto de Perfil" class="uploaded-image">
+          <div *ngIf="images.final_cover" class="remove-image" (click)="removeImage('final_cover', $event)">
+            <i class="fa-solid fa-trash"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<div class="d-flex flex-row-reverse justify-items-end mt-3">
+  <button matRipple id="submit" class="button yellow" (click)="onSubmit(form)">Salvar e sair</button>
+</div>
