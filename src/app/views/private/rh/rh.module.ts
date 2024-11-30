@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { HrCampaignComponent } from './hr-campaign/hr-campaign.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     SelectionProcessComponent,
     CandidatesComponent,
     ChatComponent,
-    SelectionProcessKanbanComponent
+    SelectionProcessKanbanComponent,
+    HrCampaignComponent
   ],
   imports: [
     CommonModule,

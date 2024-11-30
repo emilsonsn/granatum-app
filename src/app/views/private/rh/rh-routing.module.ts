@@ -9,6 +9,7 @@ import { ChatComponent } from './chat/chat.component';
 import {
   SelectionProcessKanbanComponent
 } from "@app/views/private/rh/selection-process-kanban/selection-process-kanban.component";
+import { HrCampaignComponent } from './hr-campaign/hr-campaign.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent,
+  },
+  {
+    path: 'hr-campaign',
+    component: HrCampaignComponent
   },
 ];
 

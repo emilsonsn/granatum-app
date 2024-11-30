@@ -19,7 +19,7 @@
 
       <div class="col-md-6 col-12 mb-3">
         <mat-form-field appearance="outline">
-          <mat-label>Iniciado em</mat-label>
+          <mat-label>Data de inicio</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="start_date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -28,27 +28,28 @@
 
       <div class="col-12 mb-3">
         <mat-form-field appearance="outline">
-          <mat-label>message</mat-label>
+          <mat-label>mensagem</mat-label>
           <textarea matInput formControlName="message"></textarea>
         </mat-form-field>
       </div>
-      <div [ngClass]="form.get('type')?.value === automationTypeEnum.RECURRING ? 'col-12 col-md-6 mb-3' : 'col-12 mb-3'">
+
+      <div [ngClass]="form.get('type')?.value === hrCampaignTypeEnum.Recurring ? 'col-12 col-md-6 mb-3' : 'col-12 mb-3'">
         <mat-form-field>
           <mat-label>Tipo</mat-label>
-          <mat-select [(ngModel)]="type" formControlName="type">
-            @for (type of automationType; track type) {
-              <mat-option [value]="type">{{ type }}</mat-option>
+          <mat-select formControlName="type">
+            @for (type of hrCampaignType; track type) {
+              <mat-option [value]="type[0]">{{ type[1] }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
       </div>
-      @if (form.get('type')?.value == automationTypeEnum.RECURRING) {
+      @if (form.get('type')?.value == hrCampaignTypeEnum.Recurring) {
         <div class="col-md-6 col-12 mb-3">
           <mat-form-field>
             <mat-label>Tipo de recorrência</mat-label>
             <mat-select formControlName="recurrence_type">
-              @for (type of recurrenceType; track type) {
-                <mat-option [value]="type">{{ type }}</mat-option>
+              @for (type of hrCampaignRecurrenceType; track type) {
+                <mat-option [value]="type[0]">{{ type[1] }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -57,10 +58,10 @@
 
       <div class="col-md-6 col-12 mb-3">
         <mat-form-field appearance="outline">
-          <mat-label>Funil</mat-label>
-          <mat-select formControlName="funnel_id" (selectionChange)="onFunnelChange($event)">
-            <mat-option *ngFor="let funnel of funnels" [value]="funnel.id">
-              {{ funnel.sector }}
+          <mat-label>Processo seletivo</mat-label>
+          <mat-select formControlName="selection_process_id" (selectionChange)="onSelectionProcessChange($event)">
+            <mat-option *ngFor="let selectionProcess of selectionProcesses" [value]="selectionProcess.id">
+              {{ selectionProcess.title }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -68,19 +69,23 @@
 
       <div class="col-md-6 col-12 mb-3">
         <mat-form-field appearance="outline">
-          <mat-label>Etapa do funil</mat-label>
-          <mat-select formControlName="funnel_id" [disabled]="funnelStepControl.disabled">
-            <mat-option *ngFor="let step of funnel_steps" [value]="step.id">
-              {{ step.sector }}
+          <mat-label>Status do processo seletivo</mat-label>
+          <mat-select formControlName="status_id" [disabled]="selectionProcessStatusControl.disabled">
+            <mat-option *ngFor="let status of selectionProcesses_status" [value]="status.id">
+              {{ status.title }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
       <div class="col-12 mb-3">
-        <mat-form-field appearance="outline">
+        <mat-form-field>
           <mat-label>Canais</mat-label>
-          <input matInput type="text" formControlName="channels">
+          <mat-select formControlName="channels">
+            @for (channel of hrCampaignChannels; track channel) {
+              <mat-option [value]="channel[0]">{{ channel[1] }}</mat-option>
+            }
+          </mat-select>
         </mat-form-field>
       </div>
 
@@ -102,7 +107,7 @@
           <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
         </div>
         <div class="col-auto">
-          <button matRipple id="submit" class="button yellow" (click)="onSubmit(form)">{{isNewAutomations ? 'Criar' :
+          <button matRipple id="submit" class="button yellow" (click)="onSubmit(form)">{{isNewHrCampaign ? 'Criar' :
             'Salvar'}}</button>
         </div>
       </div>

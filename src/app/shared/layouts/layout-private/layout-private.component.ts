@@ -117,6 +117,11 @@ export class LayoutPrivateComponent {
           icon: 'fa-solid fa-person',
           route: '/painel/rh/candidates'
         },
+        {
+          label: 'Campanhas',
+          icon: 'fa-solid fa-robot',
+          route: '/painel/rh/hr-campaign'
+        },
         // {
         //   label: 'WebChat',
         //   icon: 'fa-brands fa-whatsapp',

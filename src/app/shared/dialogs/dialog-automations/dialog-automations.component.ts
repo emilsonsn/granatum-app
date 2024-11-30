@@ -2,16 +2,17 @@ import { FunnelStep } from '@models/Funnel';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Automations, AutomationsRecurrenceType, AutomationsType } from '@models/automations';
+import { Automations, AutomationsChannels, AutomationsRecurrenceType, AutomationsType } from '@models/automations';
 import { FunnelStepService } from '@services/crm/funnel-step.service';
 import { FunnelService } from '@services/crm/funnel.service';
+import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'app-diaog-automations',
-  templateUrl: './diaog-automations.component.html',
-  styleUrl: './diaog-automations.component.scss'
+  selector: 'app-dialog-automations',
+  templateUrl: './dialog-automations.component.html',
+  styleUrl: './dialog-automations.component.scss'
 })
-export class DiaogAutomationsComponent {
+export class DialogAutomationsComponent {
 
   public isNewAutomations: boolean = true;
   public title: string = 'Nova automação';
@@ -19,17 +20,17 @@ export class DiaogAutomationsComponent {
   public form: FormGroup;
 
   public loading : boolean = false;
-  public automationType = Object.values(AutomationsType);
+  public automationType = Object.entries(AutomationsType);
   public automationTypeEnum = AutomationsType;
-  public recurrenceType = Object.values(AutomationsRecurrenceType);
-  public type: string = '';
+  public recurrenceType = Object.entries(AutomationsRecurrenceType);
+  public automationsChannels = Object.entries(AutomationsChannels);
   public funnels;
   public funnel_steps;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private readonly _data: { automations: Automations },
-    private readonly _dialogRef: MatDialogRef<DiaogAutomationsComponent>,
+    private readonly _dialogRef: MatDialogRef<DialogAutomationsComponent>,
     private readonly _fb: FormBuilder,
     private readonly _funnelService: FunnelService,
     private readonly _funnelStepService: FunnelStepService,
@@ -42,7 +43,7 @@ export class DiaogAutomationsComponent {
       title: [null, [Validators.required]],
       message: [null, [Validators.required]],
       type: [null, [Validators.required]],
-      recurrence_type: [null, [Validators.required]],
+      recurrence_type: [null],
       funnel_id: [null, [Validators.required]],
       funnel_step_id: [null, [Validators.required]],
       channels: [null, [Validators.required]],
@@ -54,6 +55,8 @@ export class DiaogAutomationsComponent {
       this.title = 'Editar automação';
       this._fillForm(this._data.automations);
     }
+
+    this.getFunnels()
   }
 
   private _fillForm(funnel: Automations): void {
@@ -65,7 +68,19 @@ export class DiaogAutomationsComponent {
     this._dialogRef.close();
   }
 
-  public onSubmit(form: FormGroup): void {
+  public async onSubmit(form: FormGroup): Promise<void> {
+
+    await this.form.get('type')?.valueChanges.subscribe((value) => {
+      const recurrenceTypeControl = this.form.get('recurrence_type');
+      if (value === this.automationTypeEnum.Recurring) {
+        recurrenceTypeControl?.setValidators([Validators.required]);
+        recurrenceTypeControl?.updateValueAndValidity();
+      } else {
+        recurrenceTypeControl?.clearValidators();
+        recurrenceTypeControl?.updateValueAndValidity();
+      }
+    });
+
     if(!form.valid){
       form.markAllAsTouched();
     }else{
@@ -74,7 +89,11 @@ export class DiaogAutomationsComponent {
   }
 
   public getFunnels() {
-    this._funnelService.getFunnels()
+    this._funnelService.getFunnels().pipe(finalize(() => {
+      if(this.form.get('funnel_id').value){
+        this.getFunnelSteps(this.form.get('funnel_id').value)
+      }
+    }))
       .subscribe(res => {
         this.funnels = res.data;
       })

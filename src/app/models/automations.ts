@@ -5,21 +5,26 @@ export interface Automations {
   title: string;
   message: string;
   type: AutomationsType;
-  recurrence_type: string;
+  recurrence_type: AutomationsRecurrenceType;
   funnel_id: number;
   funnel_step_id?: number;
-  channels: string;
-  start_date: string;
+  channels: AutomationsChannels;
+  start_date: Date;
   funnel?: Funnel;
 }
 
 export enum AutomationsType {
-  SINGLE = 'Isolado',
-  RECURRING = 'Recorrente'
+  Single = 'Avulso',
+  Recurring = 'Recorrente'
 }
 
 export enum AutomationsRecurrenceType {
-  MONTHLY = 'Mensal',
-  FORTNIGHTLY = 'Quinzenal',
-  WEEKLY = 'Semanal'
+  Monthly = 'Mensal',
+  Fortnightly = 'Quinzenal',
+  Weekly = 'Semanal'
+}
+
+export enum AutomationsChannels {
+  Email = 'Email',
+  Whatsapp = 'WhatsApp'
 }

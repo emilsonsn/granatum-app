@@ -30,6 +30,7 @@ import {MatTooltip} from "@angular/material/tooltip";
 import { TableBankComponent } from './table-bank/table-bank.component';
 import { TablePartnerComponent } from './table-partner/table-partner.component';
 import { TableAutomationsComponent } from './table-automations/table-automations.component';
+import { TableHrCampaignComponent } from './table-hr-campaign/table-hr-campaign.component';
 
 const tables = [
   TableOrdersComponent,
@@ -53,6 +54,7 @@ const tables = [
   TableBankComponent,
   TablePartnerComponent,
   TableAutomationsComponent,
+  TableHrCampaignComponent,
 ]
 
 @NgModule({

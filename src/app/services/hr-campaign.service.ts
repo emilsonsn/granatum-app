@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponsePageable, PageControl } from '@models/application';
-import { Automations } from '@models/automations';
+import { HrCampaign } from '@models/hrCampaign';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AutomationsService {
-  private readonly baseUrl = `${environment.api}/automations`;
+export class HrCampaignService {
+  private readonly baseUrl = `${environment.api}/hr-campaign`;
 
   constructor(private readonly _http: HttpClient) { }
 
-  getAutomations(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<Automations>> {
+  getHrCampaigns(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<HrCampaign>> {
 
-    return this._http.get<ApiResponsePageable<Automations>>(`${this.baseUrl}/search`);
+    return this._http.get<ApiResponsePageable<HrCampaign>>(`${this.baseUrl}/search`);
   }
 
   // Get a list of funnels steps with optional query parameters
@@ -29,13 +29,13 @@ export class AutomationsService {
   }
 
   // Create a new funnel step
-  create(automationsData: any): Observable<any> {
-    return this._http.post(`${this.baseUrl}/create`, automationsData);
+  create(hrCampaignData: any): Observable<any> {
+    return this._http.post(`${this.baseUrl}/create`, hrCampaignData);
   }
 
   // Update an existing funnel step
-  update(id: string, automationsData: Automations): Observable<any> {
-    return this._http.patch(`${this.baseUrl}/${id}`, automationsData);
+  update(id: string, hrCampaignData: HrCampaign): Observable<any> {
+    return this._http.patch(`${this.baseUrl}/${id}`, hrCampaignData);
   }
 
   // Delete a funnel step by ID
