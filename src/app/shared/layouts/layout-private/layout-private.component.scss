@@ -23,8 +23,33 @@ main {
       padding-top: 1rem;
       padding-bottom: 0;
       overflow: auto;
-      padding-left: 2rem !important;
-      padding-right: 2rem !important;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
+  }
+}
+
+
+// Tablets
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md - 1) {
+  .content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+// Smartphones grandes
+@media (min-width: $breakpoint-xs) and (max-width: $breakpoint-sm - 1) {
+  .content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+// Smartphones pequenos
+@media (max-width: $breakpoint-xs - 1) {
+  .content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }

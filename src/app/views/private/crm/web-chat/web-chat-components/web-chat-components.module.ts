@@ -12,6 +12,7 @@ import {
   WebChatCompletedComponent
 } from "@app/views/private/crm/web-chat/web-chat-components/web-chat-completed/web-chat-completed.component";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import { WebChatBalloonsComponent } from './web-chat-balloons/web-chat-balloons.component';
 
 
 @NgModule({
@@ -19,13 +20,15 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
     WebChatItemComponent,
     WebChatAttendingComponent,
     WebChatWaitingComponent,
-    WebChatCompletedComponent
+    WebChatCompletedComponent,
+    WebChatBalloonsComponent
   ],
   exports: [
     WebChatItemComponent,
     WebChatAttendingComponent,
     WebChatWaitingComponent,
-    WebChatCompletedComponent
+    WebChatCompletedComponent,
+    WebChatBalloonsComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,9 @@
 <div class="web-chat-main">
-  <app-web-chat-sidebar></app-web-chat-sidebar>
+  @if(isMobile){
+    <app-web-chat-sidebar *ngIf="!isInsideRouterOutlet"></app-web-chat-sidebar>
+  } @else {
+    <app-web-chat-sidebar></app-web-chat-sidebar>
+  }
   <div class="web-chat-container">
     <router-outlet></router-outlet>
   </div>

@@ -1,0 +1,81 @@
+@import "variables";
+
+.balloon-body {
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+
+  .balloon-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem 0;
+
+    .name {
+      font-weight: bold;
+    }
+  }
+
+  .balloon-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem 0;
+    gap: 0.5rem;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .balloon-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1rem;
+
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+
+.balloon-body.left {
+  background-color: #485267;
+  border-bottom-left-radius: 0;
+
+  .balloon-header {
+    color: white;
+
+    .phone {
+      color: #b1b1b1;
+    }
+  }
+
+
+  .balloon-content {
+    color: white;
+  }
+
+  .balloon-footer {
+    color: #b1b1b1;
+  }
+}
+
+.balloon-body.right {
+  background-color: #377B6A;
+  border-bottom-right-radius: 0;
+
+  .balloon-header {
+    display: none;
+  }
+
+
+  .balloon-content {
+    color: white;
+  }
+
+  .balloon-footer {
+    color: #bbbbbb;
+  }
+
+}
