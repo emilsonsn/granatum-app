@@ -1,110 +1,89 @@
-import { Component } from '@angular/core';
-import { Contact } from "@models/contact";
-import { ActivatedRoute } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { Message } from "@models/message";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Contact, Message, SendMessagePayloadDto} from "@models/Whatsapp";
+import {ActivatedRoute, Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
+import {WhatsappService} from "@services/crm/whatsapp.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-web-chat-private',
   templateUrl: './web-chat-private.component.html',
   styleUrls: ['./web-chat-private.component.scss']
 })
-export class WebChatPrivateComponent {
+export class WebChatPrivateComponent implements OnInit, OnDestroy {
   contact: Contact | null = null;
   uuid: string = '';
-  messages: Message[] = [
-    ...Array.from({ length: 5 }, (_, i) => {
-      const currentDate = new Date();
-      const messageDate = new Date(currentDate.getTime() - i * 60000);
-
-      return {
-        id: i,
-        message: `${i % 2 === 0 ? 'Esta é uma mensagem do bot.' : 'Esta é uma resposta do utilizador.'} ${i}`,
-        sender: i % 2 === 0 ? 'bot' : 'user',
-        date: messageDate,
-        phone: '555-010' + (i + 1) // Adiciona um número de telefone fictício
-      };
-    }),
-
-    ...Array.from({ length: 5 }, (_, i) => {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      const messageDate = new Date(yesterday.getTime() - i * 60000);
-
-      return {
-        id: i + 5,
-        message: `${i % 2 === 0 ? 'Esta é uma mensagem do bot.' : 'Esta é uma resposta do utilizador.'} ${i + 5}`,
-        sender: i % 2 === 0 ? 'bot' : 'user',
-        date: messageDate,
-        phone: '555-020' + (i + 1) // Adiciona um número de telefone fictício
-      };
-    }),
-
-    ...Array.from({ length: 5 }, (_, i) => {
-      const date = new Date();
-      date.setDate(date.getDate() - 3);
-      const messageDate = new Date(date.getTime() - i * 60000);
-
-      return {
-        id: i + 10,
-        message: `${i % 2 === 0 ? 'Esta é uma mensagem do bot.' : 'Esta é uma resposta do utilizador.'} ${i + 10}`,
-        sender: i % 2 === 0 ? 'bot' : 'user',
-        date: messageDate,
-        phone: '555-030' + (i + 1) // Adiciona um número de telefone fictício
-      };
-    })
-  ];
-
+  messages: Message[] = [];
+  private subscription: Subscription;
   groupedMessages: { [key: string]: Message[] } = {};
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
-  ) { }
-
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.uuid = params['uuid'];
-      this.loadContactByUuid(this.uuid);
-    });
-
-    this.groupMessagesByDay();
+    private http: HttpClient,
+    private readonly _router: Router,
+    private readonly whatsappService: WhatsappService
+  ) {
   }
 
-  loadContactByUuid(uuid: string): void {
-    this.http.get<Contact[]>('assets/json/contacts_mock.json')
+  ngOnInit(): void {
+    this.subscription = this.whatsappService.data$.subscribe((data) => {
+      this.contact = data; // Atualiza a variável local quando o BehaviorSubject emite um valor
+    });
+
+    this.route.params.subscribe(params => {
+      this.uuid = params['uuid'];
+      this.loadMessagesByUuid(this.uuid);
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Cancelar subscrição para evitar memory leaks
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  private loadMessagesByUuid(uuid: string) {
+    this.whatsappService.searchMessage(uuid)
       .subscribe({
         next: (data) => {
-          this.contact = data.find(contact => contact.uuid === uuid) || null;
-          if (!this.contact) {
-            console.error('Contato não encontrado');
-          }
+          this.messages = data.data;
+          this.groupMessagesByDay();
+          console.log(this.groupedMessages);
         },
-        error: (err) => {
-          console.error('Erro ao carregar os contatos', err);
+        error: (error) => {
+          console.error(error);
         }
       });
   }
 
   sendMessage(message: string): void {
-
-    const newMessage: Message = {
-      id: this.messages.length,
+    const newMessage: SendMessagePayloadDto = {
       message: message,
-      sender: 'user',
-      date: new Date(),
-      phone: '555-04001'
+      number: this.contact?.remoteJid,
     };
 
-    this.messages = [newMessage, ...this.messages];
-    this.groupMessagesByDay();
+    this.whatsappService.sendMessage(newMessage)
+      .subscribe({
+        next: (data) => {
+          this.loadMessagesByUuid(this.uuid);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
 
+    // this.messages = [newMessage, ...this.messages];
+    this.groupMessagesByDay();
   }
 
   groupMessagesByDay(): void {
     this.groupedMessages = this.messages.reduce((acc, message) => {
+      // Converte updated_at para um objeto Date, caso ainda não seja
+      const dateObj = new Date(message.updated_at);
+
       // Formata a data para comparar apenas o dia (ano-mês-dia)
-      const dateKey = message.date.toISOString().split('T')[0];
+      const dateKey = dateObj.toISOString().split('T')[0];
 
       if (!acc[dateKey]) {
         acc[dateKey] = [];
@@ -114,13 +93,10 @@ export class WebChatPrivateComponent {
       acc[dateKey].push(message);
 
       // Ordena as mensagens no grupo por data
-      acc[dateKey].sort((a, b) => a.date.getTime() - b.date.getTime());
+      acc[dateKey].sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime());
 
       return acc;
     }, {});
   }
-
-
-
 
 }

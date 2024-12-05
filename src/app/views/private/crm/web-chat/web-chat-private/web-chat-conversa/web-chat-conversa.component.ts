@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {Message} from "@models/message";
+import { Component, Input } from '@angular/core';
+import { Message } from "@models/Whatsapp";
 
 @Component({
   selector: 'app-web-chat-conversa',
@@ -9,16 +9,24 @@ import {Message} from "@models/message";
 export class WebChatConversaComponent {
   @Input() data!: { [p: string]: Message[] };
 
-  getDateLabel(date: Date): string {
+  getDateLabel(date: string | Date): string {
+    // Garantir que o parâmetro date seja um objeto Date
+    const parsedDate = new Date(date);
+
+    // Verifica se a data é válida
+    if (isNaN(parsedDate.getTime())) {
+      return 'Data inválida';
+    }
+
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
 
-    if (date.toDateString() === today.toDateString()) {
+    if (parsedDate.toDateString() === today.toDateString()) {
       return 'Hoje';
-    } else if (date.toDateString() === yesterday.toDateString()) {
+    } else if (parsedDate.toDateString() === yesterday.toDateString()) {
       return 'Ontem';
     }
-    return date.toDateString();
+    return parsedDate.toLocaleDateString(); // Usa a data no formato local
   }
 }

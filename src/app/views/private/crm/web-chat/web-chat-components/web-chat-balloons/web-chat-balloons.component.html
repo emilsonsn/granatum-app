@@ -1,12 +1,12 @@
-<div class="balloon-body" [ngClass]="data.sender === 'user' ? 'right' : 'left'">
+<div class="balloon-body" [ngClass]="data.fromMe ? 'left' : 'right'">
   <div class="balloon-header" *ngIf="!titleHidden">
-    <div class="name">{{ data.sender }}</div>
+    <div class="name">{{ data.fromMe }}</div>
     <div class="phone">{{ data.phone }}</div>
   </div>
   <div class="balloon-content">
     <p>{{ data.message }}</p>
   </div>
   <div class="balloon-footer">
-    <p>{{ formatDate(data.date) }}</p>
+    <p>{{ formatDate(data.updated_at) }}</p>
   </div>
 </div>

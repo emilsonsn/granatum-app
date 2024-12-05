@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Contact, ContactStatus} from "@models/contact";
+import {Contact, ContactStatus} from "@models/Whatsapp";
 import {Router} from "@angular/router";
+import {WhatsappService} from "@services/crm/whatsapp.service";
 
 @Component({
   selector: 'app-web-chat-item',
@@ -13,16 +14,20 @@ export class WebChatItemComponent {
 
   @Input() data: Contact;
 
-  constructor(protected router: Router) {
+  constructor(
+    protected router: Router,
+    private whatsappService: WhatsappService
+  ) {
   }
 
   clicked(event: Event, item: Contact) {
     event.preventDefault();
-    if (this.data.status === ContactStatus.Waiting) {
+    /*if (this.data.status === ContactStatus.Waiting) {
       return;
-    }
+    }*/
 
-    this.router.navigate(['painel/crm/web-chat', item.uuid]).then();
+    this.whatsappService.setContact(item);
+    this.router.navigate(['painel/crm/web-chat', item.remoteJid]).then();
   }
 
 
@@ -67,7 +72,7 @@ export class WebChatItemComponent {
   }
 
   truncateString(value: string, length: number): string {
-    if (value.length > length) {
+    if (value && (value.length > length)) {
       return value.slice(0, length) + "..."; // Trunca e adiciona "..."
     }
     return value; // Retorna a string original se o comprimento não ultrapassar o limite

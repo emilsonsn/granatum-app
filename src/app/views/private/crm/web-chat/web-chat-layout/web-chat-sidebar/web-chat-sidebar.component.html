@@ -35,9 +35,9 @@
     <mat-tab-group>
       <mat-tab>
         <ng-template mat-tab-label>
-          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Attending])" matBadgePosition="above after" matBadgeColor="accent">Atendendo</span>
+          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Responding])" matBadgePosition="above after" matBadgeColor="accent">Atendendo</span>
         </ng-template>
-        <app-web-chat-attending [data]="groupedContacts[ContactStatus.Attending]"></app-web-chat-attending>
+        <app-web-chat-attending [data]="groupedContacts[ContactStatus.Responding]"></app-web-chat-attending>
       </mat-tab>
 
       <mat-tab>
@@ -49,9 +49,9 @@
 
       <mat-tab>
         <ng-template mat-tab-label>
-          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Completed])" matBadgePosition="above after" matBadgeColor="accent">Finalizado</span>
+          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Finished])" matBadgePosition="above after" matBadgeColor="accent">Finalizado</span>
         </ng-template>
-        <app-web-chat-completed [data]="groupedContacts[ContactStatus.Completed]"></app-web-chat-completed>
+        <app-web-chat-completed [data]="groupedContacts[ContactStatus.Finished]"></app-web-chat-completed>
       </mat-tab>
     </mat-tab-group>
   </div>

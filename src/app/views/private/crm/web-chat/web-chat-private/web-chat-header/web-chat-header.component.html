@@ -1,14 +1,14 @@
 <div class="web-chat-header">
   <div class="web-chat-header-avatar">
-    <app-avatar [hidden]="true" [qtdBadge]="1" [size]="50" [imageUrl]="data?.photo"
+    <app-avatar [hidden]="true" [qtdBadge]="1" [size]="50" [imageUrl]="data?.profilePicUrl"
                 [altText]="'altText'"></app-avatar>
     <div class="web-chat-header-info">
       <h3>{{ data?.name }}
-        @if (data.tag) {
+        <!--@if (data.tag) {
           <span class="tag">{{ data.tag }}</span>
-        }
+        }-->
       </h3>
-      <p>{{ 'online' }}</p>
+<!--      <p>{{ 'online' }}</p>-->
     </div>
   </div>
   <div class="d-flex gap-3 h-100 align-items-center justify-content-center">

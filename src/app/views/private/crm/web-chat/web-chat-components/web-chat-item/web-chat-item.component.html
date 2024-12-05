@@ -1,22 +1,22 @@
-<div class="web-chat-item-container" (click)="clicked($event, data)" [ngClass]="{'active': router.url === '/painel/crm/web-chat/' + data.uuid}">
+<div class="web-chat-item-container" (click)="clicked($event, data)" [ngClass]="{'active': router.url === '/painel/crm/web-chat/' + data.remoteJid}">
   <div class="web-chat-item-avatar">
-    <app-avatar [hidden]="!data.unread" [qtdBadge]="1" [size]="50" [imageUrl]="data?.photo" [altText]="'altText'"></app-avatar>
+    <app-avatar [hidden]="true" [qtdBadge]="1" [size]="50" [imageUrl]="data?.profilePicUrl" [altText]="'altText'"></app-avatar>
   </div>
   <div class="web-chat-item-details">
     <div class="web-chat-item-details-primary">
       <div class="web-chat-item-details-primary-left">
         <h4>
           {{ data?.name }}
-          @if (data.tag) {
+         <!-- @if (data && data.tag) {
             <span class="tag">{{ data.tag }}</span>
-          }
+          }-->
         </h4>
-        <p>{{ formatDate(data?.lastMessageTime) }}</p>
+        <p>{{ formatDate(data?.updated_at) }}</p>
       </div>
 <!--      <i class="fa-solid fa-ellipsis-vertical"></i>-->
     </div>
     <div class="web-chat-item-info">
-      <p>{{ truncateString(data?.lastMessage, 20) }}</p>
+      <p>{{ truncateString(data?.last_message?.message, 20) }}</p>
       <button *ngIf="data.status === ContactStatus.Waiting">Aceitar</button>
     </div>
   </div>
