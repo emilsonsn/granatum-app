@@ -34,6 +34,7 @@ export interface Contact {
   created_at: string; // ISO date string.
   updated_at: string; // ISO date string.
   deleted_at: string | null; // ISO date string ou null.
+  unread_count: number;
   last_message: LastMessage | null; // Representa a última mensagem.
 }
 

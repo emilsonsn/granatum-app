@@ -39,6 +39,8 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
       this.contact = data; // Atualiza a variável local quando o BehaviorSubject emite um valor
     });
 
+    this.socket.emit('subscribe', 'evolution-channel');  // Envia evento de inscrição ao servidor
+
     // Recebe mensagens do canal
     this.socket.fromEvent('evolution-channel').subscribe((message: any) => {
       this.messages.push(message);

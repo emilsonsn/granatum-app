@@ -20,7 +20,7 @@ import {BrowserstateInterceptor} from './interceptors/browserstate.interceptor';
 import {BrowserAnimationsModule, provideAnimations} from '@angular/platform-browser/animations';
 import {NgxEditorModule} from 'ngx-editor';
 import {environment} from "@env/environment";
-import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
+import {SocketIoConfig} from "ngx-socket-io";
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -43,7 +43,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    SocketIoModule.forRoot(config),
     BrowserAnimationsModule,
     AppRoutingModule,
     MatMomentDateModule,

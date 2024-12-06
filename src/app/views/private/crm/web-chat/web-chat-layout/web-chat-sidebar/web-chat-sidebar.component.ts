@@ -75,12 +75,18 @@ export class WebChatSidebarComponent {
           break;
       }
     });
+
+    // Ordenar cada grupo de contatos pelo campo 'updated_at' (do mais recente para o menos recente)
+    Object.keys(this.groupedContacts).forEach(status => {
+      this.groupedContacts[status as ContactStatus] = this.groupedContacts[status as ContactStatus]
+        .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+    });
   }
+
 
   protected readonly ContactStatus = ContactStatus;
 
   getBagdeTab(groupedContact: Contact[]) {
-    // return groupedContact.filter(a => a.unread).length;
-    return 1
+    return groupedContact.length;
   }
 }

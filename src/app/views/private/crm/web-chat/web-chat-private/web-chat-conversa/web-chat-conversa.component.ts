@@ -26,11 +26,18 @@ export class WebChatConversaComponent {
 
   onScroll(event: Event): void {
     const target = event.target as HTMLElement;
-    const reachedTop = Math.floor(target.scrollHeight + target.scrollTop) == Math.floor(target.clientHeight);
+    const scrollPosition = Math.floor(target.scrollHeight + target.scrollTop);
+    const clientHeight = Math.floor(target.clientHeight);
+
+    // Margem de erro de 3px
+    const errorMargin = 3;
+    const reachedTop = Math.abs(scrollPosition - clientHeight) <= errorMargin;
 
     if (reachedTop && !this.loading) {
       this.reachedTop.emit();
     }
   }
+
+
 
 }
