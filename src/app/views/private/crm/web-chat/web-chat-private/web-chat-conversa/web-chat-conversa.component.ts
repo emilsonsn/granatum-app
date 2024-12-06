@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Message } from "@models/Whatsapp";
+import dayjs from "dayjs";
 
 @Component({
   selector: 'app-web-chat-conversa',
@@ -8,25 +9,28 @@ import { Message } from "@models/Whatsapp";
 })
 export class WebChatConversaComponent {
   @Input() data!: { [p: string]: Message[] };
+  @Input() loading: boolean = false;
+  @Output() reachedTop = new EventEmitter<void>();
 
-  getDateLabel(date: string | Date): string {
-    // Garantir que o parâmetro date seja um objeto Date
-    const parsedDate = new Date(date);
+  getDateLabel(date: string): string {
+    const today = dayjs();
+    const yesterday = today.subtract(1, 'day');
 
-    // Verifica se a data é válida
-    if (isNaN(parsedDate.getTime())) {
-      return 'Data inválida';
-    }
-
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-
-    if (parsedDate.toDateString() === today.toDateString()) {
+    if (dayjs(date).isSame(today, 'day')) {
       return 'Hoje';
-    } else if (parsedDate.toDateString() === yesterday.toDateString()) {
+    } else if (dayjs(date).isSame(yesterday, 'day')) {
       return 'Ontem';
     }
-    return parsedDate.toLocaleDateString(); // Usa a data no formato local
+    return dayjs(date).format('YYYY-MM-DD');
   }
+
+  onScroll(event: Event): void {
+    const target = event.target as HTMLElement;
+    const reachedTop = Math.floor(target.scrollHeight + target.scrollTop) == Math.floor(target.clientHeight);
+
+    if (reachedTop && !this.loading) {
+      this.reachedTop.emit();
+    }
+  }
+
 }

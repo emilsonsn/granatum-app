@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {WhatsappService} from "@services/crm/whatsapp.service";
 import {Subscription} from "rxjs";
+import {Order, PageControl} from "@models/application";
 
 @Component({
   selector: 'app-web-chat-private',
@@ -16,6 +17,14 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   private subscription: Subscription;
   groupedMessages: { [key: string]: Message[] } = {};
+  loading: boolean = false;
+  pageControl: PageControl = {
+    take: 20,
+    page: 1,
+    itemCount: 0,
+    pageCount: 0,
+    order: Order.DESC,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -32,9 +41,15 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
 
     this.route.params.subscribe(params => {
       this.uuid = params['uuid'];
-      this.loadMessagesByUuid(this.uuid);
+
+      // Zera as variáveis para garantir que a conversa seja reiniciada
+      this.messages = [];
+      this.groupedMessages = {};
+      this.pageControl.page = 1;  // Reinicia a paginação
+      this.loadMessagesByUuid(this.uuid);  // Carrega as mensagens novamente
     });
   }
+
 
   ngOnDestroy(): void {
     // Cancelar subscrição para evitar memory leaks
@@ -43,16 +58,28 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
     }
   }
 
+  public _initOrStopLoading() {
+    this.loading = !this.loading;
+  }
+
   private loadMessagesByUuid(uuid: string) {
-    this.whatsappService.searchMessage(uuid)
+    this._initOrStopLoading();
+    this.whatsappService.searchMessage(uuid, this.pageControl)
       .subscribe({
         next: (data) => {
-          this.messages = data.data;
+          const newMessages = data.data;
+
+          const filteredMessages = newMessages.filter(newMsg =>
+            !this.messages.some(existingMsg => existingMsg.id === newMsg.id)
+          );
+
+          this.messages = [...this.messages, ...filteredMessages];
           this.groupMessagesByDay();
-          console.log(this.groupedMessages);
+          this._initOrStopLoading();
         },
         error: (error) => {
           console.error(error);
+          this._initOrStopLoading();
         }
       });
   }
@@ -99,4 +126,8 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
     }, {});
   }
 
+  reachedTop($event: void) {
+    this.pageControl.page += 1;
+    this.loadMessagesByUuid(this.uuid);
+  }
 }

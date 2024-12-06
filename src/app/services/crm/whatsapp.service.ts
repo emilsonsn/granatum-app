@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from "@env/environment";
-import {ApiResponsePageable} from "@models/application";
+import {ApiResponsePageable, PageControl} from "@models/application";
 import {Contact, Message, SendMessagePayload, SendMessagePayloadDto} from "@models/Whatsapp";
+import {Utils} from "@shared/utils";
 
 
 @Injectable({
@@ -44,17 +45,14 @@ export class WhatsappService {
   /**
    * Pesquisa mensagens por remoteJid
    * @param remoteJid Identificador remoto do chat
-   * @param params Parâmetros opcionais de pesquisa
+   * @param pageControl Parâmetros opcionais de pesquisa
+   * @param filters
    */
-  searchMessage(remoteJid: string, params?: Record<string, any>): Observable<ApiResponsePageable<Message>> {
-    let httpParams = new HttpParams();
-    if (params) {
-      Object.keys(params).forEach((key) => {
-        httpParams = httpParams.set(key, params[key]);
-      });
-    }
+  searchMessage(remoteJid: string, pageControl?: PageControl, filters?: Record<string, any>): Observable<ApiResponsePageable<Message>> {
+    const paginate = Utils.mountPageControl(pageControl);
+    const filterParams = Utils.mountPageControl(filters);
 
-    return this.http.get<ApiResponsePageable<Message>>(`${this.baseUrl}/messages/${remoteJid}`, {params: httpParams});
+    return this.http.get<ApiResponsePageable<Message>>(`${this.baseUrl}/messages/${remoteJid}?${paginate}${filterParams}`);
   }
 
   /**
