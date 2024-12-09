@@ -15,7 +15,7 @@ export interface HrCampaign {
 
 export enum HrCampaignType {
   Single = 'Avulso',
-  Recurring = 'Recorrente'
+  Recurrence = 'Recorrente'
 }
 
 export enum HrCampaignRecurrenceType {

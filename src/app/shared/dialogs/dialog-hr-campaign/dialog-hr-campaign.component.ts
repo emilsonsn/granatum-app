@@ -73,7 +73,7 @@ export class DialogHrCampaignComponent {
 
     await this.form.get('type')?.valueChanges.subscribe((value) => {
       const recurrenceTypeControl = this.form.get('recurrence_type');
-      if (value === this.hrCampaignTypeEnum.Recurring) {
+      if (value === this.hrCampaignTypeEnum.Recurrence) {
         recurrenceTypeControl?.setValidators([Validators.required]);
         recurrenceTypeControl?.updateValueAndValidity();
       } else {

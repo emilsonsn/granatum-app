@@ -9,7 +9,7 @@ const routes: Routes = [
     component: BudgetComponent
   },
   {
-    path: 'budget-detail',
+    path: 'detail/:id',
     component: BudgetDetailComponent
   },
   {

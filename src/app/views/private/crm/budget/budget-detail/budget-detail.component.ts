@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BudgetDetailService } from '@services/crm/budget-detail.service';
@@ -19,7 +19,8 @@ export class BudgetDetailComponent {
     private readonly _fb: FormBuilder,
     private readonly _toastr: ToastrService,
     private readonly _budgetDetailService: BudgetDetailService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _route: ActivatedRoute
   ) {
   }
 
@@ -41,6 +42,22 @@ export class BudgetDetailComponent {
       conclusion_text_1: [null],
       conclusion_text_2: [null],
     })
+
+    const id = this._route.snapshot.paramMap.get('id');
+    this.getDetails(id);
+
+  }
+
+  public getDetails(id){
+    this._budgetDetailService.getById(id)
+    .subscribe({
+      next: (res) => {
+        this.form.patchValue(res);        
+      },
+      error: (error) => {
+        this._toastr.error(error.error.message);
+      }
+    });
   }
 
   isDragOver: boolean = false;
@@ -196,14 +213,13 @@ export class BudgetDetailComponent {
         formData.append('final_cover', this.files['final_cover']);
       }
 
-      this._postBudgetDetail(formData);
+      this._pathBudgetDetail(formData);
     }
   }
 
-  private _postBudgetDetail(res: any) {
-    console.log(res);
+  private _pathBudgetDetail(res: any) {
     this._initOrStopLoading();
-    this._budgetDetailService.create(res).subscribe({
+    this._budgetDetailService.update(res.get('id'), res).subscribe({
       next: () => {
         this._toastr.success("Detalhe do orçamento criado com sucesso!");
         this._initOrStopLoading();

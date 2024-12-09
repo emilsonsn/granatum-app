@@ -15,7 +15,7 @@ import { finalize } from 'rxjs';
 export class DialogAutomationsComponent {
 
   public isNewAutomations: boolean = true;
-  public title: string = 'Nova automação';
+  public title: string = 'Nova campanha';
 
   public form: FormGroup;
 
@@ -45,14 +45,14 @@ export class DialogAutomationsComponent {
       type: [null, [Validators.required]],
       recurrence_type: [null],
       funnel_id: [null, [Validators.required]],
-      funnel_step_id: [null, [Validators.required]],
+      funnel_step_id: [null],
       channels: [null, [Validators.required]],
       start_date: [null, [Validators.required]],
     })
 
     if (this._data?.automations) {
       this.isNewAutomations = false;
-      this.title = 'Editar automação';
+      this.title = 'Editar campanha';
       this._fillForm(this._data.automations);
     }
 

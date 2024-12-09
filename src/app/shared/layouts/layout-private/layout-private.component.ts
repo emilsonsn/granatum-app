@@ -146,7 +146,7 @@ export class LayoutPrivateComponent {
           route: '/painel/crm/leads'
         },
         {
-          label: 'Automações',
+          label: 'Campanha',
           icon: 'fa-solid fa-robot',
           route: '/painel/crm/automations'
         },

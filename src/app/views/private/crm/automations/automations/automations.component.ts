@@ -50,8 +50,8 @@ export class AutomationsComponent {
       .subscribe({
         next: (res) => {
           if (res) {
-            if (res.get('id') != 'null') {
-              this._patchAutomation(res.get('id'), {
+            if (res.id) {
+              this._patchAutomation(res.id, {
                 ...res,
                 start_date: dayjs(res.start_date).format('YYYY-MM-DD HH:mm:ss'),
               });

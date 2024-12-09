@@ -51,7 +51,7 @@ export class TableBudgetComponent {
       slug: "",
       order: true,
       title: "Ações",
-      align: "justify-content-center",
+      align: "justify-content-end",
     },
   ];
 

@@ -36,7 +36,7 @@ export class BudgetComponent {
 
     const dialogConfig: MatDialogConfig = {
       width: '80%',
-      maxWidth: '1000px',
+      maxWidth: '600px',
       maxHeight: '90%',
       hasBackdrop: true,
       closeOnNavigation: true,
@@ -51,8 +51,8 @@ export class BudgetComponent {
       .subscribe({
         next: (res) => {
           if (res) {
-            if (res.get('id') != 'null') {
-              this._patchBudget(res.get('id'), res);
+            if (res.id) {
+              this._patchBudget(res.id, res);
               return;
             }
 
@@ -120,7 +120,8 @@ export class BudgetComponent {
   }
 
   public redirectForBudgetDetail(id: number){
-    this._router.navigate([`/painel/crm/budget/generate-budget/${id}`])
+    this._router.navigate([`/painel/crm/budget/detail/${id}`])
+    
   }
 }
 
