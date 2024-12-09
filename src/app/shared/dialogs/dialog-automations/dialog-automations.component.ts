@@ -53,7 +53,10 @@ export class DialogAutomationsComponent {
     if (this._data?.automations) {
       this.isNewAutomations = false;
       this.title = 'Editar campanha';
-      this._fillForm(this._data.automations);
+      this._fillForm({
+        ...this._data.automations,
+        start_date: new Date(this._data.automations.start_date),
+      });
     }
 
     this.getFunnels()
