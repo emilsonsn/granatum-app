@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AutomationsService {
-  private readonly baseUrl = `${environment.api}/automations`;
+  private readonly baseUrl = `${environment.api}/crm-campaign`;
 
   constructor(private readonly _http: HttpClient) { }
 
