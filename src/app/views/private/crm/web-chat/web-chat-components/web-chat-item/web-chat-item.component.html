@@ -19,14 +19,20 @@
       <p>{{ truncateString(data?.last_message?.message, 20) }}</p>
       <button
       *ngIf="data.status === ContactStatus.Waiting"
-      (click)="updateStatus(data.id, ContactStatus.Responding)">
+      (click)="updateStatus(data.id, ContactStatus.Responding, $event)">
         Aceitar
       </button>
 
       <button
       *ngIf="data.status === ContactStatus.Responding"
-      (click)="updateStatus(data.id, ContactStatus.Finished)">
+      (click)="updateStatus(data.id, ContactStatus.Finished, $event)">
         Finalizar
+      </button>
+
+      <button
+      *ngIf="data.status === ContactStatus.Finished"
+      (click)="updateStatus(data.id, ContactStatus.Responding, $event)">
+        Reatender
       </button>
     </div>
   </div>

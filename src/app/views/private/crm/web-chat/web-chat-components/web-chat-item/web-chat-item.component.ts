@@ -78,7 +78,9 @@ export class WebChatItemComponent {
     return value; // Retorna a string original se o comprimento não ultrapassar o limite
   }
 
-  updateStatus(id, status: ContactStatus){
+  updateStatus(id, status: ContactStatus, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
     this.whatsappService.updateStatus(id, status)
     .subscribe({
       next: (res) => {      
