@@ -1,0 +1,30 @@
+<div id="appHeaderTemplate" [@showFilters]="showFilter() ? 'expanded' : 'collapsed'">
+  <div id="componentHeader">
+
+    <div>
+      <!--
+      <app-search-input
+        (onSearchInputChanged)="handleSearchTerm($event)">
+      </app-search-input> -->
+    </div>
+
+    <div id="options">
+      <button id="filter" matRipple (click)="toggleShowFilter()">
+        <i class="fa-solid fa-filter"></i>
+      </button>
+
+      <div id="buttons">
+        <ng-content select="#buttons"></ng-content>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="filtersTemplate" [@filterExpand]="showFilter() ? 'expanded' : 'collapsed'">
+    <div class="px-md-4 px-3 py-md-3 py-2">
+      <ng-content select="#filters"></ng-content>
+
+    </div>
+  </div>
+
+</div>

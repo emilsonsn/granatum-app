@@ -1,31 +1,33 @@
-import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import player from 'lottie-web';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ToastrModule } from 'ngx-toastr';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { provideLottieOptions } from 'ngx-lottie';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DATE_PIPE_DEFAULT_OPTIONS, registerLocaleData } from '@angular/common';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import {ToastrModule} from 'ngx-toastr';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {provideLottieOptions} from 'ngx-lottie';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {registerLocaleData} from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import {NativeDateAdapter, provideNativeDateAdapter} from '@angular/material/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { provideNgxMask } from 'ngx-mask';
-import {
-  CURRENCY_MASK_CONFIG,
-  CurrencyMaskConfig,
-  CurrencyMaskModule,
-} from 'ng2-currency-mask';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthInterceptorService } from '@services/auth-interceptor.service';
-import { BrowserstateInterceptor } from './interceptors/browserstate.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { NgxEditorModule } from 'ngx-editor';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {provideNgxMask} from 'ngx-mask';
+import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule,} from 'ng2-currency-mask';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptorService} from '@services/auth-interceptor.service';
+import {BrowserstateInterceptor} from './interceptors/browserstate.interceptor';
+import {BrowserAnimationsModule, provideAnimations} from '@angular/platform-browser/animations';
+import {NgxEditorModule} from 'ngx-editor';
+import {environment} from "@env/environment";
+import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
 
 registerLocaleData(localePt, 'pt-BR');
+
+const config: SocketIoConfig = {
+  url: environment.wsUrl,
+  options: {transports: ['websocket']}
+};
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
@@ -41,6 +43,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    SocketIoModule.forRoot(config),
     BrowserAnimationsModule,
     AppRoutingModule,
     MatMomentDateModule,
@@ -110,7 +113,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     //   provide: DATE_PIPE_DEFAULT_OPTIONS,
     //   useValue: {timezone: '-0300'}
     // },
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
+    {provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
@@ -128,7 +131,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}
 
 
 export class CustomDateAdapter extends NativeDateAdapter {

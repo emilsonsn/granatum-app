@@ -1,0 +1,31 @@
+<div class="web-chat-conversa-image"></div>
+
+
+
+<div
+  class="chat-container"
+  (scroll)="onScroll($event)">
+  <div *ngFor="let dateGroup of (data | keyvalue)?.reverse(); let i = index">
+
+    <div *ngIf="dateGroup">
+      <div class="date-label">
+        <div class="label">{{ getDateLabel(dateGroup.key) }}</div>
+      </div>
+    </div>
+
+    <div *ngFor="let message of dateGroup.value; let j = index" class="mb-2">
+      <div class="message" [ngClass]="message.fromMe ? 'right' : 'left'">
+        <div class="balloon">
+          <app-web-chat-balloons
+            [titleHidden]="true"
+            [data]="message"
+          ></app-web-chat-balloons>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class=" w-100 d-flex justify-content-center z-3 p-2">
+    <div class="loader"></div>
+  </div>
+</div>
+

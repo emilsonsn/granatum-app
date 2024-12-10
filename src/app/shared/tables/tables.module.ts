@@ -18,7 +18,6 @@ import { TableTypeProviderComponent } from './table-type-provider/table-type-pro
 import { TableTypeServiceComponent } from './table-type-service/table-type-service.component';
 import { TableTypeUserSectorComponent } from './table-type-user-sector/table-type-user-sector.component';
 import { TableUserComponent } from './table-users/table-users.component';
-import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { TableLeadsComponent } from './table-leads/table-leads.component';
 import { TableTravelComponent } from './table-travel/table-travel.component';
@@ -26,7 +25,13 @@ import { TableProfessionsComponent } from './table-professions/table-professions
 import { TableCandidatesComponent } from './table-candidates/table-candidates.component';
 import { TableVacanciesComponent } from './table-vacancies/table-vacancies.component';
 import { TableSelectionProcessComponent } from './table-selection-processes/table-selection-processes';
+import { TableFunnelComponent } from './table-funnel/table-funnel.component';
 import {MatTooltip} from "@angular/material/tooltip";
+import { TableBankComponent } from './table-bank/table-bank.component';
+import { TablePartnerComponent } from './table-partner/table-partner.component';
+import { TableAutomationsComponent } from './table-automations/table-automations.component';
+import { TableHrCampaignComponent } from './table-hr-campaign/table-hr-campaign.component';
+import { TableBudgetComponent } from './table-budget/table-budget.component';
 
 const tables = [
   TableOrdersComponent,
@@ -45,7 +50,13 @@ const tables = [
   TableProfessionsComponent,
   TableVacanciesComponent,
   TableCandidatesComponent,
-  TableSelectionProcessComponent
+  TableSelectionProcessComponent,
+  TableFunnelComponent,
+  TableBankComponent,
+  TablePartnerComponent,
+  TableAutomationsComponent,
+  TableHrCampaignComponent,
+  TableBudgetComponent,
 ]
 
 @NgModule({

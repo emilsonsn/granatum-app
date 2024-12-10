@@ -35,23 +35,23 @@
     <mat-tab-group>
       <mat-tab>
         <ng-template mat-tab-label>
-          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Attending])" matBadgePosition="above after" matBadgeColor="accent">Atendendo</span>
+          <span [matBadgeHidden]="getBagdeTab(groupedContacts[ContactStatus.Responding]) === 0" [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Responding])" matBadgePosition="above after" matBadgeColor="accent">Atendendo</span>
         </ng-template>
-        <app-web-chat-attending [data]="groupedContacts[ContactStatus.Attending]"></app-web-chat-attending>
+        <app-web-chat-attending [data]="groupedContacts[ContactStatus.Responding]"></app-web-chat-attending>
       </mat-tab>
 
       <mat-tab>
         <ng-template mat-tab-label>
-          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Waiting])" matBadgePosition="above after" matBadgeColor="accent">Esperando</span>
+          <span [matBadgeHidden]="getBagdeTab(groupedContacts[ContactStatus.Waiting]) === 0" [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Waiting])" matBadgePosition="above after" matBadgeColor="accent">Esperando</span>
         </ng-template>
         <app-web-chat-waiting [data]="groupedContacts[ContactStatus.Waiting]"></app-web-chat-waiting>
       </mat-tab>
 
       <mat-tab>
         <ng-template mat-tab-label>
-          <span [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Completed])" matBadgePosition="above after" matBadgeColor="accent">Finalizado</span>
+          <span [matBadgeHidden]="getBagdeTab(groupedContacts[ContactStatus.Finished]) === 0" [matBadge]="getBagdeTab(groupedContacts[ContactStatus.Finished])" matBadgePosition="above after" matBadgeColor="accent">Finalizado</span>
         </ng-template>
-        <app-web-chat-completed [data]="groupedContacts[ContactStatus.Completed]"></app-web-chat-completed>
+        <app-web-chat-completed [data]="groupedContacts[ContactStatus.Finished]"></app-web-chat-completed>
       </mat-tab>
     </mat-tab-group>
   </div>

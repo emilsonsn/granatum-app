@@ -21,7 +21,7 @@ export class VacancyService {
     const paginate = Utils.mountPageControl(pageControl);
     const filterParams = Utils.mountPageControl(filters);
 
-    return this._http.get<ApiResponsePageable<Vacancy>>(`${environment.api}/${this.endpoint}/search`);
+    return this._http.get<ApiResponsePageable<Vacancy>>(`${environment.api}/${this.endpoint}/search?${paginate}${filterParams}`);
   }
 
   public post(vacancy: Vacancy): Observable<ApiResponse<Vacancy>> {

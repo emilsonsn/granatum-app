@@ -6,31 +6,69 @@
   }
 </div>
 
-<div id="componentHeaderTemplate">
-  <div id="componentHeader">
+<app-component-header>
 
-    <div>
-      <!-- <app-search-input
-        (onSearchInputChanged)="handleSearchTerm($event)">
-      </app-search-input> -->
-    </div>
+  <div id="buttons">
+    <button matRipple class="button yellow" (click)="openCandidateDialog()">
+      <i class="fa-solid fa-plus"></i> Candidato
+    </button>
+  </div>
 
-    <div id="options">
-      @if (false) {
-      <div id="filter" matRipple>
-        <i class="fa-solid fa-filter"></i>
+  <div id="filters">
+    <form [formGroup]="formFilters">
+      <div class="row">
+        <div class="col-md-4 mb-md-0 mb-2">
+          <mat-form-field>
+            <mat-label>Pesquisar</mat-label>
+            <input matInput formControlName="search_term" placeholder="Buscar">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 mb-md-0 mb-2">
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="is_active" placeholder="Status">
+              @if(formFilters?.get('is_active').value) {
+                <mat-option [value]="''">Limpar Filtro</mat-option>
+              }
+              @for (status of statusSelect; track status) {
+              <mat-option [value]="status.value">{{ status.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 mb-md-0 mb-2">
+          <mat-form-field>
+            <mat-label>Profissão </mat-label>
+            <mat-select formControlName="profession_id" placeholder="Buscar">
+              <mat-option>
+                <ngx-mat-select-search [formControl]="professionFilterCtrl" placeholderLabel="Procure pela profissão"
+                  i18n-placeholderLabel noEntriesFoundLabel="Profissão não encontrada" i18n-noEntriesFoundLabel>
+                </ngx-mat-select-search>
+              </mat-option>
+              @if(formFilters.get('profession_id').value) {
+              <mat-option class="trash" (click)="clearProfessionId()">Limpar campo</mat-option>
+              }
+              <mat-option *ngFor="let profession of filteredProfessions | async" [value]="profession.id">
+                {{ profession.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
       </div>
-      }
+    </form>
 
-      <div id="buttons">
-        <button matRipple class="button yellow" (click)="openCandidateDialog()">
-          <i class="fa-solid fa-plus"></i> Novo Candidato
-        </button>
-      </div>
-
+    <div class="d-flex justify-content-end flex-wrap gap-2 mt-2">
+      <button matRipple class="button red" (click)="clearFormFilters()">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+      <button matRipple class="button yellow" (click)="updateFilters()">
+        <i class="fa-solid fa-magnifying-glass"></i> Pesquisar
+      </button>
     </div>
   </div>
-</div>
+
+</app-component-header>
 
 <div id="componentTable" class="col-12 mt-4">
   <app-table-candidates (onEdit)="openCandidateDialog($event)" (onDelete)="onDeleteCandidate($event)"

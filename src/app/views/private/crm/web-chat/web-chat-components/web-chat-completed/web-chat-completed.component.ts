@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Contact} from "@models/contact";
+import {Contact} from "@models/Whatsapp";
 
 @Component({
   selector: 'app-web-chat-completed',

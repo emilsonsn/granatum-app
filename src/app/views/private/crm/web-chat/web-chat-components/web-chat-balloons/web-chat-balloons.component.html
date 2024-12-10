@@ -1,0 +1,12 @@
+<div class="balloon-body" [ngClass]="data.fromMe ? 'right' : 'left'">
+  <div class="balloon-header" *ngIf="!titleHidden">
+    <div class="name">{{ data.fromMe }}</div>
+    <div class="phone">{{ data.phone }}</div>
+  </div>
+  <div class="balloon-content">
+    <p>{{ data.message }}</p>
+  </div>
+  <div class="balloon-footer">
+    <p>{{ formatDate(data.updated_at) }}</p>
+  </div>
+</div>

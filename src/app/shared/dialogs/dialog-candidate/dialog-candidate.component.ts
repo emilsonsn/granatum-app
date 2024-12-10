@@ -99,7 +99,7 @@ export class DialogCandidateComponent {
   }
 
   ngOnInit() {
-    const processes = this._data?.processes?.map( process => process.id);
+    const processes = this._data?.processes?.map((process) => process.id);
 
     this.form = this.fb.group({
       name: [null, [Validators.required]],
@@ -123,7 +123,7 @@ export class DialogCandidateComponent {
     if (this._data) {
       this.form.patchValue({
         ...this._data,
-        processes: processes
+        processes: processes,
       });
 
       if (this._data.attachments) {
