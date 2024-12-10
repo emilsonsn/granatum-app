@@ -8,6 +8,11 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular
 export class WebChatInputComponent {
   @Output() sendMessage = new EventEmitter<string>();
   @ViewChild('input') inputElement: ElementRef<HTMLInputElement>; // Referência ao input
+  sign: boolean = false;
+
+  ngOnInit(){
+    this.sign = localStorage.getItem('sign') === 'true' ? true : false;
+  }
 
   // Método para enviar mensagem
   send() {
@@ -16,6 +21,11 @@ export class WebChatInputComponent {
       this.sendMessage.emit(message); // Emite a mensagem
       this.inputElement.nativeElement.value = ''; // Limpa o input após enviar
     }
+  }
+
+  onToggleChange(event){
+    this.sign = event.checked;
+    localStorage.setItem('sign', event.checked.toString());
   }
 
   // Método para capturar eventos de teclado

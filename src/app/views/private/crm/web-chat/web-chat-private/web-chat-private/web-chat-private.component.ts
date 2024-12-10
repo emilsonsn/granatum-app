@@ -109,9 +109,12 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
   }
 
   sendMessage(message: string): void {
+    const sign = localStorage.getItem('sign') === 'true' ? true : false;
+
     const newMessage: SendMessagePayloadDto = {
       message: message,
       number: this.contact?.remoteJid,
+      sign: sign
     };
 
     this.pageControl.page = 1;

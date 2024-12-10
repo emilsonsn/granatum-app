@@ -47,6 +47,7 @@ export enum ContactStatus {
 export interface SendMessagePayloadDto {
   number: string;
   message: string;
+  sign?: boolean;
 }
 
 export interface SendMessagePayload extends SendMessagePayloadDto {
