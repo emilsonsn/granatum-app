@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, DebugElement} from '@angular/core';
 import {Contact, ContactStatus} from "@models/Whatsapp";
 import {HttpClient} from "@angular/common/http";
 import {WhatsappService} from "@services/crm/whatsapp.service";
 import {finalize} from "rxjs";
 import {Router} from "@angular/router";
+import {environment} from "@env/environment";
 
 @Component({
   selector: 'app-web-chat-sidebar',
@@ -13,6 +14,7 @@ import {Router} from "@angular/router";
 export class WebChatSidebarComponent {
   search: string = '';
   contacts: Contact[] = [];
+  instance: string;
   groupedContacts: { [key in ContactStatus]: Contact[] } = {
     [ContactStatus.Responding]: [],
     [ContactStatus.Waiting]: [],
@@ -27,12 +29,24 @@ export class WebChatSidebarComponent {
   }
 
   ngOnInit(): void {
+    this.instance = this.getInstance();
     this.loadContacts();
   }
 
-  loadContacts(): void {
+  private getInstance(): string {
+    const url = this.route.url;
+    const match = url.match(/\/painel\/([^/]+)/);
+    if (match && match[1]) {
+      const instance = match[1];
+      const instanceKey = `instance${instance.toUpperCase()}`;
+      return environment[instanceKey];
+    } else {
+      return null;
+    }
+  }
 
-    this.whatsappService.searchChat().pipe(finalize(() => {
+  loadContacts(): void {
+    this.whatsappService.searchChat(null, this.instance).pipe(finalize(() => {
       }))
       .subscribe({
         next: res => {

@@ -33,12 +33,12 @@ const routes: Routes = [
     component: CandidatesComponent,
   },
   {
-    path: 'chat',
-    component: ChatComponent,
-  },
-  {
     path: 'hr-campaign',
     component: HrCampaignComponent
+  },
+  {
+    path: 'web-chat',
+    loadChildren: () => import('@app/views/private/crm/web-chat/web-chat.module').then(m => m.WebChatModule)
   },
 ];
 

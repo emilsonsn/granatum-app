@@ -17,7 +17,17 @@
     </div>
     <div class="web-chat-item-info">
       <p>{{ truncateString(data?.last_message?.message, 20) }}</p>
-      <button *ngIf="data.status === ContactStatus.Waiting">Aceitar</button>
+      <button
+      *ngIf="data.status === ContactStatus.Waiting"
+      (click)="updateStatus(data.id, ContactStatus.Responding)">
+        Aceitar
+      </button>
+
+      <button
+      *ngIf="data.status === ContactStatus.Responding"
+      (click)="updateStatus(data.id, ContactStatus.Finished)">
+        Finalizar
+      </button>
     </div>
   </div>
 </div>

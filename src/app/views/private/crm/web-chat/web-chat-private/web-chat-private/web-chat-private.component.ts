@@ -6,6 +6,7 @@ import {WhatsappService} from "@services/crm/whatsapp.service";
 import {Subscription} from "rxjs";
 import {Order, PageControl} from "@models/application";
 import {Socket} from "ngx-socket-io";
+import {environment} from "@env/environment";
 
 @Component({
   selector: 'app-web-chat-private',
@@ -16,6 +17,7 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
   contact: Contact | null = null;
   uuid: string = '';
   messages: Message[] = [];
+  instance: string;
   private subscription: Subscription;
   groupedMessages: { [key: string]: Message[] } = {};
   loading: boolean = false;
@@ -26,7 +28,8 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
+    private route: Router,
     private http: HttpClient,
     private readonly _router: Router,
     private socket: Socket,
@@ -36,7 +39,7 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.whatsappService.data$.subscribe((data) => {
-      this.contact = data; // Atualiza a variável local quando o BehaviorSubject emite um valor
+      this.contact = data;
     });
 
     // Recebe mensagens do canal
@@ -44,15 +47,28 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
       this.messages.push(message);
     });
 
-    this.route.params.subscribe(params => {
+    this._route.params.subscribe(params => {
       this.uuid = params['uuid'];
-
-      // Zera as variáveis para garantir que a conversa seja reiniciada
       this.messages = [];
       this.groupedMessages = {};
-      this.pageControl.page = 1;  // Reinicia a paginação
-      this.loadMessagesByUuid(this.uuid);  // Carrega as mensagens novamente
+      this.pageControl.page = 1;
+
+      this.loadMessagesByUuid(this.uuid);
     });
+
+    this.instance = this.getInstance();
+  }
+
+  private getInstance(): string {
+    const url = this.route.url;
+    const match = url.match(/\/painel\/([^/]+)/);
+    if (match && match[1]) {
+      const instance = match[1];
+      const instanceKey = `instance${instance.toUpperCase()}`;
+      return environment[instanceKey];
+    } else {
+      return null;
+    }
   }
 
 
@@ -100,7 +116,7 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
 
     this.pageControl.page = 1;
 
-    this.whatsappService.sendMessage(newMessage)
+    this.whatsappService.sendMessage(newMessage, this.instance)
       .subscribe({
         next: (data) => {
           this.loadMessagesByUuid(this.uuid);

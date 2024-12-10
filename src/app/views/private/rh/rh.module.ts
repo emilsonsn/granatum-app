@@ -18,7 +18,6 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { HrCampaignComponent } from './hr-campaign/hr-campaign.component';
 
-
 @NgModule({
   declarations: [
     ProfessionsComponent,

@@ -78,5 +78,17 @@ export class WebChatItemComponent {
     return value; // Retorna a string original se o comprimento não ultrapassar o limite
   }
 
+  updateStatus(id, status: ContactStatus){
+    this.whatsappService.updateStatus(id, status)
+    .subscribe({
+      next: (res) => {      
+      //  Aqui precisa recarregar as conversas
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar o status do contato:', error.error.message);
+      }
+    })
+  }
+
   protected readonly ContactStatus = ContactStatus;
 }
