@@ -11,12 +11,14 @@ import {CdkDrag, CdkDragPlaceholder, CdkDropList, CdkDropListGroup} from "@angul
 import { NgxEditorModule, NgxEditorService } from 'ngx-editor';
 import { EditorComponent } from './editor/editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentHeaderComponent } from './component-header/component-header.component';
 
 const components: any[] = [
   AccountManagerComponent,
   SmallInformationCardComponent,
   KanbanComponent,
   EditorComponent,
+  ComponentHeaderComponent,
 ]
 
 @NgModule({

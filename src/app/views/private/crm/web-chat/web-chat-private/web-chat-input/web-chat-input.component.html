@@ -3,12 +3,12 @@
     <div class="d-flex gap-3 h-100 align-items-center justify-content-center">
       <i class="fa-solid fa-paperclip"></i>
       <i class="fa-regular fa-face-smile"></i>
-      <p class="p-0 m-0"><mat-slide-toggle>Assinar</mat-slide-toggle></p>
+      <p class="p-0 m-0"><mat-slide-toggle (change)="onToggleChange($event)" [checked]="sign">Assinar</mat-slide-toggle></p>
     </div>
-    <input #input type="text" placeholder="Mensagem" />
+    <textarea #input rows="1" placeholder="Mensagem" (keydown)="handleKeydown($event)"></textarea> <!-- Usando <textarea> para suportar múltiplas linhas -->
     <div class="d-flex gap-3 h-100 align-items-center justify-content-center">
       <i class="fa-solid fa-microphone"></i>
-      <i class="fa-solid fa-paper-plane"></i>
+      <i class="fa-solid fa-paper-plane" style="cursor: pointer" (click)="send()"></i>
     </div>
   </div>
 </div>

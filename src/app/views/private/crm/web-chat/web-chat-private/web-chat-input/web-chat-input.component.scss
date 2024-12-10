@@ -21,8 +21,9 @@
     font-size: 1.2rem;
     font-weight: 400;
     color: $gray-700;
+    z-index: 999;
 
-    input {
+    textarea {
       width: 100%;
       border: none;
       outline: none;
@@ -31,6 +32,9 @@
       font-size: 1.2rem;
       font-weight: 400;
       color: $gray-700;
+      resize: none;
+      overflow-y: hidden;
+      max-height: 5rem;
     }
   }
 }

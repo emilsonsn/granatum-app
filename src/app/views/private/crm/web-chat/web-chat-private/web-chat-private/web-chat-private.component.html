@@ -1,3 +1,3 @@
 <app-web-chat-header [data]="contact"></app-web-chat-header>
-<app-web-chat-conversa></app-web-chat-conversa>
-<app-web-chat-input></app-web-chat-input>
+<app-web-chat-conversa [loading]="loading" (reachedTop)="reachedTop($event)" [data]="groupedMessages"></app-web-chat-conversa>
+<app-web-chat-input (sendMessage)="sendMessage($event)"></app-web-chat-input>

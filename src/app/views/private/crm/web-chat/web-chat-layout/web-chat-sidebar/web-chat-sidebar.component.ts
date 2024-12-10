@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
-import {Contact, ContactStatus} from "@models/contact";
+import {Component, DebugElement} from '@angular/core';
+import {Contact, ContactStatus} from "@models/Whatsapp";
 import {HttpClient} from "@angular/common/http";
+import {WhatsappService} from "@services/crm/whatsapp.service";
+import {finalize} from "rxjs";
+import {Router} from "@angular/router";
+import {environment} from "@env/environment";
 
 @Component({
   selector: 'app-web-chat-sidebar',
@@ -8,54 +12,95 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './web-chat-sidebar.component.scss'
 })
 export class WebChatSidebarComponent {
-  search: string = ''; // Variável para busca no sidebar
-  contacts: Contact[] = []; // Lista de contatos
+  search: string = '';
+  contacts: Contact[] = [];
+  instance: string;
   groupedContacts: { [key in ContactStatus]: Contact[] } = {
-    [ContactStatus.Attending]: [],
+    [ContactStatus.Responding]: [],
     [ContactStatus.Waiting]: [],
-    [ContactStatus.Completed]: []
-  }; // Contatos agrupados por status
+    [ContactStatus.Finished]: []
+  };
 
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.loadContacts(); // Carregar os contatos ao inicializar
+  constructor(
+    private http: HttpClient,
+    private readonly whatsappService: WhatsappService,
+    private route: Router,
+  ) {
   }
 
-  // Função para carregar os contatos do arquivo JSON
+  ngOnInit(): void {
+    this.instance = this.getInstance();
+    this.loadContacts();
+  }
+
+  private getInstance(): string {
+    const url = this.route.url;
+    const match = url.match(/\/painel\/([^/]+)/);
+    if (match && match[1]) {
+      const instance = match[1];
+      const instanceKey = `instance${instance.toUpperCase()}`;
+      return environment[instanceKey];
+    } else {
+      return null;
+    }
+  }
+
   loadContacts(): void {
-    this.http.get<Contact[]>('assets/json/contacts_mock.json')  // Caminho para o arquivo JSON no diretório assets
+    this.whatsappService.searchChat(null, this.instance).pipe(finalize(() => {
+      }))
+      .subscribe({
+        next: res => {
+          this.contacts = res.data;
+
+          let url = this.route.url.split("/");
+
+          res.data.forEach(contact => {
+            if (contact.remoteJid === url[url.length - 1]) {
+              this.whatsappService.setContact(contact);
+            }
+          });
+
+          this.groupContactsByStatus();
+        },
+      });
+
+    /*this.http.get<Contact[]>('assets/json/contacts_mock.json')
       .subscribe({
         next: (data) => {
-          this.contacts = data;  // Atribui os dados recebidos à lista de contatos
-          this.groupContactsByStatus(); // Agrupa os contatos por status
+
         },
         error: (err) => {
           console.error('Erro ao carregar os contatos', err);
         }
-      });
+      });*/
   }
 
-  // Função para agrupar os contatos por status
   groupContactsByStatus(): void {
     this.contacts.forEach(contact => {
       switch (contact.status) {
-        case ContactStatus.Attending:
-          this.groupedContacts[ContactStatus.Attending].push(contact);
+        case ContactStatus.Responding:
+          this.groupedContacts[ContactStatus.Responding].push(contact);
           break;
         case ContactStatus.Waiting:
           this.groupedContacts[ContactStatus.Waiting].push(contact);
           break;
-        case ContactStatus.Completed:
-          this.groupedContacts[ContactStatus.Completed].push(contact);
+        case ContactStatus.Finished:
+          this.groupedContacts[ContactStatus.Finished].push(contact);
           break;
       }
     });
+
+    // Ordenar cada grupo de contatos pelo campo 'updated_at' (do mais recente para o menos recente)
+    Object.keys(this.groupedContacts).forEach(status => {
+      this.groupedContacts[status as ContactStatus] = this.groupedContacts[status as ContactStatus]
+        .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+    });
   }
+
 
   protected readonly ContactStatus = ContactStatus;
 
   getBagdeTab(groupedContact: Contact[]) {
-    return groupedContact.filter(a => a.unread).length;
+    return groupedContact.length;
   }
 }

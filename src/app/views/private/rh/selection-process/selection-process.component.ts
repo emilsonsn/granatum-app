@@ -1,16 +1,18 @@
-import {Component, computed, Signal, signal} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {HeaderService} from '@services/header.service';
-import {DialogConfirmComponent} from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
-import {ISmallInformationCard} from '@models/cardInformation';
-import {ToastrService} from 'ngx-toastr';
-import {finalize} from 'rxjs';
-import {SelectionProcess, SelectionProcessCards} from '@models/selectionProccess';
-import {SelectionProcessService} from '@services/selection-process.service';
+import { Component, computed, Signal, signal } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { HeaderService } from '@services/header.service';
+import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
+import { ISmallInformationCard } from '@models/cardInformation';
+import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 import {
-  DialogSelectionProcessComponent
-} from '@shared/dialogs/dialog-selection-process/dialog-selection-process.component';
-import {Router} from "@angular/router";
+  SelectionProcess,
+  SelectionProcessCards,
+} from '@models/selectionProccess';
+import { SelectionProcessService } from '@services/selection-process.service';
+import { DialogSelectionProcessComponent } from '@shared/dialogs/dialog-selection-process/dialog-selection-process.component';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-selection-process',
@@ -20,6 +22,7 @@ import {Router} from "@angular/router";
 export class SelectionProcessComponent {
   public filters;
   public loading: boolean = false;
+  public formFilters: FormGroup;
 
   protected dashboardCards = signal<SelectionProcessCards>({
     activeSelectionProcesss: 0,
@@ -55,12 +58,24 @@ export class SelectionProcessComponent {
     },
   ]);
 
+  protected statusSelect = [
+    {
+      label: 'Ativo',
+      value: 1,
+    },
+    {
+      label: 'Inativo',
+      value: 0,
+    },
+  ];
+
   constructor(
     private readonly _headerService: HeaderService,
     private readonly _dialog: MatDialog,
     private readonly _toastr: ToastrService,
     private readonly router: Router,
     private readonly _selectionProcessService: SelectionProcessService,
+    private readonly _fb: FormBuilder
   ) {
     this._headerService.setTitle('Processos Seletivos');
     this._headerService.setSubTitle('');
@@ -68,6 +83,11 @@ export class SelectionProcessComponent {
 
   ngOnInit() {
     this.getCards();
+
+    this.formFilters = this._fb.group({
+      search_term: '',
+      is_active: '',
+    });
   }
 
   public openSelectionProcessDialog(data?) {
@@ -81,7 +101,7 @@ export class SelectionProcessComponent {
 
     this._dialog
       .open(DialogSelectionProcessComponent, {
-        data: data ? {...data} : null,
+        data: data ? { ...data } : null,
         ...dialogConfig,
       })
       .afterClosed()
@@ -109,7 +129,7 @@ export class SelectionProcessComponent {
 
     this._dialog
       .open(DialogConfirmComponent, {
-        data: {text: `Tem certeza? Essa ação não pode ser revertida!`},
+        data: { text: `Tem certeza? Essa ação não pode ser revertida!` },
         ...dialogConfig,
       })
       .afterClosed()
@@ -154,6 +174,21 @@ export class SelectionProcessComponent {
   }
 
   onInfoSelectionProcess($event: SelectionProcess) {
-    this.router.navigate(['/painel/rh/selection-process/kanban/', $event.id]).then();
+    this.router
+      .navigate(['/painel/rh/selection-process/kanban/', $event.id])
+      .then();
+  }
+
+  // Filters
+  public updateFilters() {
+    this.filters = this.formFilters.getRawValue();
+  }
+
+  public clearFormFilters() {
+    this.formFilters.patchValue({
+      search_term: '',
+      is_active: '',
+    });
+    this.updateFilters();
   }
 }

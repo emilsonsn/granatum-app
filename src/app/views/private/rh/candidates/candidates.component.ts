@@ -4,10 +4,20 @@ import { HeaderService } from '@services/header.service';
 import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
 import { ISmallInformationCard } from '@models/cardInformation';
 import { ToastrService } from 'ngx-toastr';
-import { finalize } from 'rxjs';
+import {
+  debounceTime,
+  finalize,
+  map,
+  ReplaySubject,
+  Subject,
+  takeUntil,
+} from 'rxjs';
 import { Candidate, CandidateCards } from '@models/candidate';
 import { CandidateService } from '@services/candidate.service';
 import { DialogCandidateComponent } from '@shared/dialogs/dialog-candidate/dialog-candidate.component';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Profession } from '@models/profession';
+import { ProfessionService } from '@services/profession.service';
 
 @Component({
   selector: 'app-candidates',
@@ -17,6 +27,8 @@ import { DialogCandidateComponent } from '@shared/dialogs/dialog-candidate/dialo
 export class CandidatesComponent {
   public filters;
   public loading: boolean = false;
+  public formFilters: FormGroup;
+  protected _onDestroy = new Subject<void>();
 
   protected dashboardCards = signal<CandidateCards>({
     totalCandidates: 0,
@@ -52,18 +64,49 @@ export class CandidatesComponent {
     },
   ]);
 
+  // Selects
+  protected professionSelect: Profession[] = [];
+  protected professionCtrl: FormControl<any> = new FormControl<any>(null);
+  protected professionFilterCtrl: FormControl<any> = new FormControl<string>(
+    ''
+  );
+  protected filteredProfessions: ReplaySubject<any[]> = new ReplaySubject<
+    any[]
+  >(1);
+
+  protected statusSelect = [
+    {
+      label: 'Ativo',
+      value: 1,
+    },
+    {
+      label: 'Inativo',
+      value: 0,
+    },
+  ];
+
   constructor(
     private readonly _headerService: HeaderService,
     private readonly _dialog: MatDialog,
     private readonly _candidateService: CandidateService,
-    private readonly _toastr: ToastrService
+    private readonly _toastr: ToastrService,
+    private readonly _fb: FormBuilder,
+    private readonly _professionService: ProfessionService
   ) {
     this._headerService.setTitle('Candidatos');
     this._headerService.setSubTitle('');
+
+    this.getProfessionsFromBack();
   }
 
   ngOnInit() {
     this.getCards();
+
+    this.formFilters = this._fb.group({
+      search_term: '',
+      profession_id: '',
+      is_active: '',
+    });
   }
 
   public openCandidateDialog(data?) {
@@ -138,6 +181,20 @@ export class CandidatesComponent {
       });
   }
 
+  // Filters
+  public updateFilters() {
+    this.filters = this.formFilters.getRawValue();
+  }
+
+  public clearFormFilters() {
+    this.formFilters.patchValue({
+      search_term: '',
+      profession_id: '',
+      is_active: '',
+    });
+    this.updateFilters();
+  }
+
   // Utils
   public _initOrStopLoading() {
     this.loading = !this.loading;
@@ -146,6 +203,42 @@ export class CandidatesComponent {
   public getCards() {
     this._candidateService.getCards().subscribe((c) => {
       this.dashboardCards.set(c.data);
+    });
+  }
+
+  // Selects
+  protected prepareFilterProfessionCtrl() {
+    this.professionFilterCtrl.valueChanges
+      .pipe(
+        takeUntil(this._onDestroy),
+        debounceTime(100),
+        map((search: string | null) => {
+          if (!search) {
+            return this.professionSelect.slice();
+          } else {
+            search = search.toLowerCase();
+            return this.professionSelect.filter((profession) =>
+              profession.title.toLowerCase().includes(search)
+            );
+          }
+        })
+      )
+      .subscribe((filtered) => {
+        this.filteredProfessions.next(filtered);
+      });
+  }
+
+  public clearProfessionId() {
+    this.formFilters.get('profession_id').patchValue('');
+  }
+
+  // Getters
+  public getProfessionsFromBack() {
+    this._professionService.getList().subscribe((res) => {
+      this.professionSelect = res.data;
+
+      this.filteredProfessions.next(this.professionSelect.slice());
+      this.prepareFilterProfessionCtrl();
     });
   }
 }

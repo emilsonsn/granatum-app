@@ -92,6 +92,49 @@ export class LayoutPrivateComponent {
       ]
     },
     {
+      label: 'CRM',
+      icon: 'fa-solid fa-people-arrows',
+      route: null,
+      isOpen: false,
+      children: [
+        {
+          label: 'Dashboard',
+          icon: 'fa-solid fa-chart-line',
+          route: '/painel/crm/dashboard'
+        },
+        {
+          label: 'Leads',
+          icon: 'fa-solid fa-people-group',
+          route: '/painel/crm/leads'
+        },
+        {
+          label: 'Campanha',
+          icon: 'fa-solid fa-robot',
+          route: '/painel/crm/automations'
+        },
+        {
+          label: 'Orçamento',
+          icon: 'fa-solid fa-receipt',
+          route: '/painel/crm/budget'
+        },
+        {
+          label: 'Bancos',
+          icon: 'fa-solid fa-building-columns',
+          route: '/painel/crm/banks'
+        },
+        {
+          label: 'Parceiros',
+          icon: 'fa-solid fa-people-robbery',
+          route: '/painel/crm/partners'
+        },
+        {
+          label: 'WebChat',
+          icon: 'fa-brands fa-whatsapp',
+          route: '/painel/crm/web-chat'
+        },
+      ]
+    },
+    {
       label: "RH",
       icon: 'fa-solid fa-people-group',
       route: null,
@@ -117,53 +160,15 @@ export class LayoutPrivateComponent {
           icon: 'fa-solid fa-person',
           route: '/painel/rh/candidates'
         },
-        // {
-        //   label: 'WebChat',
-        //   icon: 'fa-brands fa-whatsapp',
-        //   route: '/painel/rh/chat'
-        // },
-      ]
-    },
-    {
-      label: 'CRM',
-      icon: 'fa-solid fa-people-arrows',
-      route: null,
-      isOpen: false,
-      children: [
         {
-          label: 'Dashboard',
-          icon: 'fa-solid fa-chart-line',
-          route: '/painel/crm/dashboard'
-        },
-        {
-          label: 'Leads',
-          icon: 'fa-solid fa-people-group',
-          route: '/painel/crm/leads'
-        },
-        {
-          label: 'Automações',
+          label: 'Campanhas',
           icon: 'fa-solid fa-robot',
-          route: '/painel/crm/automations'
-        },
-        {
-          label: 'Orçamento',
-          icon: 'fa-solid fa-receipt',
-          route: '/painel/crm/budget'
-        },
-        {
-          label: 'Bancos',
-          icon: 'fa-solid fa-building-columns',
-          route: '/painel/crm/banks'
-        },
-        {
-          label: 'Parceiros',
-          icon: 'fa-solid fa-people-robbery',
-          route: '/painel/crm/partners'
+          route: '/painel/rh/hr-campaign'
         },
         {
           label: 'WebChat',
           icon: 'fa-brands fa-whatsapp',
-          route: '/painel/crm/web-chat'
+          route: '/painel/rh/web-chat'
         },
       ]
     },
