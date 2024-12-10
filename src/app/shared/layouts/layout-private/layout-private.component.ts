@@ -92,44 +92,6 @@ export class LayoutPrivateComponent {
       ]
     },
     {
-      label: "RH",
-      icon: 'fa-solid fa-people-group',
-      route: null,
-      isOpen: false,
-      children: [
-        {
-          label: 'Profissões',
-          icon: 'fa-solid fa-hammer',
-          route: '/painel/rh/professions'
-        },
-        {
-          label: 'Vagas',
-          icon: 'fa-solid fa-passport',
-          route: '/painel/rh/vacancies'
-        },
-        {
-          label: 'Processo Seletivo',
-          icon: 'fa-solid fa-clipboard',
-          route: '/painel/rh/selection-process'
-        },
-        {
-          label: 'Candidatos',
-          icon: 'fa-solid fa-person',
-          route: '/painel/rh/candidates'
-        },
-        {
-          label: 'Campanhas',
-          icon: 'fa-solid fa-robot',
-          route: '/painel/rh/hr-campaign'
-        },
-        {
-          label: 'WebChat',
-          icon: 'fa-brands fa-whatsapp',
-          route: '/painel/rh/web-chat'
-        },
-      ]
-    },
-    {
       label: 'CRM',
       icon: 'fa-solid fa-people-arrows',
       route: null,
@@ -169,6 +131,44 @@ export class LayoutPrivateComponent {
           label: 'WebChat',
           icon: 'fa-brands fa-whatsapp',
           route: '/painel/crm/web-chat'
+        },
+      ]
+    },
+    {
+      label: "RH",
+      icon: 'fa-solid fa-people-group',
+      route: null,
+      isOpen: false,
+      children: [
+        {
+          label: 'Profissões',
+          icon: 'fa-solid fa-hammer',
+          route: '/painel/rh/professions'
+        },
+        {
+          label: 'Vagas',
+          icon: 'fa-solid fa-passport',
+          route: '/painel/rh/vacancies'
+        },
+        {
+          label: 'Processo Seletivo',
+          icon: 'fa-solid fa-clipboard',
+          route: '/painel/rh/selection-process'
+        },
+        {
+          label: 'Candidatos',
+          icon: 'fa-solid fa-person',
+          route: '/painel/rh/candidates'
+        },
+        {
+          label: 'Campanhas',
+          icon: 'fa-solid fa-robot',
+          route: '/painel/rh/hr-campaign'
+        },
+        {
+          label: 'WebChat',
+          icon: 'fa-brands fa-whatsapp',
+          route: '/painel/rh/web-chat'
         },
       ]
     },
