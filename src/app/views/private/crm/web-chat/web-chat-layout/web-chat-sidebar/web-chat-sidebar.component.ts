@@ -142,4 +142,8 @@ export class WebChatSidebarComponent {
   getBagdeTab(groupedContact: Contact[]) {
     return groupedContact.length;
   }
+
+  updateStatus($event: void) {
+    this.loadContacts();
+  }
 }

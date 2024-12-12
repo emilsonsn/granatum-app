@@ -1,5 +1,5 @@
 <div class="web-chat-item" (scroll)="onScroll($event)">
   @for (item of data; track item) {
-    <app-web-chat-item [data]="item"></app-web-chat-item>
+    <app-web-chat-item (eventStatus)="updateStatus($event)" [data]="item"></app-web-chat-item>
   }
 </div>

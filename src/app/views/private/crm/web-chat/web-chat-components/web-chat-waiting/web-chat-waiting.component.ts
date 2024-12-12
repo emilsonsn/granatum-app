@@ -10,6 +10,11 @@ export class WebChatWaitingComponent {
   @Input() data: Contact[];
   @Input() loading: boolean = false;
   @Output() reachedTop = new EventEmitter<void>();
+  @Output() eventStatus = new EventEmitter<void>();
+
+  updateStatus($event: void) {
+    this.eventStatus.emit($event);
+  }
 
   onScroll(event: Event): void {
     const target = event.target as HTMLElement;

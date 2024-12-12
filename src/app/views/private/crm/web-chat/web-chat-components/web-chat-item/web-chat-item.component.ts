@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Contact, ContactStatus} from "@models/Whatsapp";
 import {Router} from "@angular/router";
 import {WhatsappService} from "@services/crm/whatsapp.service";
@@ -11,7 +11,7 @@ import {WhatsappService} from "@services/crm/whatsapp.service";
 export class WebChatItemComponent {
   @Input() tag: boolean;
   @Input() qtdBadge: number;
-
+  @Output() eventStatus = new EventEmitter<void>();
   @Input() data: Contact;
 
   constructor(
@@ -86,7 +86,7 @@ export class WebChatItemComponent {
     this.whatsappService.updateStatus(id, status)
       .subscribe({
         next: (res) => {
-          //  Aqui precisa recarregar as conversas
+          this.eventStatus.emit();
         },
         error: (error) => {
           console.error('Erro ao atualizar o status do contato:', error.error.message);
