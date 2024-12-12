@@ -5,8 +5,8 @@ import {HttpClient} from "@angular/common/http";
 import {WhatsappService} from "@services/crm/whatsapp.service";
 import {Subscription} from "rxjs";
 import {Order, PageControl} from "@models/application";
-import {Socket} from "ngx-socket-io";
 import {environment} from "@env/environment";
+import {WebsocketService} from "@services/crm/websocket.service";
 
 @Component({
   selector: 'app-web-chat-private',
@@ -32,8 +32,8 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
     private route: Router,
     private http: HttpClient,
     private readonly _router: Router,
-    private socket: Socket,
-    private readonly whatsappService: WhatsappService
+    private readonly whatsappService: WhatsappService,
+    public websocketService: WebsocketService,
   ) {
   }
 
@@ -42,21 +42,26 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
       this.contact = data;
     });
 
-    // Recebe mensagens do canal
-    this.socket.fromEvent('evolution-channel').subscribe((message: any) => {
-      this.messages.push(message);
-    });
+    this.instance = this.getInstance();
+
+    this.websocketService.subscribeToChannel('evolution-channel').subscribe(
+      msg => {
+        const remoteJid = JSON.parse(msg.data).data.remoteJid;
+        if (remoteJid === this.uuid) {
+          this.loadNewMessages(this.uuid);
+        }
+      },
+      err => console.error('Erro ao receber mensagem:', err),
+      () => console.log('Conexão fechada')
+    );
 
     this._route.params.subscribe(params => {
       this.uuid = params['uuid'];
       this.messages = [];
-      this.groupedMessages = {};
       this.pageControl.page = 1;
 
       this.loadMessagesByUuid(this.uuid);
     });
-
-    this.instance = this.getInstance();
   }
 
   private getInstance(): string {
@@ -69,6 +74,33 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
     } else {
       return null;
     }
+  }
+
+  loadNewMessages(uuid: string) {
+    const pageControl: PageControl = {
+      take: 1,
+      page: 1,
+      order: Order.DESC,
+    };
+    this.whatsappService.searchMessage(uuid, pageControl)
+      .subscribe({
+        next: (data) => {
+          const newMessage = data.data[0];
+          const contactIndex = this.messages.findIndex(message => message.id === newMessage.id);
+          if (contactIndex === -1) {
+            this.messages.push(newMessage);
+          } else {
+            this.messages[contactIndex] = newMessage;
+          }
+
+          this.messages = [...this.messages];
+          this.groupMessagesByDay();
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+
   }
 
 
@@ -84,6 +116,15 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
   }
 
   private loadMessagesByUuid(uuid: string) {
+    this.whatsappService.read(this.uuid, this.instance)
+      .subscribe({
+        next: (data) => {
+          // console.log(data);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+    });
     this._initOrStopLoading();
     this.whatsappService.searchMessage(uuid, this.pageControl)
       .subscribe({
@@ -109,7 +150,7 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
   }
 
   sendMessage(message: string): void {
-    const sign = localStorage.getItem('sign') === 'true' ? true : false;
+    const sign = localStorage.getItem('sign') === 'true';
 
     const newMessage: SendMessagePayloadDto = {
       message: message,
@@ -117,20 +158,14 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
       sign: sign
     };
 
-    this.pageControl.page = 1;
-
-    this.whatsappService.sendMessage(newMessage, this.instance)
+    console.log(this.instance);
+   /* this.whatsappService.sendMessage(newMessage, this.instance)
       .subscribe({
-        next: (data) => {
-          this.loadMessagesByUuid(this.uuid);
-        },
         error: (error) => {
           console.error(error);
         }
-      });
+      });*/
 
-    // this.messages = [newMessage, ...this.messages];
-    this.groupMessagesByDay();
   }
 
   groupMessagesByDay(): void {

@@ -1,6 +1,6 @@
 <div class="web-chat-item-container" (click)="clicked($event, data)" [ngClass]="{'active': router.url === '/painel/crm/web-chat/' + data.remoteJid}">
   <div class="web-chat-item-avatar">
-    <app-avatar [hidden]="data.unread_count == 0" [qtdBadge]="data.unread_count" [size]="50" [imageUrl]="data?.profilePicUrl" [altText]="'altText'"></app-avatar>
+    <app-avatar [hidden]="data.unread_count == 0 || eventClick" [qtdBadge]="data.unread_count" [size]="50" [imageUrl]="data?.profilePicUrl" [altText]="'altText'"></app-avatar>
   </div>
   <div class="web-chat-item-details">
     <div class="web-chat-item-details-primary">

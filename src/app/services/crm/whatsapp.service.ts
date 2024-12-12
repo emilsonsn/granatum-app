@@ -26,11 +26,13 @@ export class WhatsappService {
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) {
+  }
 
   /**
    * Pesquisa chats por instância
    * @param params Parâmetros opcionais de pesquisa
+   * @param instance
    */
   searchChat(params?: Record<string, any>, instance?: string): Observable<ApiResponsePageable<Contact>> {
     let httpParams = new HttpParams();
@@ -65,13 +67,17 @@ export class WhatsappService {
     return this.http.post(`${this.baseUrl}/send-message`, payload);
   }
 
+  read(remoteJid: string, instance: string): Observable<any> {
+    const payload = {number: remoteJid, instance: instance};
+    return this.http.post(`${this.baseUrl}/read-message`, payload);
+  }
+
   /**
    * Envia uma mensagem
    * @param status Novo status do contato
    */
-    updateStatus(id: number, status: ContactStatus): Observable<any> {
-      const payload = {status};
-      return this.http.patch(`${this.baseUrl}/update-status/${id}`, payload);
-    }
+  updateStatus(id: number, status: ContactStatus): Observable<any> {
+    const payload = {status};
+    return this.http.patch(`${this.baseUrl}/update-status/${id}`, payload);
+  }
 }
- 

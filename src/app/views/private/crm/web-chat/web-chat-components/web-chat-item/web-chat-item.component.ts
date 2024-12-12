@@ -26,6 +26,8 @@ export class WebChatItemComponent {
       return;
     }*/
 
+    this.eventClick = true;
+
     this.whatsappService.setContact(item);
     this.router.navigate(['painel/crm/web-chat', item.remoteJid]).then();
   }
@@ -82,15 +84,16 @@ export class WebChatItemComponent {
     event.preventDefault();
     event.stopPropagation();
     this.whatsappService.updateStatus(id, status)
-    .subscribe({
-      next: (res) => {      
-      //  Aqui precisa recarregar as conversas
-      },
-      error: (error) => {
-        console.error('Erro ao atualizar o status do contato:', error.error.message);
-      }
-    })
+      .subscribe({
+        next: (res) => {
+          //  Aqui precisa recarregar as conversas
+        },
+        error: (error) => {
+          console.error('Erro ao atualizar o status do contato:', error.error.message);
+        }
+      })
   }
 
   protected readonly ContactStatus = ContactStatus;
+  eventClick: boolean;
 }
