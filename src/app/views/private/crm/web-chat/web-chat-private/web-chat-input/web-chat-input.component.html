@@ -1,14 +1,19 @@
 <div class="web-chat-input-container">
   <div class="web-chat-input">
     <div class="d-flex gap-3 h-100 align-items-center justify-content-center">
-      <i class="fa-solid fa-paperclip"></i>
-      <i class="fa-regular fa-face-smile"></i>
+      <i [matTooltip]="'Anexo'" class="fa-solid fa-paperclip" style="cursor: pointer"></i>
+      <i [matTooltip]="'Emoji'" class="fa-regular fa-face-smile" style="cursor: pointer" (click)="toggleEmojiPicker()"></i>
       <p class="p-0 m-0"><mat-slide-toggle (change)="onToggleChange($event)" [checked]="sign">Assinar</mat-slide-toggle></p>
     </div>
-    <textarea #input rows="1" placeholder="Mensagem" (keydown)="handleKeydown($event)"></textarea> <!-- Usando <textarea> para suportar múltiplas linhas -->
+    <textarea class="emoji-style" #input rows="1" placeholder="Mensagem" (keydown)="handleKeydown($event)"></textarea> <!-- Usando <textarea> para suportar múltiplas linhas -->
     <div class="d-flex gap-3 h-100 align-items-center justify-content-center">
-      <i class="fa-solid fa-microphone"></i>
-      <i class="fa-solid fa-paper-plane" style="cursor: pointer" (click)="send()"></i>
+      <i [matTooltip]="'Microfone'" class="fa-solid fa-microphone" style="cursor: pointer"></i>
+      <i [matTooltip]="'Enviar'" class="fa-solid fa-paper-plane" style="cursor: pointer" (click)="send()"></i>
     </div>
+    <emoji-mart
+      *ngIf="showEmojiPicker"
+      [style]="{ position: 'absolute', bottom: '70px', left: '10px' }"
+      (emojiSelect)="addEmoji($event)">
+    </emoji-mart>
   </div>
 </div>

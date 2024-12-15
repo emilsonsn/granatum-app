@@ -2,7 +2,7 @@
      [ngClass]="data.fromMe ? 'right' : 'left'"
      [ngStyle]="isOnlyEmoji(data.message) ? {
      'background-color': 'rgba(255,255,255,0)',
-     'font-size': '3rem'
+     'font-size': '2rem'
      } : {}"
 >
   <div class="balloon-header" *ngIf="!titleHidden">

@@ -18,6 +18,8 @@ import {
 } from "@app/views/private/crm/web-chat/web-chat-layout/web-chat-sidebar/web-chat-sidebar.component";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {PickerComponent} from "@ctrl/ngx-emoji-mart";
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
     WebChatPrivateRoutingModule,
     WebChatComponentsModule,
     AvatarModule,
-    MatSlideToggle
+    MatSlideToggle,
+    PickerComponent,
+    MatTooltip
   ]
 })
 export class WebChatPrivateModule { }

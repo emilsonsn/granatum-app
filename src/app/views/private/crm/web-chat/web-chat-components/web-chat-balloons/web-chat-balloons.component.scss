@@ -1,4 +1,5 @@
 @import "variables";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
 
 .balloon-body {
   display: flex;
@@ -40,6 +41,28 @@
 
 
 .balloon-body.left {
+  background-color: #485267;
+  border-bottom-left-radius: 0;
+
+  .balloon-header {
+    color: white;
+
+    .phone {
+      color: #b1b1b1;
+    }
+  }
+
+
+  .balloon-content {
+    color: white;
+  }
+
+  .balloon-footer {
+    color: #b1b1b1;
+  }
+}
+
+.balloon-body.emoji-only {
   background-color: #485267;
   border-bottom-left-radius: 0;
 

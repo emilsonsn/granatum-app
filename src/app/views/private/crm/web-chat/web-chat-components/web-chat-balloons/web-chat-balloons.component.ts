@@ -31,4 +31,9 @@ export class WebChatBalloonsComponent {
     return message.replace(/\*(.*?)\*/g, '<b>$1</b>');
   }
 
+  isOnlyEmoji(message: string): boolean {
+    const emojiRegex = /^[\u{1F600}-\u{1F6FF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}]+$/u;
+    return emojiRegex.test(message.trim());
+  }
+
 }
