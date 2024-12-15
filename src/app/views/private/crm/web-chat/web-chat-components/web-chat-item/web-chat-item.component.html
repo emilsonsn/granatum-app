@@ -16,7 +16,7 @@
 <!--      <i class="fa-solid fa-ellipsis-vertical"></i>-->
     </div>
     <div class="web-chat-item-info">
-      <p class="emoji-style">{{ truncateString(data?.last_message?.message, 20) }}</p>
+      <p class="emoji-style" [innerHTML]="formatMessage(data?.last_message?.message)"></p>
       <button
       *ngIf="data.status === ContactStatus.Waiting"
       (click)="updateStatus(data.id, ContactStatus.Responding, $event)">
