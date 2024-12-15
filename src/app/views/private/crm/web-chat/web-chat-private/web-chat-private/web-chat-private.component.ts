@@ -157,14 +157,12 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
       number: this.contact?.remoteJid,
       sign: sign
     };
-
-    console.log(this.instance);
-   /* this.whatsappService.sendMessage(newMessage, this.instance)
+    this.whatsappService.sendMessage(newMessage, this.instance)
       .subscribe({
         error: (error) => {
           console.error(error);
         }
-      });*/
+      });
 
   }
 

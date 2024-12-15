@@ -23,4 +23,12 @@ export class WebChatBalloonsComponent {
       minute: '2-digit'
     });
   }
+
+  formatMessage(message: string): string {
+    if (!message) return '';
+
+    // Substituir texto entre asteriscos por <b></b>
+    return message.replace(/\*(.*?)\*/g, '<b>$1</b>');
+  }
+
 }

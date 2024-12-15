@@ -4,8 +4,9 @@
     <div class="phone">{{ data.phone }}</div>
   </div>
   <div class="balloon-content">
-    <p>{{ data.message }}</p>
+    <p [innerHTML]="formatMessage(data.message)"></p>
   </div>
+
   <div class="balloon-footer">
     <p>{{ formatDate(data.updated_at) }}</p>
   </div>
