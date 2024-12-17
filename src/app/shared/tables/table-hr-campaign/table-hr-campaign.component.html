@@ -71,6 +71,16 @@
                 </div>
               </td>
               <td>
+                <div class="text-center">
+                  {{ hrCampaign?.start_time}}
+                </div>
+              </td>
+              <td>
+                <div class="text-center {{ hrCampaign?.is_active ? 'actived' : 'deactived'}}">
+                  {{ hrCampaign?.is_active ? 'Ativa' : 'Desativada'}}
+                </div>
+              </td>
+              <td>
                 <div class="d-flex justify-content-end">
                   <!-- <div matRipple class="buttonTemplate" (click)="onBankClick.emit(bank.id)">
                         <i class="fa-solid fa-circle-info"></i>

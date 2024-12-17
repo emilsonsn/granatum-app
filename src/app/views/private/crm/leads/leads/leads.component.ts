@@ -133,7 +133,7 @@ export class LeadsComponent {
 
     const dialogConfig: MatDialogConfig = {
       width: '80%',
-      maxWidth: '1000px',
+      maxWidth: '800px',
       maxHeight: '90%',
       hasBackdrop: true,
       closeOnNavigation: true,

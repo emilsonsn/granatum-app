@@ -62,6 +62,18 @@ export class TableHrCampaignComponent {
       align: "justify-content-center",
     },
     {
+      slug: "start_time",
+      order: true,
+      title: "Data de inicio",
+      align: "justify-content-center",
+    },
+    {
+      slug: "is_active",
+      order: true,
+      title: "Status",
+      align: "justify-content-center",
+    },
+    {
       slug: "",
       order: true,
       title: "Ações",

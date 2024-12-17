@@ -135,7 +135,8 @@ const MY_DATE_FORMATS = {
     NgxMaskDirective,
     NgxMaskPipe,
     NgxMatSelectSearchModule,
-    MatIcon
+    MatIcon,
+    
   ],
   providers: [
     {

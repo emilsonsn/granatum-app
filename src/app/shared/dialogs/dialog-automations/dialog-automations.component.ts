@@ -29,7 +29,7 @@ export class DialogAutomationsComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private readonly _data: { automations: Automations },
+    private readonly _data: { automations: Automations|any },
     private readonly _dialogRef: MatDialogRef<DialogAutomationsComponent>,
     private readonly _fb: FormBuilder,
     private readonly _funnelService: FunnelService,
@@ -48,6 +48,8 @@ export class DialogAutomationsComponent {
       funnel_step_id: [null],
       channels: [null, [Validators.required]],
       start_date: [null, [Validators.required]],
+      start_time: [null, [Validators.required]],
+      is_active: [null, [Validators.required]],
     })
 
     if (this._data?.automations) {
@@ -56,15 +58,16 @@ export class DialogAutomationsComponent {
       this._fillForm({
         ...this._data.automations,
         start_date: new Date(this._data.automations.start_date),
+        channels : this._data.automations.channels.split(',')
       });
     }
 
     this.getFunnels()
   }
 
-  private _fillForm(funnel: Automations): void {
+  private _fillForm(automation: Automations): void {
 
-    this.form.patchValue(funnel);
+    this.form.patchValue(automation);
   }
 
   public onCancel(): void {
@@ -75,7 +78,7 @@ export class DialogAutomationsComponent {
 
     await this.form.get('type')?.valueChanges.subscribe((value) => {
       const recurrenceTypeControl = this.form.get('recurrence_type');
-      if (value === this.automationTypeEnum.Recurring) {
+      if (value === this.automationTypeEnum.Recurrence) {
         recurrenceTypeControl?.setValidators([Validators.required]);
         recurrenceTypeControl?.updateValueAndValidity();
       } else {
@@ -87,7 +90,10 @@ export class DialogAutomationsComponent {
     if(!form.valid){
       form.markAllAsTouched();
     }else{
-      this._dialogRef.close(form.getRawValue())
+      this._dialogRef.close({
+        ...form.getRawValue(),
+        channels: form.get('channels').value.join(','),
+      })
     }
   }
 
