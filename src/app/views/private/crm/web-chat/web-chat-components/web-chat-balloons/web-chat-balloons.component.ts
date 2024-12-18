@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Message } from "@models/Whatsapp";
+import {Message, MessageType} from "@models/Whatsapp";
 
 @Component({
   selector: 'app-web-chat-balloons',
@@ -36,4 +36,5 @@ export class WebChatBalloonsComponent {
     return emojiRegex.test(message.trim());
   }
 
+  protected readonly MessageType = MessageType;
 }

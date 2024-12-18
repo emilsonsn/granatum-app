@@ -4,6 +4,7 @@ export interface Message {
   phone: string;
   fromMe: boolean;
   updated_at: Date;
+  type: MessageType
 }
 
 export interface LastMessage {
@@ -42,6 +43,13 @@ export enum ContactStatus {
   Waiting = "Waiting",
   Responding = "Responding",
   Finished = "Finished"
+}
+
+export enum MessageType {
+  Text = 'Text',
+  Audio = 'Audio',
+  Midia = 'Midia',
+  File = 'File'
 }
 
 export interface SendMessagePayloadDto {

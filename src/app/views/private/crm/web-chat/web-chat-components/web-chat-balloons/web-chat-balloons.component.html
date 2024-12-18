@@ -9,8 +9,24 @@
     <div class="name">{{ data.fromMe }}</div>
     <div class="phone">{{ data.phone }}</div>
   </div>
+
   <div class="balloon-content">
-    <p class="emoji-style" [innerHTML]="formatMessage(data.message)"></p>
+    @if (data.type === MessageType.Text) {
+      <p class="emoji-style" [innerHTML]="formatMessage(data.message)"></p>
+    }
+
+    <!--@if (data.type === MessageType.Image) {
+      <img [src]="data.message" alt="image">
+    }
+
+    @if (data.type === MessageType.Video) {
+      <video [src]="data.message" controls></video>
+    }-->
+
+    @if (data.type === MessageType.Audio) {
+      <audio [src]="data.message" controls></audio>
+    }
+
   </div>
 
   <div class="balloon-footer">
