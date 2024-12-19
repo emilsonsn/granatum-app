@@ -49,9 +49,8 @@ export enum ContactStatus {
 export enum MessageType {
   Text = 'Text',
   Audio = 'Audio',
-  Image = 'Image',
-  Video = 'Video',
-  File = 'File',
+  Midia = 'Midia',
+  File = 'File'
 }
 
 export interface SendMessagePayloadDto {

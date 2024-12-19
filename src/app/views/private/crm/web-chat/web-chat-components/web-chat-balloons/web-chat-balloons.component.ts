@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {Message, MessageType} from "@models/Whatsapp";
+import * as bootstrap from 'bootstrap';
+
 
 @Component({
   selector: 'app-web-chat-balloons',
@@ -9,13 +11,41 @@ import {Message, MessageType} from "@models/Whatsapp";
 export class WebChatBalloonsComponent {
   @Input() titleHidden: boolean = false;
   @Input() data!: Message;
+  @Input() dataSelect: Message;
+
+  openModal(message: Message): void {
+    this.dataSelect = message;
+
+    const modalElement = document.getElementById('imageModal');
+    if (modalElement) {
+      modalElement.addEventListener('show.bs.modal', () => {
+        const modalContent = document.getElementById('modalContent');
+        if (modalContent) {
+          // Limpar conteúdo existente
+          modalContent.innerHTML = '';
+
+          // Criar uma tag <img> para exibir a imagem
+          const imgElement = document.createElement('img');
+          imgElement.src = this.dataSelect.path; // Use o caminho da imagem
+          imgElement.alt = 'Imagem carregada'; // Texto alternativo
+          imgElement.className = 'img-fluid'; // Classes do Bootstrap para responsividade
+
+          modalContent.appendChild(imgElement);
+        }
+      });
+
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
 
   formatDate(messageDate: string | Date): string {
-    const date = new Date(messageDate); // Converte para objeto Date, se for string
+    const date = new Date(messageDate);
 
     // Verifica se a data é válida
     if (isNaN(date.getTime())) {
-      return 'Data inválida'; // Se a data for inválida, retorna uma mensagem
+      return 'Data inválida';
     }
 
     return date.toLocaleString('pt-BR', {

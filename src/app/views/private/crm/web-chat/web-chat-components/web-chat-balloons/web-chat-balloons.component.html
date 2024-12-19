@@ -15,16 +15,49 @@
       <p class="emoji-style" [innerHTML]="formatMessage(data.message)"></p>
     }
 
-    <!--@if (data.type === MessageType.Image) {
-      <img [src]="data.message" alt="image">
-    }
+    <div *ngIf="data.type === MessageType.Image">
+      <img
+        [src]="data.path"
+        alt=""
+        class="img-thumbnail"
+        (click)="openModal(data)"
+      />
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="imageModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Imagem</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="modalContent">
+            <!-- A imagem será inserida aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
     @if (data.type === MessageType.Video) {
-      <video [src]="data.message" controls></video>
-    }-->
+      <video [src]="data.path" controls></video>
+    }
 
     @if (data.type === MessageType.Audio) {
-      <audio [src]="data.message" controls></audio>
+      <audio [src]="data.path" controls></audio>
     }
 
   </div>
