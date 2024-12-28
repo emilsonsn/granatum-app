@@ -3,9 +3,15 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from "@env/environment";
 import {ApiResponsePageable, PageControl} from "@models/application";
-import {Contact, ContactStatus, Message, SendMessagePayload, SendMessagePayloadDto} from "@models/Whatsapp";
+import {
+  Contact,
+  ContactStatus,
+  Message,
+  SendMediaResponse,
+  SendMessagePayload,
+  SendMessagePayloadDto
+} from "@models/Whatsapp";
 import {Utils} from "@shared/utils";
-
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +27,6 @@ export class WhatsappService {
 
   private baseUrl = `${environment.api}/whatsapp`;
 
-  // Variável para armazenar o contacto
   private selectedContact: Contact | null = null;
 
   constructor(
@@ -67,17 +72,43 @@ export class WhatsappService {
     return this.http.post(`${this.baseUrl}/send-message`, payload);
   }
 
+  /**
+   * Marca mensagens como lidas
+   * @param remoteJid Identificador remoto do chat
+   * @param instance Instância do WhatsApp
+   */
   read(remoteJid: string, instance: string): Observable<any> {
     const payload = {number: remoteJid, instance: instance};
     return this.http.post(`${this.baseUrl}/read-message`, payload);
   }
 
   /**
-   * Envia uma mensagem
+   * Atualiza o status do contato
+   * @param id ID do contato
    * @param status Novo status do contato
    */
   updateStatus(id: number, status: ContactStatus): Observable<any> {
     const payload = {status};
     return this.http.patch(`${this.baseUrl}/update-status/${id}`, payload);
+  }
+
+  /**
+   * Envia mídia com mensagem opcional
+   * @param payload Dados para envio da mídia
+   */
+  sendMedia(payload: SendMediaResponse): Observable<any> {
+    const formData = new FormData();
+    formData.append('number', payload.number);
+    formData.append('instance', payload.instance);
+
+    if (payload.message) {
+      formData.append('message', payload.message);
+    }
+
+    payload.medias.forEach((media, index) => {
+      formData.append(`medias[${index}]`, media);
+    });
+
+    return this.http.post(`${this.baseUrl}/send-midia`, formData);
   }
 }

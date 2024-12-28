@@ -1,19 +1,68 @@
 <div class="web-chat-input-container">
   <div class="web-chat-input">
     <div class="d-flex gap-3 h-100 align-items-center justify-content-center">
-      <i [matTooltip]="'Anexo'" class="fa-solid fa-paperclip" style="cursor: pointer"></i>
-      <i [matTooltip]="'Emoji'" class="fa-regular fa-face-smile" style="cursor: pointer" (click)="toggleEmojiPicker()"></i>
-      <p class="p-0 m-0"><mat-slide-toggle (change)="onToggleChange($event)" [checked]="sign">Assinar</mat-slide-toggle></p>
+      <i
+        [matTooltip]="'Anexo'"
+        class="fa-solid fa-paperclip"
+        style="cursor: pointer"
+        (click)="fileInput.click()"
+      ></i>
+      <input
+        #fileInput
+        type="file"
+        multiple
+        hidden
+        (change)="onFilesSelected($event)"
+      />
+      <i
+        [matTooltip]="'Emoji'"
+        class="fa-regular fa-face-smile"
+        style="cursor: pointer"
+        (click)="toggleEmojiPicker()"
+      ></i>
+      <p class="p-0 m-0">
+        <mat-slide-toggle (change)="onToggleChange($event)" [checked]="sign"
+        >Assinar</mat-slide-toggle
+        >
+      </p>
     </div>
-    <textarea class="emoji-style" #input rows="1" placeholder="Mensagem" (keydown)="handleKeydown($event)"></textarea> <!-- Usando <textarea> para suportar múltiplas linhas -->
+    <div class="attached-files">
+      <div
+        class="file-bubble"
+        *ngFor="let file of attachedFiles; let i = index"
+      >
+        <span>{{ file.name }}</span>
+        <i
+          class="fa-solid fa-xmark"
+          (click)="removeFile(i)"
+          style="cursor: pointer"
+        ></i>
+      </div>
+    </div>
+    <textarea
+      class="emoji-style"
+      #input
+      rows="1"
+      placeholder="Mensagem"
+      (keydown)="handleKeydown($event)"
+    ></textarea>
     <div class="d-flex gap-3 h-100 align-items-center justify-content-center">
-      <i [matTooltip]="'Microfone'" class="fa-solid fa-microphone" style="cursor: pointer"></i>
-      <i [matTooltip]="'Enviar'" class="fa-solid fa-paper-plane" style="cursor: pointer" (click)="send()"></i>
+      <i
+        [matTooltip]="'Microfone'"
+        class="fa-solid fa-microphone"
+        style="cursor: pointer"
+      ></i>
+      <i
+        [matTooltip]="'Enviar'"
+        class="fa-solid fa-paper-plane"
+        style="cursor: pointer"
+        (click)="send()"
+      ></i>
     </div>
     <emoji-mart
       *ngIf="showEmojiPicker"
       [style]="{ position: 'absolute', bottom: '70px', left: '10px' }"
-      (emojiSelect)="addEmoji($event)">
-    </emoji-mart>
+      (emojiSelect)="addEmoji($event)"
+    ></emoji-mart>
   </div>
 </div>

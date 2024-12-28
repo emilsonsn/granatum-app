@@ -23,6 +23,41 @@
     padding: 0.5rem 0.5rem 0;
     gap: 0.5rem;
 
+    .download-container {
+      text-align: center; /* Centraliza o botão */
+
+    }
+
+    .download-button {
+      display: inline-flex; /* Flex para alinhar ícone e texto */
+      align-items: center;
+      justify-content: center;
+      padding: 10px 25px;
+      text-decoration: none; /* Remove sublinhado */
+      font-size: 16px;
+      font-weight: 500; /* Peso moderado */
+      border-radius: 8px; /* Bordas arredondadas */
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Suaviza as interações */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+      cursor: pointer; /* Indica que é clicável */
+    }
+
+    .download-button .icon {
+      margin-right: 8px; /* Espaço entre ícone e texto */
+      font-size: 18px; /* Tamanho do ícone */
+    }
+
+    .download-button:hover {
+      transform: translateY(-2px); /* Efeito de elevação */
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+    }
+
+    .download-button:active {
+      transform: translateY(0); /* Remove a elevação ao clicar */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Retorna à sombra original */
+    }
+
+
     p {
       margin: 0;
     }
@@ -62,6 +97,11 @@
 .balloon-body.left {
   background-color: #485267;
   border-bottom-left-radius: 0;
+
+  .download-button{
+    background-color: #485267;
+    color: white;
+  }
 
   .balloon-header {
     color: white;
@@ -106,6 +146,11 @@
 .balloon-body.right {
   background-color: #377B6A;
   border-bottom-right-radius: 0;
+
+  .download-button{
+    background-color: #377B6A;
+    color: white;
+  }
 
   .balloon-content {
     color: white;

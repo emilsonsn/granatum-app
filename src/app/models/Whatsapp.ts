@@ -60,6 +60,13 @@ export interface SendMessagePayloadDto {
   sign?: boolean;
 }
 
+export interface SendMediaResponse {
+  number: string;
+  instance: string;
+  medias: File[];
+  message?: string;
+}
+
 export interface SendMessagePayload extends SendMessagePayloadDto {
   instance: string;
 }

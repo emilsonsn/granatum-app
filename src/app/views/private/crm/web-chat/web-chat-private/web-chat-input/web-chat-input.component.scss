@@ -39,3 +39,25 @@
     }
   }
 }
+
+.attached-files {
+  position: absolute;
+  bottom: 70px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.file-bubble {
+  background-color: $primary;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 17px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+

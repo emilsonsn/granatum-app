@@ -124,7 +124,7 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
         error: (error) => {
           console.error(error);
         }
-    });
+      });
     this._initOrStopLoading();
     this.whatsappService.searchMessage(uuid, this.pageControl)
       .subscribe({
@@ -149,21 +149,37 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
       });
   }
 
-  sendMessage(message: string): void {
+  sendMessage(messageObject: { message: string; files: File[] }): void {
     const sign = localStorage.getItem('sign') === 'true';
 
     const newMessage: SendMessagePayloadDto = {
-      message: message,
+      message: messageObject.message,
       number: this.contact?.remoteJid,
       sign: sign
     };
-    this.whatsappService.sendMessage(newMessage, this.instance)
-      .subscribe({
-        error: (error) => {
-          console.error(error);
-        }
-      });
 
+    if (messageObject.files.length > 0) {
+      this.whatsappService.sendMedia({
+          number: this.contact?.remoteJid,
+          instance: this.instance,
+          medias: messageObject.files,
+          message: ""
+        })
+        .subscribe({
+          error: (error) => {
+            console.error(error);
+          }
+        });
+    }
+
+    if (messageObject.message){
+      this.whatsappService.sendMessage(newMessage, this.instance)
+        .subscribe({
+          error: (error) => {
+            console.error(error);
+          }
+        });
+    }
   }
 
   groupMessagesByDay(): void {

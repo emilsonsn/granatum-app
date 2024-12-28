@@ -1,6 +1,6 @@
 <div class="balloon-body"
      [ngClass]="data.fromMe ? 'right' : 'left'"
-     [ngStyle]="isOnlyEmoji(data.message) ? {
+     [ngStyle]="isOnlyEmoji(data.message) || data.type === MessageType.File ? {
      'background-color': 'rgba(255,255,255,0)',
      'font-size': '3rem'
      } : {}"
@@ -58,6 +58,15 @@
 
     @if (data.type === MessageType.Audio) {
       <audio [src]="data.path" controls></audio>
+    }
+
+    @if (data.type === MessageType.File) {
+      <div class="download-container">
+        <a class="download-button" [href]="data.path" target="_blank" rel="noopener noreferrer">
+          <span class="icon">📂</span>
+          <span class="text">Abrir Arquivo</span>
+        </a>
+      </div>
     }
 
   </div>
