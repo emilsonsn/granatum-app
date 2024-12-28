@@ -172,7 +172,7 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
         });
     }
 
-    if (messageObject.message){
+    if (messageObject.message) {
       this.whatsappService.sendMessage(newMessage, this.instance)
         .subscribe({
           error: (error) => {
@@ -212,5 +212,17 @@ export class WebChatPrivateComponent implements OnInit, OnDestroy {
     }
 
     this.pageControl.page += 1;
+  }
+
+  sendAudio($event: {file: File}) {
+    this.whatsappService.sendAudio({
+      number: this.contact?.remoteJid,
+      instance: this.instance,
+      audio: $event.file
+    }).subscribe({
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 }

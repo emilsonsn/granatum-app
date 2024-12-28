@@ -111,4 +111,19 @@ export class WhatsappService {
 
     return this.http.post(`${this.baseUrl}/send-midia`, formData);
   }
+
+  /**
+   * Envia um arquivo de áudio para o WhatsApp
+   * @param param Dados necessários para o envio de áudio
+   */
+  sendAudio(param: { number: string; instance: string; audio: File }): Observable<any> {
+    const formData = new FormData();
+    formData.append('number', param.number);
+    formData.append('instance', param.instance);
+    formData.append('audio', param.audio);
+
+    console.log(formData);
+
+    return this.http.post(`${this.baseUrl}/send-audio`, formData);
+  }
 }

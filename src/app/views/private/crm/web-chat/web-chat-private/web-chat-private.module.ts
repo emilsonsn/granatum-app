@@ -20,6 +20,7 @@ import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {PickerComponent} from "@ctrl/ngx-emoji-mart";
 import {MatTooltip} from "@angular/material/tooltip";
+import {LottieComponent} from "ngx-lottie";
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     AvatarModule,
     MatSlideToggle,
     PickerComponent,
-    MatTooltip
+    MatTooltip,
+    LottieComponent
   ]
 })
 export class WebChatPrivateModule { }
