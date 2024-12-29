@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AudioService {
   private mediaRecorder: MediaRecorder | null = null;
@@ -11,43 +11,38 @@ export class AudioService {
 
   constructor() {}
 
-  // Inicializa o MediaRecorder
-  init() {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then((stream) => {
-          this.mediaRecorder = new MediaRecorder(stream);
-          this.mediaRecorder.ondataavailable = (event) => {
-            this.audioChunks.push(event.data);
-          };
-          this.mediaRecorder.onstop = () => {
-            const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
-            this.audioUrl = URL.createObjectURL(audioBlob);
-            this.audioChunks = [];  // Limpa os chunks de áudio para a próxima gravação
-          };
-        })
-        .catch((error) => {
-          console.error('Erro ao acessar o microfone:', error);
-        });
-    } else {
-      console.error('getUserMedia não é suportado neste navegador');
-    }
-  }
-
   // Inicia a gravação de áudio
-  start() {
-    if (this.mediaRecorder) {
+  async start() {
+    if (!this.mediaRecorder) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder.ondataavailable = (event) => {
+          this.audioChunks.push(event.data);
+        };
+        this.mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+          this.audioUrl = URL.createObjectURL(audioBlob);
+          this.audioChunks = []; // Limpa os chunks para a próxima gravação
+        };
+        this.mediaRecorder.onerror = (error) => {
+          console.error('Erro no MediaRecorder:', error);
+        };
+      } catch (error) {
+        console.error('Erro ao acessar o microfone:', error);
+        return;
+      }
+    }
+
+    if (this.mediaRecorder.state === 'inactive') {
       this.mediaRecorder.start();
       this.isRecording = true;
-    } else {
-      console.error('MediaRecorder não foi inicializado');
     }
   }
 
   // Pausa a gravação
   pause() {
-    if (this.mediaRecorder && this.isRecording) {
+    if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
       this.mediaRecorder.pause();
       this.isRecording = false;
     }
@@ -55,33 +50,31 @@ export class AudioService {
 
   // Retoma a gravação
   resume() {
-    if (this.mediaRecorder && !this.isRecording) {
+    if (this.mediaRecorder && this.mediaRecorder.state === 'paused') {
       this.mediaRecorder.resume();
       this.isRecording = true;
     }
   }
 
-  // Para a gravação e retorna a URL do áudio gravado
-  // Para a gravação e retorna a URL do áudio gravado
+  // Para a gravação e retorna o áudio gravado
   stop(): Promise<Blob | null> {
     return new Promise((resolve, reject) => {
-      if (this.mediaRecorder) {
-        this.mediaRecorder.stop();  // Para a gravação
+      if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
         this.mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });  // Use audioChunks aqui
-          this.audioChunks = [];  // Limpa os chunks para a próxima gravação
-          resolve(audioBlob);  // Retorna o Blob com o áudio
+          const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+          this.audioChunks = []; // Limpa os chunks para a próxima gravação
+          resolve(audioBlob);
         };
         this.mediaRecorder.onerror = (error) => {
           reject(error);
         };
+        this.mediaRecorder.stop(); // Para a gravação
+        this.isRecording = false;
       } else {
         resolve(null);
       }
     });
   }
-
-
 
   // Apaga o áudio gravado
   delete() {

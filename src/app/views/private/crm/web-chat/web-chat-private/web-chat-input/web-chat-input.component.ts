@@ -36,7 +36,6 @@ export class WebChatInputComponent implements OnInit {
 
   ngOnInit() {
     this.sign = localStorage.getItem('sign') === 'true';
-    this.audioService.init();  // Inicializa o MediaRecorder ao carregar o componente
   }
 
   // Enviar mensagem e anexos
