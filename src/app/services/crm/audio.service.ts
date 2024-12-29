@@ -8,6 +8,7 @@ export class AudioService {
   private audioChunks: Blob[] = [];
   private audioUrl: string | null = null;
   private isRecording = false;
+  private audioStream: MediaStream | null = null;
 
   constructor() {}
 
@@ -15,8 +16,8 @@ export class AudioService {
   async start() {
     if (!this.mediaRecorder) {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        this.mediaRecorder = new MediaRecorder(stream);
+        this.audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        this.mediaRecorder = new MediaRecorder(this.audioStream);
         this.mediaRecorder.ondataavailable = (event) => {
           this.audioChunks.push(event.data);
         };
@@ -24,6 +25,7 @@ export class AudioService {
           const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
           this.audioUrl = URL.createObjectURL(audioBlob);
           this.audioChunks = []; // Limpa os chunks para a próxima gravação
+          this.stopAudioStream(); // Libera o microfone
         };
         this.mediaRecorder.onerror = (error) => {
           console.error('Erro no MediaRecorder:', error);
@@ -63,6 +65,7 @@ export class AudioService {
         this.mediaRecorder.onstop = () => {
           const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
           this.audioChunks = []; // Limpa os chunks para a próxima gravação
+          this.stopAudioStream(); // Libera o microfone
           resolve(audioBlob);
         };
         this.mediaRecorder.onerror = (error) => {
@@ -74,6 +77,15 @@ export class AudioService {
         resolve(null);
       }
     });
+  }
+
+  // Libera o stream de áudio e o microfone
+  private stopAudioStream() {
+    if (this.audioStream) {
+      this.audioStream.getTracks().forEach((track) => track.stop());
+      this.audioStream = null;
+    }
+    this.mediaRecorder = null;
   }
 
   // Apaga o áudio gravado
