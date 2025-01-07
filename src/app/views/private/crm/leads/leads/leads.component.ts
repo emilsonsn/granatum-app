@@ -6,11 +6,11 @@ import {LeadService} from "@services/crm/lead.service";
 import {Lead} from "@models/Lead";
 import {DialogConfirmComponent} from "@shared/dialogs/dialog-confirm/dialog-confirm.component";
 import {finalize} from "rxjs";
-import { Kanban } from '@models/Kanban';
-import { DialogFunnelComponent } from '@shared/dialogs/dialog-funnel/dialog-funnel.component';
-import { FunnelService } from '@services/crm/funnel.service';
-import { Funnel } from '@models/Funnel';
-import { Router } from '@angular/router';
+import {Kanban} from '@models/Kanban';
+import {DialogFunnelComponent} from '@shared/dialogs/dialog-funnel/dialog-funnel.component';
+import {FunnelService} from '@services/crm/funnel.service';
+import {Funnel} from '@models/Funnel';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-leads',
@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 export class LeadsComponent {
   public loading: boolean = false;
   data: Kanban<Lead> = {};
+
   // funnel: Funnel[] = [];
 
   constructor(
@@ -103,7 +104,7 @@ export class LeadsComponent {
   onDeleteLead(id: number) {
     const text = 'Tem certeza? Essa ação não pode ser revertida!';
     this._dialog
-      .open(DialogConfirmComponent, { data: { text } })
+      .open(DialogConfirmComponent, {data: {text}})
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
@@ -147,7 +148,7 @@ export class LeadsComponent {
     };
     this._dialog
       .open(DialogFunnelComponent, {
-        data: funnel ? { funnel: funnel } : null,
+        data: funnel ? {funnel: funnel} : null,
         ...dialogConfig
       })
       .afterClosed()
@@ -198,7 +199,7 @@ export class LeadsComponent {
   onDeleteFunnel(id: number) {
     const text = 'Tem certeza? Essa ação não pode ser revertida!';
     this._dialog
-      .open(DialogConfirmComponent, { data: { text } })
+      .open(DialogConfirmComponent, {data: {text}})
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
@@ -222,7 +223,7 @@ export class LeadsComponent {
       });
   }
 
-  public goKanban(id: number){
-    this._router.navigate([`/painel/crm/leads/kanban/${id}`])
+  public goKanban(id: number) {
+    this._router.navigate([`/painel/crm/leads/kanban/${id}`], {queryParams: {id}}).then();
   }
 }

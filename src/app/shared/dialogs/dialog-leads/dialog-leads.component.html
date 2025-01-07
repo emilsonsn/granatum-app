@@ -47,7 +47,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-12 mb-3">
+    <div class="col-md-6 mb-3">
       <span class="fw-bolder">Responsável*</span>
       <mat-form-field appearance="outline">
         <mat-select formControlName="responsible_id" placeholder="Solicitante" >
@@ -56,7 +56,21 @@
           </mat-option>
         </mat-select>
         <mat-error *ngIf="leadForm.get('responsible_id')?.hasError('required')">
-          É necessário ser responsável.
+          É necessário possuir um responsável.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <span class="fw-bolder">Funil*</span>
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="funnel_id" placeholder="Funil" >
+          <mat-option *ngFor="let funnel of funnels" [value]="funnel.id">
+            {{ funnel.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="leadForm.get('funnel_id')?.hasError('required')">
+          É necessário possuir um funil.
         </mat-error>
       </mat-form-field>
     </div>

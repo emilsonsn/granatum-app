@@ -1,11 +1,10 @@
-import { FunnelStep } from '@models/Funnel';
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Automations, AutomationsChannels, AutomationsRecurrenceType, AutomationsType } from '@models/automations';
-import { FunnelStepService } from '@services/crm/funnel-step.service';
-import { FunnelService } from '@services/crm/funnel.service';
-import { finalize } from 'rxjs';
+import {Component, Inject} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Automations, AutomationsChannels, AutomationsRecurrenceType, AutomationsType} from '@models/automations';
+import {FunnelStepService} from '@services/crm/funnel-step.service';
+import {FunnelService} from '@services/crm/funnel.service';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-dialog-automations',
@@ -19,7 +18,7 @@ export class DialogAutomationsComponent {
 
   public form: FormGroup;
 
-  public loading : boolean = false;
+  public loading: boolean = false;
   public automationType = Object.entries(AutomationsType);
   public automationTypeEnum = AutomationsType;
   public recurrenceType = Object.entries(AutomationsRecurrenceType);
@@ -29,16 +28,17 @@ export class DialogAutomationsComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private readonly _data: { automations: Automations|any },
+    private readonly _data: { automations: Automations | any },
     private readonly _dialogRef: MatDialogRef<DialogAutomationsComponent>,
     private readonly _fb: FormBuilder,
     private readonly _funnelService: FunnelService,
     private readonly _funnelStepService: FunnelStepService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
 
-  this.form = this._fb.group({
+    this.form = this._fb.group({
       id: [null],
       title: [null, [Validators.required]],
       message: [null, [Validators.required]],
@@ -58,7 +58,7 @@ export class DialogAutomationsComponent {
       this._fillForm({
         ...this._data.automations,
         start_date: new Date(this._data.automations.start_date),
-        channels : this._data.automations.channels.split(',')
+        channels: this._data.automations.channels.split(',')
       });
     }
 
@@ -87,9 +87,9 @@ export class DialogAutomationsComponent {
       }
     });
 
-    if(!form.valid){
+    if (!form.valid) {
       form.markAllAsTouched();
-    }else{
+    } else {
       this._dialogRef.close({
         ...form.getRawValue(),
         channels: form.get('channels').value.join(','),
@@ -99,10 +99,10 @@ export class DialogAutomationsComponent {
 
   public getFunnels() {
     this._funnelService.getFunnels().pipe(finalize(() => {
-      if(this.form.get('funnel_id').value){
-        this.getFunnelSteps(this.form.get('funnel_id').value)
-      }
-    }))
+        if (this.form.get('funnel_id').value) {
+          this.getFunnelSteps(this.form.get('funnel_id').value)
+        }
+      }))
       .subscribe(res => {
         this.funnels = res.data;
       })

@@ -1,1 +1,40 @@
-<p>kanban-lead works!</p>
+<div class="mb-4 d-flex justify-content-end">
+  <button matRipple class="button yellow" (click)="openCreateDialog()">
+    <i class="fa-solid fa-circle-plus"></i> Nova Etapa
+  </button>
+</div>
+
+<div cdkDropListGroup class="kanban-main">
+  @for (key of funnelSteps; track key) {
+    <div class="kanban-container">
+      <h2>{{ key.name }} {{ key.leads.length }}</h2>
+      <div
+        cdkDropList
+        [cdkDropListData]="key"
+        class="kanban-list"
+        (cdkDropListDropped)="drop($event)">
+        @for (item of key.leads; track item) {
+          <div class="kanban-box"
+
+               cdkDrag
+               (click)="onBoxClick(item.lead)">
+            <!--<div
+              class="d-flex align-items-center justify-content-end w-100 pt-2"
+              style="color: red;">
+              <span><i style="cursor: pointer" class="fa-solid fa-trash" (click)="deleteTask($event, item)"></i></span>
+            </div>-->
+            <h4>
+              <strong>
+                {{ item.lead.name }}
+              </strong>
+            </h4>
+            <h4>{{ item?.lead.email }}</h4>
+            <p>{{ item?.lead.origin }}</p>
+          </div>
+        }
+        <!-- Placeholder: deve estar dentro do cdkDropList -->
+        <div class="kanban-box cdk-drag-placeholder" *cdkDragPlaceholder></div>
+      </div>
+    </div>
+  }
+</div>

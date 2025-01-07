@@ -1,3 +1,5 @@
+import {Lead} from "@models/Lead";
+
 export interface Funnel {
   id?: number,
   name: string,
@@ -12,6 +14,7 @@ export interface FunnelStep {
   name: string,
   description: string;
   funnel_id: number;
+  leads: { lead: Lead }[];
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;

@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatRipple} from "@angular/material/core";
 import {SharedModule} from "@shared/shared.module";
 import { KanbanLeadComponent } from './kanban-lead/kanban-lead.component';
+import {CdkDrag, CdkDragPlaceholder, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 
 
 @NgModule({
@@ -19,7 +20,11 @@ import { KanbanLeadComponent } from './kanban-lead/kanban-lead.component';
     LeadsRoutingModule,
     MatTabsModule,
     MatRipple,
-    SharedModule
+    SharedModule,
+    CdkDrag,
+    CdkDropList,
+    CdkDropListGroup,
+    CdkDragPlaceholder
   ]
 })
 export class LeadsModule { }
