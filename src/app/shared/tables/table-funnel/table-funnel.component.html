@@ -57,6 +57,9 @@
               </td>
               <td>
                 <div class="d-flex justify-content-end">
+                  <div matRipple class="buttonTemplate" (click)="onFunnelLinkClick.emit(funnel.id)">
+                    <i class="fa-solid fa-link"></i>
+                  </div>
                   <div matRipple class="buttonTemplate" (click)="onFunnelKanbanClick.emit(funnel.id)">
                         <i class="fa-solid fa-circle-info"></i>
                   </div>

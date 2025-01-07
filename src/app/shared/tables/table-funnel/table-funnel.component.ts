@@ -25,6 +25,10 @@ export class TableFunnelComponent {
     new EventEmitter<Funnel>();
 
   @Output()
+  onFunnelLinkClick: EventEmitter<number> =
+    new EventEmitter<number>();
+
+  @Output()
   onFunnelKanbanClick: EventEmitter<number> =
     new EventEmitter<number>();
 

@@ -26,6 +26,7 @@
       <div id="componentTable" class="col-12 mt-4">
         <app-table-funnel [loading]="loading"
                          (onFunnelClick)="openFunnelDialog($event)"
+                         (onFunnelLinkClick)="copyLink($event)"
                          (onFunnelKanbanClick)="goKanban($event)"
                          (onDeleteFunnelClick)="onDeleteFunnel($event)">>
         </app-table-funnel>

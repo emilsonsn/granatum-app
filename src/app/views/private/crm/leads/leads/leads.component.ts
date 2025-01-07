@@ -127,6 +127,13 @@ export class LeadsComponent {
       });
   }
 
+  public copyLink(id: number) {
+    const url = window.location.origin;
+    navigator.clipboard.writeText(`${url}/leads/${id}`)
+        .then(() => this._toastr.success("Link copiado com sucesso!"))
+        .catch(() => this._toastr.error("Não foi possivel copiar o link."));
+  }
+
   // funnel
 
   public openFunnelDialog(funnel?: Funnel) {
