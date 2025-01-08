@@ -6,11 +6,12 @@ import {LeadService} from "@services/crm/lead.service";
 import {Lead} from "@models/Lead";
 import {DialogConfirmComponent} from "@shared/dialogs/dialog-confirm/dialog-confirm.component";
 import {finalize} from "rxjs";
-import {Kanban} from '@models/Kanban';
-import {DialogFunnelComponent} from '@shared/dialogs/dialog-funnel/dialog-funnel.component';
-import {FunnelService} from '@services/crm/funnel.service';
-import {Funnel} from '@models/Funnel';
-import {Router} from '@angular/router';
+import { Kanban } from '@models/Kanban';
+import { DialogFunnelComponent } from '@shared/dialogs/dialog-funnel/dialog-funnel.component';
+import { FunnelService } from '@services/crm/funnel.service';
+import { Funnel } from '@models/Funnel';
+import { Router } from '@angular/router';
+import { SessionService } from '@store/session.service';
 
 @Component({
   selector: 'app-leads',
@@ -20,7 +21,7 @@ import {Router} from '@angular/router';
 export class LeadsComponent {
   public loading: boolean = false;
   data: Kanban<Lead> = {};
-
+  protected responsible: number
   // funnel: Funnel[] = [];
 
   constructor(
@@ -29,6 +30,7 @@ export class LeadsComponent {
     private readonly _leadService: LeadService,
     private readonly _funnelService: FunnelService,
     private readonly _router: Router,
+    private readonly _sessionService: SessionService
   ) {
   }
 
@@ -129,10 +131,18 @@ export class LeadsComponent {
   }
 
   public copyLink(id: number) {
-    const url = window.location.origin;
-    navigator.clipboard.writeText(`${url}/leads/${id}`)
+    this._sessionService.getUser().subscribe({
+      next: (user) => {
+        this.responsible = user.id;
+        const url = window.location.origin;
+      navigator.clipboard.writeText(`${url}/public/leads?id=${id}&responsible=${this.responsible}`)
         .then(() => this._toastr.success("Link copiado com sucesso!"))
         .catch(() => this._toastr.error("Não foi possivel copiar o link."));
+      },
+      error: (err) => {
+        this._toastr.error(err)
+      },
+    });
   }
 
   // funnel

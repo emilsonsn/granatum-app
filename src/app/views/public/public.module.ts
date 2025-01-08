@@ -13,11 +13,13 @@ import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LeadsComponent } from './leads/leads.component';
 
 
 @NgModule({
   declarations: [
-    CandidatingComponent
+    CandidatingComponent,
+    LeadsComponent
   ],
   imports: [
     CommonModule,

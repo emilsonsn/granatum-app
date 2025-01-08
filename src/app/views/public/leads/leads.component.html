@@ -1,0 +1,62 @@
+<div class="candidating-container">
+  <div class="left-panel">
+    <div id="geralTemplate">
+      <div class="capa">
+        <img src="https://andradeengenhariaeletrica.com.br/wp-content/uploads/2023/05/Sem-Titulo-1-1024x512.png" alt="">
+      </div>
+      <h2></h2>
+      <form class="row" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+        <h3>Formulário de Candidatura</h3>
+        <div class="col-md-6 mb-3">
+          <span class="fw-bolder">Name*</span>
+          <mat-form-field>
+            <input matInput formControlName="name" required>
+            <mat-error *ngIf="form.get('name')?.hasError('required')">
+              Nome é obrigatório.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <span class="fw-bolder">Email*</span>
+          <mat-form-field>
+            <input matInput formControlName="email" required>
+            <mat-error *ngIf="form.get('email')?.hasError('required')">
+              E-mail é obrigatório.
+            </mat-error>
+            <mat-error *ngIf="form.get('email')?.hasError('email')">
+              Insira um e-mail válido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <span class="fw-bolder">Telefone*</span>
+          <mat-form-field>
+            <input formControlName="phone" matInput mask="(00) 0 0000-0000" required>
+            <mat-error *ngIf="form.get('phone')?.hasError('required')">
+              É necessário informar o telefone.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <span class="fw-bolder">Origem</span>
+          <mat-form-field>
+            <input matInput formControlName="origin">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <span class="fw-bolder">Observações</span>
+          <mat-form-field>
+            <textarea matInput formControlName="observations"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button style="width: 100%;" mat-raised-button color="primary" type="submit">Cadastrar lead</button>
+        </div>
+
+      </form>
+</div>
