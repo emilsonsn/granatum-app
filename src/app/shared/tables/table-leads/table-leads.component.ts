@@ -56,12 +56,6 @@ export class TableLeadsComponent {
       align: "justify-content-center",
     },
     {
-      slug: "observations",
-      order: true,
-      title: "Observações",
-      align: "justify-content-center",
-    },
-    {
       slug: "responsible_id",
       order: true,
       title: "Responsável",
