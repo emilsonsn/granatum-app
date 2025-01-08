@@ -14,6 +14,7 @@ export class BudgetDetailComponent {
   public form: FormGroup;
 
   public loading: boolean = false;
+  public detail;
 
   constructor(
     private readonly _fb: FormBuilder,
@@ -48,11 +49,19 @@ export class BudgetDetailComponent {
 
   }
 
+  private setAllDescriptions(){
+    this.texts.forEach(element => {
+      this.setDescription(element, this.form.get(element).value);
+    });
+  }
+
   public getDetails(id){
     this._budgetDetailService.getById(id)
     .subscribe({
       next: (res) => {
         this.form.patchValue(res);
+        this.detail = res;
+        console.log(this.detail);
         if (res.cover) {
           this.images["cover"] = res.cover
         }
@@ -60,32 +69,33 @@ export class BudgetDetailComponent {
           this.images["final_cover"] = res.final_cover
         }
         if (res.presentation_image_1) {
-          this.images["presentation_image_1"] = res.presentation_image_1
+          this.images["presentation_image_1"] = res.presentation_image_1_url
         }
         if (res.presentation_image_2) {
-          this.images["presentation_image_2"] = res.presentation_image_2
+          this.images["presentation_image_2"] = res.presentation_image_2_url
         }
         if (res.presentation_image_3) {
-          this.images["presentation_image_3"] = res.presentation_image_3
+          this.images["presentation_image_3"] = res.presentation_image_3_url
         }
         if (res.development_image_1) {
-          this.images["development_image_1"] = res.development_image_1
+          this.images["development_image_1"] = res.development_image_1_url
         }
         if (res.development_image_2) {
-          this.images["development_image_2"] = res.development_image_2
+          this.images["development_image_2"] = res.development_image_2_url
         }
         if (res.development_image_3) {
-          this.images["development_image_3"] = res.development_image_3
+          this.images["development_image_3"] = res.development_image_3_url
         }
         if (res.development_image_4) {
-          this.images["development_image_4"] = res.development_image_4
+          this.images["development_image_4"] = res.development_image_4_url
         }
         if (res.conclusion_image_1) {
-          this.images["conclusion_image_1"] = res.conclusion_image_1
+          this.images["conclusion_image_1"] = res.conclusion_image_1_url
         }
         if (res.conclusion_image_2) {
-          this.images["conclusion_image_2"] = res.conclusion_image_2
+          this.images["conclusion_image_2"] = res.conclusion_image_2_url
         }
+        this.setAllDescriptions();
       },
       error: (error) => {
         this._toastr.error(error.error.message);
@@ -94,6 +104,19 @@ export class BudgetDetailComponent {
   }
 
   isDragOver: boolean = false;
+
+  texts =  [
+    'presentation_text_1',
+    'presentation_text_2',
+    'presentation_text_3',
+    'development_text_1',
+    'development_text_2',
+    'development_text_3',
+    'development_text_4',
+    'payment_methods',
+    'conclusion_text_1',
+    'conclusion_text_2',
+  ];
 
   files = {
     presentation_image_1: null,
@@ -178,7 +201,6 @@ export class BudgetDetailComponent {
   }
 
   protected setDescription(text_type: string , html: string) {
-    debugger
     this.form.patchValue({ [text_type]: html });
   }
 
