@@ -43,12 +43,12 @@ export class TableAutomationsComponent {
       title: "Funil",
       align: "justify-content-center",
     },
-    {
-      slug: "type",
-      order: true,
-      title: "Tipo",
-      align: "justify-content-center",
-    },
+    // {
+    //   slug: "type",
+    //   order: true,
+    //   title: "Tipo",
+    //   align: "justify-content-center",
+    // },
     {
       slug: "channels",
       order: true,

@@ -40,7 +40,7 @@ export class DialogHrCampaignComponent {
       id: [null],
       title: [null, [Validators.required]],
       message: [null, [Validators.required]],
-      type: [null, [Validators.required]],
+      type: ['Single', [Validators.required]],
       recurrence_type: [null],
       selection_process_id: [null, [Validators.required]],
       status_id: [null],

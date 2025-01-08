@@ -42,7 +42,7 @@ export class DialogAutomationsComponent {
       id: [null],
       title: [null, [Validators.required]],
       message: [null, [Validators.required]],
-      type: [null, [Validators.required]],
+      type: ['Single', [Validators.required]],
       recurrence_type: [null],
       funnel_id: [null, [Validators.required]],
       funnel_step_id: [null],

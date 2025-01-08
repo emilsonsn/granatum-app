@@ -43,12 +43,12 @@ export class TableHrCampaignComponent {
       title: "Processo seletivo",
       align: "justify-content-center",
     },
-    {
-      slug: "type",
-      order: true,
-      title: "Tipo",
-      align: "justify-content-center",
-    },
+    // {
+    //   slug: "type",
+    //   order: true,
+    //   title: "Tipo",
+    //   align: "justify-content-center",
+    // },
     {
       slug: "channels",
       order: true,
