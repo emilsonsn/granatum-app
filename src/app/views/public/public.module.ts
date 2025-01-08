@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LeadsComponent } from './leads/leads.component';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { LeadsComponent } from './leads/leads.component';
     SharedModule,
     MatButtonModule,
     MatDivider,
-    MatOption
+    MatOption,
+    MatSpinner
   ]
 })
 export class PublicModule { }

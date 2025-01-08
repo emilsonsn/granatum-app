@@ -31,6 +31,7 @@
     "dayjs": "^1.11.13",
     "heic2any": "^0.0.4",
     "lamejs": "^1.2.1",
+    "lottie-web": "^5.12.2",
     "moment": "^2.30.1",
     "ng2-currency-mask": "^13.0.3",
     "ngx-ace-wrapper": "^17.0.0",

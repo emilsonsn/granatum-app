@@ -5,8 +5,13 @@
         <img src="https://andradeengenhariaeletrica.com.br/wp-content/uploads/2023/05/Sem-Titulo-1-1024x512.png" alt="">
       </div>
       <h2></h2>
-      <form class="row" [formGroup]="form" (ngSubmit)="onSubmit(form)">
-        <h3>Formulário de Candidatura</h3>
+      <form *ngIf="!isRegistered" class="row" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+        
+        <div id="mat-loading" *ngIf="loading">
+          <mat-spinner></mat-spinner>
+        </div>          
+        
+        <h3></h3>
         <div class="col-md-6 mb-3">
           <span class="fw-bolder">Name*</span>
           <mat-form-field>
@@ -40,23 +45,17 @@
           </mat-form-field>
         </div>
 
-        <div class="col-md-6 mb-3">
-          <span class="fw-bolder">Origem</span>
-          <mat-form-field>
-            <input matInput formControlName="origin">
-          </mat-form-field>
-        </div>
-
-        <div class="col-md-12 mb-3">
-          <span class="fw-bolder">Observações</span>
-          <mat-form-field>
-            <textarea matInput formControlName="observations"></textarea>
-          </mat-form-field>
-        </div>
-
         <div class="d-flex justify-content-end mt-3">
-          <button style="width: 100%;" mat-raised-button color="primary" type="submit">Cadastrar lead</button>
+          <button style="width: 100%;" mat-raised-button color="primary" type="submit">
+            Receber contato de especialista
+          </button>
         </div>
-
       </form>
+
+      <div *ngIf="isRegistered">
+        <h3>
+          <strong>Excelente!</strong>
+          Você receberá em breve uma mensagem de nossos especialistas.
+        </h3>
+      </div>
 </div>
