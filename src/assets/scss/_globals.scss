@@ -12,6 +12,11 @@ body {
   --mat-badge-container-overlap-offset: -15px
 }
 
+/* Adicione esta classe para estilizar todos os emojis */
+.emoji-style {
+  font-family: "Noto Color Emoji", sans-serif;
+}
+
 .mat-mdc-tab-body-wrapper {
   flex: 1 !important;
   height: 100% !important;

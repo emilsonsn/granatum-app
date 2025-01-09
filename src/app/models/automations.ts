@@ -1,3 +1,4 @@
+import { Time } from "@angular/common";
 import { Funnel } from "./Funnel";
 
 export interface Automations {
@@ -10,18 +11,20 @@ export interface Automations {
   funnel_step_id?: number;
   channels: AutomationsChannels;
   start_date: Date;
+  start_time: Time;
+    is_active: boolean;
   funnel?: Funnel;
 }
 
 export enum AutomationsType {
-  Single = 'Avulso',
-  Recurring = 'Recorrente'
+  Single = 'Single',
+  Recurrence = 'Recurrence'
 }
 
 export enum AutomationsRecurrenceType {
-  Monthly = 'Mensal',
-  Fortnightly = 'Quinzenal',
-  Weekly = 'Semanal'
+  Monthly = 'Monthly',
+  Fortnightly = 'Fortnightly',
+  Weekly = 'Weekly'
 }
 
 export enum AutomationsChannels {

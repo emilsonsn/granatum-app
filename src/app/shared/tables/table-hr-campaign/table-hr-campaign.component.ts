@@ -43,12 +43,12 @@ export class TableHrCampaignComponent {
       title: "Processo seletivo",
       align: "justify-content-center",
     },
-    {
-      slug: "type",
-      order: true,
-      title: "Tipo",
-      align: "justify-content-center",
-    },
+    // {
+    //   slug: "type",
+    //   order: true,
+    //   title: "Tipo",
+    //   align: "justify-content-center",
+    // },
     {
       slug: "channels",
       order: true,
@@ -59,6 +59,18 @@ export class TableHrCampaignComponent {
       slug: "start_date",
       order: true,
       title: "Data de inicio",
+      align: "justify-content-center",
+    },
+    {
+      slug: "start_time",
+      order: true,
+      title: "Data de inicio",
+      align: "justify-content-center",
+    },
+    {
+      slug: "is_active",
+      order: true,
+      title: "Status",
       align: "justify-content-center",
     },
     {

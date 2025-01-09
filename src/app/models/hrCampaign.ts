@@ -1,3 +1,4 @@
+import { Time } from "@angular/common";
 import { SelectionProcess } from "./selectionProccess";
 
 export interface HrCampaign {
@@ -10,18 +11,20 @@ export interface HrCampaign {
   status_id?: number;
   channels: HrCampaignChannels;
   start_date: Date;
+  start_time: Time;
+  is_active: boolean;
   selection_process?: SelectionProcess;
 }
 
 export enum HrCampaignType {
-  Single = 'Avulso',
-  Recurrence = 'Recorrente'
+  Single = 'Single',
+  Recurrence = 'Recurrence'
 }
 
 export enum HrCampaignRecurrenceType {
-  Monthly = 'Mensal',
-  Fortnightly = 'Quinzenal',
-  Weekly = 'Semanal'
+  Monthly = 'Monthly',
+  Fortnightly = 'Fortnightly',
+  Weekly = 'Weekly'
 }
 
 export enum HrCampaignChannels {

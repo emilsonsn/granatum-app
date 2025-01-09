@@ -10,6 +10,7 @@
   color: $gray-700;
 
   .web-chat-input {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -38,3 +39,67 @@
     }
   }
 }
+
+.attached-files {
+  position: absolute;
+  bottom: 70px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.attached-audio {
+  position: absolute;
+  bottom: 70px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.bola {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+  animation: piscar 1s infinite;
+}
+
+@keyframes piscar {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.file-bubble-audio {
+  padding-right: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 17px;
+  //box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #f1f3f4;
+}
+
+
+.file-bubble {
+  background-color: $primary;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 17px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+

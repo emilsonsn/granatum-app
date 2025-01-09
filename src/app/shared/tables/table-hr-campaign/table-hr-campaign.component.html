@@ -55,11 +55,11 @@
                   {{ hrCampaign?.selection_process?.title }}
                 </div>
               </td>
-              <td>
+              <!-- <td>
                 <div class="text-center">
                   {{ hrCampaign?.type | campaign_type}}
                 </div>
-              </td>
+              </td> -->
               <td>
                 <div class="text-center">
                   {{ hrCampaign?.channels }}
@@ -68,6 +68,16 @@
               <td>
                 <div class="text-center">
                   {{ hrCampaign?.start_date | date: 'dd/MM/yyyy' }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center">
+                  {{ hrCampaign?.start_time}}
+                </div>
+              </td>
+              <td>
+                <div class="text-center {{ hrCampaign?.is_active ? 'actived' : 'deactived'}}">
+                  {{ hrCampaign?.is_active ? 'Ativa' : 'Desativada'}}
                 </div>
               </td>
               <td>

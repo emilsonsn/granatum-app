@@ -11,6 +11,7 @@ import { DialogFunnelComponent } from '@shared/dialogs/dialog-funnel/dialog-funn
 import { FunnelService } from '@services/crm/funnel.service';
 import { Funnel } from '@models/Funnel';
 import { Router } from '@angular/router';
+import { SessionService } from '@store/session.service';
 
 @Component({
   selector: 'app-leads',
@@ -20,6 +21,7 @@ import { Router } from '@angular/router';
 export class LeadsComponent {
   public loading: boolean = false;
   data: Kanban<Lead> = {};
+  protected responsible: number
   // funnel: Funnel[] = [];
 
   constructor(
@@ -28,6 +30,7 @@ export class LeadsComponent {
     private readonly _leadService: LeadService,
     private readonly _funnelService: FunnelService,
     private readonly _router: Router,
+    private readonly _sessionService: SessionService
   ) {
   }
 
@@ -103,7 +106,7 @@ export class LeadsComponent {
   onDeleteLead(id: number) {
     const text = 'Tem certeza? Essa ação não pode ser revertida!';
     this._dialog
-      .open(DialogConfirmComponent, { data: { text } })
+      .open(DialogConfirmComponent, {data: {text}})
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
@@ -127,20 +130,35 @@ export class LeadsComponent {
       });
   }
 
+  public copyLink(id: number) {
+    this._sessionService.getUser().subscribe({
+      next: (user) => {
+        this.responsible = user.id;
+        const url = window.location.origin;
+      navigator.clipboard.writeText(`${url}/public/leads?id=${id}&responsible=${this.responsible}`)
+        .then(() => this._toastr.success("Link copiado com sucesso!"))
+        .catch(() => this._toastr.error("Não foi possivel copiar o link."));
+      },
+      error: (err) => {
+        this._toastr.error(err)
+      },
+    });
+  }
+
   // funnel
 
   public openFunnelDialog(funnel?: Funnel) {
 
     const dialogConfig: MatDialogConfig = {
       width: '80%',
-      maxWidth: '1000px',
+      maxWidth: '800px',
       maxHeight: '90%',
       hasBackdrop: true,
       closeOnNavigation: true,
     };
     this._dialog
       .open(DialogFunnelComponent, {
-        data: funnel ? { funnel: funnel } : null,
+        data: funnel ? {funnel: funnel} : null,
         ...dialogConfig
       })
       .afterClosed()
@@ -191,7 +209,7 @@ export class LeadsComponent {
   onDeleteFunnel(id: number) {
     const text = 'Tem certeza? Essa ação não pode ser revertida!';
     this._dialog
-      .open(DialogConfirmComponent, { data: { text } })
+      .open(DialogConfirmComponent, {data: {text}})
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
@@ -215,7 +233,7 @@ export class LeadsComponent {
       });
   }
 
-  public goKanban(id: number){
-    this._router.navigate([`/painel/crm/leads/kanban/${id}`])
+  public goKanban(id: number) {
+    this._router.navigate([`/painel/crm/leads/kanban/${id}`], {queryParams: {id}}).then();
   }
 }

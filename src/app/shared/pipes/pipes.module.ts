@@ -9,6 +9,7 @@ import { CpfCnpjMaskPipe } from './cpf-cnpj-mask.pipe';
 import { SolicitationStatusPipe } from './solicitation-status.pipe';
 import { CompanyPositionPipe } from './company-position.pipe';
 import { CampaignTypePipe } from './recurrence-type.pipe';
+import { RecurrencePipe } from './recurrence.pipe';
 
 const pipes = [
   RequestOrderTypePipe,
@@ -19,7 +20,8 @@ const pipes = [
   CpfCnpjMaskPipe,
   SolicitationStatusPipe,
   CompanyPositionPipe,
-  CampaignTypePipe
+  CampaignTypePipe,
+  RecurrencePipe
 ];
 
 @NgModule({

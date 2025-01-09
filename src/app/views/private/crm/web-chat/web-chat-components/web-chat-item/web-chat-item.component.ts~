@@ -96,11 +96,4 @@ export class WebChatItemComponent {
 
   protected readonly ContactStatus = ContactStatus;
   eventClick: boolean;
-
-  formatMessage(message: string): string {
-    if (!message) return '';
-
-    // Substituir texto entre asteriscos por <b></b>
-    return this.truncateString(message.replace(/\*(.*?)\*/g, '<b>$1</b>'), 20);
-  }
 }

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Message } from "@models/Whatsapp";
+import {Message, MessageType} from "@models/Whatsapp";
+import * as bootstrap from 'bootstrap';
+
 
 @Component({
   selector: 'app-web-chat-balloons',
@@ -9,13 +11,41 @@ import { Message } from "@models/Whatsapp";
 export class WebChatBalloonsComponent {
   @Input() titleHidden: boolean = false;
   @Input() data!: Message;
+  @Input() dataSelect: Message;
+
+  openModal(message: Message): void {
+    this.dataSelect = message;
+
+    const modalElement = document.getElementById('imageModal');
+    if (modalElement) {
+      modalElement.addEventListener('show.bs.modal', () => {
+        const modalContent = document.getElementById('modalContent');
+        if (modalContent) {
+          // Limpar conteúdo existente
+          modalContent.innerHTML = '';
+
+          // Criar uma tag <img> para exibir a imagem
+          const imgElement = document.createElement('img');
+          imgElement.src = this.dataSelect.path; // Use o caminho da imagem
+          imgElement.alt = 'Imagem carregada'; // Texto alternativo
+          imgElement.className = 'img-fluid'; // Classes do Bootstrap para responsividade
+
+          modalContent.appendChild(imgElement);
+        }
+      });
+
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
 
   formatDate(messageDate: string | Date): string {
-    const date = new Date(messageDate); // Converte para objeto Date, se for string
+    const date = new Date(messageDate);
 
     // Verifica se a data é válida
     if (isNaN(date.getTime())) {
-      return 'Data inválida'; // Se a data for inválida, retorna uma mensagem
+      return 'Data inválida';
     }
 
     return date.toLocaleString('pt-BR', {
@@ -23,4 +53,18 @@ export class WebChatBalloonsComponent {
       minute: '2-digit'
     });
   }
+
+  formatMessage(message: string): string {
+    if (!message) return '';
+
+    // Substituir texto entre asteriscos por <b></b>
+    return message.replace(/\*(.*?)\*/g, '<b>$1</b>');
+  }
+
+  isOnlyEmoji(message: string): boolean {
+    const emojiRegex = /^[\u{1F600}-\u{1F6FF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}]+$/u;
+    return emojiRegex.test(message.trim());
+  }
+
+  protected readonly MessageType = MessageType;
 }

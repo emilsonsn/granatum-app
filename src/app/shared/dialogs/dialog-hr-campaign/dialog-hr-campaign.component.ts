@@ -28,7 +28,7 @@ export class DialogHrCampaignComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private readonly _data: { hrCampaign: HrCampaign },
+    private readonly _data: { hrCampaign: HrCampaign|any },
     private readonly _dialogRef: MatDialogRef<DialogHrCampaignComponent>,
     private readonly _fb: FormBuilder,
     private readonly _selectionProcessService: SelectionProcessService,
@@ -40,12 +40,14 @@ export class DialogHrCampaignComponent {
       id: [null],
       title: [null, [Validators.required]],
       message: [null, [Validators.required]],
-      type: [null, [Validators.required]],
+      type: ['Single', [Validators.required]],
       recurrence_type: [null],
       selection_process_id: [null, [Validators.required]],
       status_id: [null],
       channels: [null, [Validators.required]],
       start_date: [null, [Validators.required]],
+      start_time: [null, [Validators.required]],
+      is_active: [null, [Validators.required]],
     })
 
     if (this._data?.hrCampaign) {
@@ -54,6 +56,7 @@ export class DialogHrCampaignComponent {
       this._fillForm({
         ...this._data.hrCampaign,
         start_date: new Date(this._data.hrCampaign.start_date),
+        channels : this._data.hrCampaign.channels.split(',')
       });
     }
 
@@ -85,7 +88,10 @@ export class DialogHrCampaignComponent {
     if(!form.valid){
       form.markAllAsTouched();
     }else{
-      this._dialogRef.close(form.getRawValue())
+      this._dialogRef.close({
+        ...form.getRawValue(),
+        channels: form.get('channels').value.join(','),
+      })
     }
   }
 

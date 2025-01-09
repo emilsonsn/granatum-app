@@ -4,6 +4,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Lead} from "@models/Lead";
 import {User} from "@models/user";
 import {UserService} from "@services/user.service";
+import {Funnel} from "@models/Funnel";
+import {FunnelService} from "@services/crm/funnel.service";
 
 @Component({
   selector: 'app-dialog-leads',
@@ -16,6 +18,7 @@ export class DialogLeadsComponent {
   loading: any;
   isNewLead: boolean;
   protected users: User[] = [];
+  protected funnels: Funnel[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -23,6 +26,7 @@ export class DialogLeadsComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DialogLeadsComponent>,
     private readonly _userService: UserService,
+    private readonly _funnelService: FunnelService
   ) {
     this.leadForm = this.fb.group({
       id: [null],
@@ -32,9 +36,11 @@ export class DialogLeadsComponent {
       origin: [''],
       observations: [''],
       responsible_id: [null, [Validators.required, Validators.min(1)]],
+      funnel_id: [null, [Validators.required, Validators.min(1)]],
     });
 
     this.getUsers();
+    this.getFunnels();
 
     if (this._data) {
       this.isNewLead = false;
@@ -67,6 +73,7 @@ export class DialogLeadsComponent {
       formData.append('origin', this.leadForm.get('origin')?.value);
       formData.append('observations', this.leadForm.get('observations')?.value);
       formData.append('responsible_id', this.leadForm.get('responsible_id')?.value);
+      formData.append('funnel_id', this.leadForm.get('funnel_id')?.value);
 
       this.dialogRef.close(formData)
     }
@@ -79,4 +86,9 @@ export class DialogLeadsComponent {
       })
   }
 
+  private getFunnels() {
+    this._funnelService.getFunnels().subscribe(res => {
+      this.funnels = res.data;
+    })
+  }
 }

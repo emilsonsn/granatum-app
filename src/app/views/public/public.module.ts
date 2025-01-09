@@ -13,11 +13,14 @@ import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LeadsComponent } from './leads/leads.component';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 
 @NgModule({
   declarations: [
-    CandidatingComponent
+    CandidatingComponent,
+    LeadsComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SharedModule,
     MatButtonModule,
     MatDivider,
-    MatOption
+    MatOption,
+    MatSpinner
   ]
 })
 export class PublicModule { }

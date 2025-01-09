@@ -1,9 +1,11 @@
 export interface Message {
   id: number;
   message: string;
+  path: string;
   phone: string;
   fromMe: boolean;
   updated_at: Date;
+  type: MessageType
 }
 
 export interface LastMessage {
@@ -44,10 +46,25 @@ export enum ContactStatus {
   Finished = "Finished"
 }
 
+export enum MessageType {
+  Text = 'Text',
+  Audio = 'Audio',
+  Image = 'Image',
+  Video = 'Video',
+  File = 'File',
+}
+
 export interface SendMessagePayloadDto {
   number: string;
   message: string;
   sign?: boolean;
+}
+
+export interface SendMediaResponse {
+  number: string;
+  instance: string;
+  medias: File[];
+  message?: string;
 }
 
 export interface SendMessagePayload extends SendMessagePayloadDto {

@@ -1,11 +1,76 @@
-<div class="balloon-body" [ngClass]="data.fromMe ? 'right' : 'left'">
+<div class="balloon-body"
+     [ngClass]="data.fromMe ? 'right' : 'left'"
+     [ngStyle]="isOnlyEmoji(data.message) || data.type === MessageType.File ? {
+     'background-color': 'rgba(255,255,255,0)',
+     'font-size': '3rem'
+     } : {}"
+>
   <div class="balloon-header" *ngIf="!titleHidden">
     <div class="name">{{ data.fromMe }}</div>
     <div class="phone">{{ data.phone }}</div>
   </div>
+
   <div class="balloon-content">
-    <p>{{ data.message }}</p>
+    @if (data.type === MessageType.Text) {
+      <p class="emoji-style" [innerHTML]="formatMessage(data.message)"></p>
+    }
+
+    <div *ngIf="data.type === MessageType.Image">
+      <img
+        [src]="data.path"
+        alt=""
+        class="img-thumbnail"
+        (click)="openModal(data)"
+      />
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="imageModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Imagem</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="modalContent">
+            <!-- A imagem será inserida aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    @if (data.type === MessageType.Video) {
+      <video [src]="data.path" controls></video>
+    }
+
+    @if (data.type === MessageType.Audio) {
+      <audio [src]="data.path" controls></audio>
+    }
+
+    @if (data.type === MessageType.File) {
+      <div class="download-container">
+        <a class="download-button" [href]="data.path" target="_blank" rel="noopener noreferrer">
+          <span class="icon">📂</span>
+          <span class="text">Abrir Arquivo</span>
+        </a>
+      </div>
+    }
+
   </div>
+
   <div class="balloon-footer">
     <p>{{ formatDate(data.updated_at) }}</p>
   </div>

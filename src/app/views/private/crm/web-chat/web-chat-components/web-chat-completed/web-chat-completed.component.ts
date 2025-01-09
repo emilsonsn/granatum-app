@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Contact} from "@models/Whatsapp";
 
 @Component({
@@ -8,4 +8,9 @@ import {Contact} from "@models/Whatsapp";
 })
 export class WebChatCompletedComponent {
   @Input() data: Contact[];
+  @Output() eventStatus = new EventEmitter<void>();
+
+  updateStatus($event: void) {
+    this.eventStatus.emit($event);
+  }
 }

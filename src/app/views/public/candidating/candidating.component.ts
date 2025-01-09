@@ -109,7 +109,7 @@ export class CandidatingComponent implements OnInit {
     });
 
     this.candidatingForm.valueChanges.subscribe((res) => {
-      console.log(res);
+      // console.log(res);
     })
   }
 
@@ -141,7 +141,7 @@ export class CandidatingComponent implements OnInit {
     formData.append('street', this.candidatingForm.get('street').value);
     formData.append('number', this.candidatingForm.get('number').value);
     formData.append('profession_id', this.selectionProcess?.vacancy?.profession_id);
-    formData.append('processes', this.selectionProcess?.id);    
+    formData.append('processes', this.selectionProcess?.id);
 
     if(this.filesToSend.length < 2){
       this._toastr.warning('Adicione seu Currículo e CTPS Digital');

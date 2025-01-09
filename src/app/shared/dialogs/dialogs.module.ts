@@ -53,6 +53,7 @@ import { DialogPartnerComponent } from './dialog-partner/dialog-partner.componen
 import { DialogAutomationsComponent } from './dialog-automations/dialog-automations.component';
 import { DialogHrCampaignComponent } from './dialog-hr-campaign/dialog-hr-campaign.component';
 import { DialogBudgetComponent } from './dialog-budget/dialog-budget.component';
+import { DialogFunnelStepComponent } from './dialog-funnel-step/dialog-funnel-step.component';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
   mode: 'json',
@@ -104,7 +105,8 @@ const MY_DATE_FORMATS = {
     DialogPartnerComponent,
     DialogAutomationsComponent,
     DialogHrCampaignComponent,
-    DialogBudgetComponent
+    DialogBudgetComponent,
+    DialogFunnelStepComponent
   ],
   imports: [
     CommonModule,
@@ -135,7 +137,8 @@ const MY_DATE_FORMATS = {
     NgxMaskDirective,
     NgxMaskPipe,
     NgxMatSelectSearchModule,
-    MatIcon
+    MatIcon,
+    
   ],
   providers: [
     {

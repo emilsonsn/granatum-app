@@ -11,7 +11,7 @@ export class CampaignTypePipe implements PipeTransform {
   transform(value: HrCampaignType|AutomationsType) {
     switch (value) {
       case HrCampaignType.Recurrence:
-        return 'Recorrênte';
+        return 'Recorrente';
       case HrCampaignType.Single:
         return 'Avulso';
       default:

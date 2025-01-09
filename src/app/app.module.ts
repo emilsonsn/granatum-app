@@ -19,15 +19,17 @@ import {AuthInterceptorService} from '@services/auth-interceptor.service';
 import {BrowserstateInterceptor} from './interceptors/browserstate.interceptor';
 import {BrowserAnimationsModule, provideAnimations} from '@angular/platform-browser/animations';
 import {NgxEditorModule} from 'ngx-editor';
-import {environment} from "@env/environment";
-import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
+import {WebsocketService} from "@services/crm/websocket.service";
 
 registerLocaleData(localePt, 'pt-BR');
 
-const config: SocketIoConfig = {
-  url: environment.wsUrl,
-  options: {transports: ['websocket']}
-};
+// const config: SocketIoConfig = {
+//   url: environment.wsUrl,
+//   options: {
+//     transports: ['websocket'],
+//     path: '/app/local',
+//   }
+// };
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
@@ -43,7 +45,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    SocketIoModule.forRoot(config),
+    // SocketIoModule.forRoot(config),
     BrowserAnimationsModule,
     AppRoutingModule,
     MatMomentDateModule,

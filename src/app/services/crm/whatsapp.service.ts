@@ -3,9 +3,15 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from "@env/environment";
 import {ApiResponsePageable, PageControl} from "@models/application";
-import {Contact, ContactStatus, Message, SendMessagePayload, SendMessagePayloadDto} from "@models/Whatsapp";
+import {
+  Contact,
+  ContactStatus,
+  Message,
+  SendMediaResponse,
+  SendMessagePayload,
+  SendMessagePayloadDto
+} from "@models/Whatsapp";
 import {Utils} from "@shared/utils";
-
 
 @Injectable({
   providedIn: 'root',
@@ -21,16 +27,17 @@ export class WhatsappService {
 
   private baseUrl = `${environment.api}/whatsapp`;
 
-  // Variável para armazenar o contacto
   private selectedContact: Contact | null = null;
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) {
+  }
 
   /**
    * Pesquisa chats por instância
    * @param params Parâmetros opcionais de pesquisa
+   * @param instance
    */
   searchChat(params?: Record<string, any>, instance?: string): Observable<ApiResponsePageable<Contact>> {
     let httpParams = new HttpParams();
@@ -66,12 +73,57 @@ export class WhatsappService {
   }
 
   /**
-   * Envia uma mensagem
+   * Marca mensagens como lidas
+   * @param remoteJid Identificador remoto do chat
+   * @param instance Instância do WhatsApp
+   */
+  read(remoteJid: string, instance: string): Observable<any> {
+    const payload = {number: remoteJid, instance: instance};
+    return this.http.post(`${this.baseUrl}/read-message`, payload);
+  }
+
+  /**
+   * Atualiza o status do contato
+   * @param id ID do contato
    * @param status Novo status do contato
    */
-    updateStatus(id: number, status: ContactStatus): Observable<any> {
-      const payload = {status};
-      return this.http.patch(`${this.baseUrl}/update-status/${id}`, payload);
+  updateStatus(id: number, status: ContactStatus): Observable<any> {
+    const payload = {status};
+    return this.http.patch(`${this.baseUrl}/update-status/${id}`, payload);
+  }
+
+  /**
+   * Envia mídia com mensagem opcional
+   * @param payload Dados para envio da mídia
+   */
+  sendMedia(payload: SendMediaResponse): Observable<any> {
+    const formData = new FormData();
+    formData.append('number', payload.number);
+    formData.append('instance', payload.instance);
+
+    if (payload.message) {
+      formData.append('message', payload.message);
     }
+
+    payload.medias.forEach((media, index) => {
+      formData.append(`medias[${index}]`, media);
+    });
+
+    return this.http.post(`${this.baseUrl}/send-midia`, formData);
+  }
+
+  /**
+   * Envia um arquivo de áudio para o WhatsApp
+   * @param param Dados necessários para o envio de áudio
+   */
+  sendAudio(param: { number: string; instance: string; audio: File }): Observable<any> {
+    const formData = new FormData();
+    formData.append('number', param.number);
+    formData.append('instance', param.instance);
+    formData.append('audio', param.audio);
+
+    console.log(formData);
+
+    return this.http.post(`${this.baseUrl}/send-audio`, formData);
+  }
 }
- 
