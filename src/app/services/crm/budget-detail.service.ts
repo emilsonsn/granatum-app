@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponsePageable, PageControl } from '@models/application';
 import { BudgetDetail } from '@models/budgetDetail';
+import { Utils } from '@shared/utils';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -19,8 +20,11 @@ export class BudgetDetailService {
   }
 
   // Get a list of funnels steps with optional query parameters
-  search(params?: any): Observable<any> {
-    return this._http.get(`${this.baseUrl}/search`, {params});
+  search(pageControl?: any, filters?: any): Observable<any> {
+    const paginate = Utils.mountPageControl(pageControl);
+    const filterParams = Utils.mountPageControl(filters);
+    
+    return this._http.get(`${this.baseUrl}/search?${paginate}${filterParams}`);
   }
 
   // Get a funnel step by ID

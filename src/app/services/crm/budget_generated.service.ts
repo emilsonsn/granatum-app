@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponsePageable, PageControl } from '@models/application';
-import { Bank } from '@models/bank';
+import { Budget, BudgetGenerated } from '@models/budget';
 import { Utils } from '@shared/utils';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -9,35 +9,30 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class BankService {
-  private readonly baseUrl = `${environment.api}/bank`;
+export class BudgetGeneratedService {
+  private readonly baseUrl = `${environment.api}/budget-generated`;
 
   constructor(private readonly _http: HttpClient) { }
 
-  getBanks(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<Bank>> {
+  search(pageControl?: PageControl, filters?: any): Observable<ApiResponsePageable<BudgetGenerated>> {
     const paginate = Utils.mountPageControl(pageControl);
     const filterParams = Utils.mountPageControl(filters);
-    return this._http.get<ApiResponsePageable<Bank>>(`${this.baseUrl}/search?${paginate}${filterParams}`);
+    
+    return this._http.get<ApiResponsePageable<BudgetGenerated>>(`${this.baseUrl}/search?${paginate}${filterParams}`);
   }
 
-  // Get a list of funnels steps with optional query parameters
-  search(params?: any): Observable<any> {
-    return this._http.get(`${this.baseUrl}/search`, {params});
-  }
-
-  // Get a funnel step by ID
   getById(id: string): Observable<any> {
     return this._http.get(`${this.baseUrl}/${id}`);
   }
 
   // Create a new funnel step
-  create(bankData: any): Observable<any> {
-    return this._http.post(`${this.baseUrl}/create`, bankData);
+  create(budgetData: any): Observable<any> {
+    return this._http.post(`${this.baseUrl}/create`, budgetData);
   }
 
   // Update an existing funnel step
-  update(id: string, bankData: Bank): Observable<any> {
-    return this._http.post(`${this.baseUrl}/${id}?_method=patch`, bankData);
+  update(id: string, budgetData: Budget): Observable<any> {
+    return this._http.patch(`${this.baseUrl}/${id}`, budgetData);
   }
 
   // Delete a funnel step by ID

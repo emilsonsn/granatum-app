@@ -46,12 +46,12 @@ export class BudgetDetailComponent {
 
     const id = this._route.snapshot.paramMap.get('id');
     this.getDetails(id);
-
   }
 
   private setAllDescriptions(){
     this.texts.forEach(element => {
-      this.setDescription(element, this.form.get(element).value);
+      let value = this.form.get(element).value
+      this.setDescription(element, value);
     });
   }
 
@@ -201,6 +201,8 @@ export class BudgetDetailComponent {
   }
 
   protected setDescription(text_type: string , html: string) {
+    html = html == '<p>null</p>' ? '' : html;
+    console.log(html);
     this.form.patchValue({ [text_type]: html });
   }
 
