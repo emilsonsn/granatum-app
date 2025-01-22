@@ -12,4 +12,7 @@ export interface BudgetGenerated{
   status: string;
   budget: Budget;
   lead: Lead;
+  budget_id: number;
+  lead_id: number;
+
 }

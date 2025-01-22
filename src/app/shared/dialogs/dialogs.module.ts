@@ -54,6 +54,7 @@ import { DialogAutomationsComponent } from './dialog-automations/dialog-automati
 import { DialogHrCampaignComponent } from './dialog-hr-campaign/dialog-hr-campaign.component';
 import { DialogBudgetComponent } from './dialog-budget/dialog-budget.component';
 import { DialogFunnelStepComponent } from './dialog-funnel-step/dialog-funnel-step.component';
+import { DialogBudgetGeneratedComponent } from './dialog-budget-generated/dialog-budget-generated.component';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
   mode: 'json',
@@ -106,7 +107,8 @@ const MY_DATE_FORMATS = {
     DialogAutomationsComponent,
     DialogHrCampaignComponent,
     DialogBudgetComponent,
-    DialogFunnelStepComponent
+    DialogFunnelStepComponent,
+    DialogBudgetGeneratedComponent
   ],
   imports: [
     CommonModule,

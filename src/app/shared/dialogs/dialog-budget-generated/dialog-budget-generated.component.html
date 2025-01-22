@@ -1,0 +1,73 @@
+<mat-dialog-content>
+    <div class="d-flex align-items-center justify-content-between">
+      <span class="fw-bold fs-5">{{ isNewBudget ? 'Novo Orçamento' : 'Editar Orçamento' }}</span>
+      <div matRipple class="close" (click)="onCancel()">
+        <i class="fa-solid fa-close"></i>
+      </div>
+    </div>
+  
+    <mat-divider class="my-3"></mat-divider>
+  
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <input matInput type="text" formControlName="description" />
+          </mat-form-field>
+        </div>
+  
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="Generated">Gerado</mat-option>
+              <mat-option value="Delivered">Entregue</mat-option>
+              <mat-option value="Approved">Aprovado</mat-option>
+              <mat-option value="Desapproved">Rejeitado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Modelos de Orçamento</mat-label>
+            <mat-select formControlName="budget_id">
+              <mat-option *ngFor="let budget of budgets" [value]="budget.id">
+                {{ budget.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Lead</mat-label>
+            <mat-select formControlName="lead_id">
+              <mat-option *ngFor="let lead of leads" [value]="lead.id">
+                {{ lead.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+    <div class="container">
+      <div id="actionsDialog" class="flex-sm-row flex-column">
+        <div id="buttonsDialog" class="flex-sm-row flex-column">
+          <div class="col-auto">
+            <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
+          </div>
+          <div class="col-auto">
+            <button matRipple id="submit" class="button yellow" (click)="onSubmit()">
+              {{ isNewBudget ? 'Criar' : 'Salvar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-actions>
+  
