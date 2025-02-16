@@ -112,8 +112,18 @@
         </mat-select>
       </mat-form-field>
     </div>
-    
 
+    <div class="col-md-12 mb-3" *ngIf="isFinancial"> 
+      <span class="fw-bolder">Centro de custo *</span>
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="cost_center_id" placeholder="Centro de custo" >
+          <mat-option *ngFor="let costCenter of costCenters()" [value]="costCenter.id">
+            {{ costCenter.descricao }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
     <div class="col-md-12">
       <span class="fw-bolder">Observações *</span>
       <mat-form-field appearance="outline" class="full-width">

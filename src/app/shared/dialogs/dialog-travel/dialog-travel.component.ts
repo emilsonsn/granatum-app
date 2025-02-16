@@ -22,8 +22,14 @@ export class DialogTravelComponent {
   isToEdit: string;
   title: string = 'Cadastro de Viagem';
 
-  transportOptions = ['Carro próprio', 'Uber', 'Taxi', 'Motouber', 'Avião'];
-
+  transportOptions = [
+      'Carro próprio',
+      'Uber',
+      'Taxi',
+      'Motouber',
+      'Ônibus',
+      'Avião'
+  ];
 
   public allowedTypes = [/^image\//, /^application\/pdf$/];
   protected filesToRemove: number[] = [];
@@ -44,6 +50,7 @@ export class DialogTravelComponent {
 
   public bancos = signal<Banco[]>([]);
   public categories = signal<any[]>([]);
+  public costCenters = signal<any[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +67,7 @@ export class DialogTravelComponent {
       transport: ['', [Validators.required]],
       bank_id: [''],
       category_id: [''],
+      cost_center_id: [''],
       total_value: ['', [Validators.required, Validators.min(0)]],
       purchase_date: [new Date(), [Validators.required]],
       observations: [''],
@@ -74,6 +82,10 @@ export class DialogTravelComponent {
 
     this._travelService.getCategories().subscribe((b: ApiResponse<any[]>) => {
       this.categories.set(b.data);
+    })
+
+    this._travelService.getCostCenter().subscribe((b: ApiResponse<any[]>) => {
+      this.costCenters.set(b.data);
     })
 
     if (this._data) {
@@ -180,24 +192,20 @@ export class DialogTravelComponent {
       let fileType = file.type;
       let convertedFile: File | null = null;
 
-      // Detecta e converte arquivos HEIC
       if (file.name.toLowerCase().endsWith('.heic') || fileType === '') {
         try {
-          // Converte HEIC para JPEG
           const convertedBlob = await heic2any({
             blob: file,
             toType: 'image/jpeg',
           });
 
-          // Asegure que o Blob é um único Blob e não um array
           const blob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
 
-          // Cria o arquivo convertido
           convertedFile = new File([blob], file.name.replace(/\.heic$/i, '.jpg'), {type: 'image/jpeg'});
           fileType = 'image/jpeg';
         } catch (error) {
           this._toastr.error('Erro ao converter HEIC para JPEG.');
-          continue; // Pula para o próximo arquivo
+          continue;
         }
       }
 
@@ -217,7 +225,6 @@ export class DialogTravelComponent {
           }
         }
 
-        // Adiciona arquivo à lista
         this.filesToSend.push({
           id: Date.now(),
           preview: base64,
@@ -252,25 +259,18 @@ export class DialogTravelComponent {
   applyDateMask(event: any): void {
     let value = event.target.value;
 
-    // Remove qualquer coisa que não seja número
-    // value = value.replace(/\D/g, '');
-
     value = value.replace(/[a-zA-Z]/g, "");
 
-    // Adiciona a máscara 'dd/MM/yyyy' conforme o valor do input
     if (value.length <= 2) {
       value = value.replace(/(\d{2})(\d{1,})/, '$1/$2');
     }
-    // Second condition: format as MM/DD/
     else if (value.length <= 4) {
       value = value.replace(/(\d{2})(\d{2})(\d{0,})/, '$1/$2/');
     }
-    // Third condition: format as MM/DD/YYYY
     else {
       value = value.replace(/(\d{2})(\d{2})(\d{2})(\d{0,})/, '$1/$2/$3');
     }
 
-    // Atualiza o valor do input
     event.target.value = value;
   }
 
@@ -278,15 +278,14 @@ export class DialogTravelComponent {
     if (!form.valid) {
       form.markAllAsTouched();
     } else {
-      // Criação do FormData
       const formData = new FormData();
 
-      // Adiciona os campos do formulário ao FormData
       formData.append('description', form.value.description);
       formData.append('type', form.value.type);
       formData.append('transport', form.value.transport);
       formData.append('bank_id', form.value.bank_id ?? '');
       formData.append('category_id', form.value.category_id ?? '');
+      formData.append('cost_center_id', form.value.cost_center_id ?? '');
       formData.append('total_value', form.value.total_value);
       formData.append('purchase_date', dayjs(form.value.purchase_date).format('YYYY-MM-DD'));
       formData.append('observations', form.value.observations || '');
@@ -352,6 +351,4 @@ export class DialogTravelComponent {
       }
     );
   }
-
-
 }

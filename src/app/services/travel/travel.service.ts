@@ -67,6 +67,10 @@ export class TravelService {
     return this.http.get(`${this.apiUrl}/get-bank`);
   }
 
+  getCostCenter(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/cost-centers`);
+  }
+
   // Realizar lançamento
   upRelease(orderId: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/granatum/${orderId}`, {});

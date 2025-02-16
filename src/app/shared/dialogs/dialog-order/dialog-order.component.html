@@ -105,9 +105,19 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+      <div class="col-md-12 mb-3">
+        <span class="fw-bolder">Centro de custo *</span>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="cost_center_id" placeholder="Centro de custo" >
+            <mat-option *ngFor="let costCenter of costCenters()" [value]="costCenter.id">
+              {{ costCenter.descricao }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     }
 
-    <!-- Itens -->
     <div class="col-12" formArrayName="items">
       <span class="fw-bolder">Itens *</span>
       @for(item of items.controls; track item) {
@@ -146,7 +156,6 @@
         </div>
       </div>
     </div>
-    <!---->
 
     <div class="col-md-6 mb-3">
       <span class="fw-bolder">Valor Total *</span>
@@ -196,7 +205,7 @@
       </mat-form-field>
     </div>
 
-    @if(false) { <!-- Não implementado no back -->
+    @if(false) {
       <div class="col-md-6  mb-3">
         <span class="fw-bolder">Aprovação *</span>
         <mat-form-field>

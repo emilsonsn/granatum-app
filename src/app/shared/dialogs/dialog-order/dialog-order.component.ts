@@ -63,6 +63,7 @@ export class DialogOrderComponent {
 
   public bancos = signal<Banco[]>([]);
   public categories = signal<any[]>([]);
+  public costCenters = signal<any[]>([]);
 
   public isAdmin = false;
   public hasGranatum = false;
@@ -89,6 +90,10 @@ export class DialogOrderComponent {
     this._orderService.getCategories().subscribe((b: ApiResponse<any[]>) => {
       this.categories.set(b.data);
     })
+
+    this._orderService.getCostCenter().subscribe((b: ApiResponse<any[]>) => {
+      this.costCenters.set(b.data);
+    })
   }
 
   ngOnInit(): void {
@@ -107,6 +112,7 @@ export class DialogOrderComponent {
       items: this._fb.array([]),
       bank_id: [null],
       category_id: [null],
+      cost_center_id: [null],
 
       // responsible: [null],  Não implementado no back
     });

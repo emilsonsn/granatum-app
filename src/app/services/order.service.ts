@@ -59,5 +59,8 @@ export class OrderService {
   public getCategories(): Observable<ApiResponse<any[]>> {
     return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/get-categories`);
   }
-
+  
+  getCostCenter(): Observable<ApiResponse<any[]>>  {
+    return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/cost-centers`);
+  }
 }
