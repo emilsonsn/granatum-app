@@ -291,6 +291,7 @@ export class DialogTravelComponent {
       formData.append('transport', form.value.transport);
       formData.append('bank_id', form.value.bank_id ?? '');
       formData.append('category_id', form.value.category_id ?? '');
+      formData.append('tag_id', form.value.tag_id ?? '');
       formData.append('cost_center_id', form.value.cost_center_id ?? '');
       formData.append('total_value', form.value.total_value);
       formData.append('purchase_date', dayjs(form.value.purchase_date).format('YYYY-MM-DD'));
