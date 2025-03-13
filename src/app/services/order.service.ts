@@ -64,6 +64,10 @@ export class OrderService {
     return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/get-tags`);
   }
   
+  public getSuplier(): Observable<ApiResponse<any[]>> {
+    return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/get-suplier`);
+  }
+
   getCostCenter(): Observable<ApiResponse<any[]>>  {
     return this._http.get<ApiResponse<any[]>>(`${environment.api}/${this.sessionEndpoint}/cost-centers`);
   }

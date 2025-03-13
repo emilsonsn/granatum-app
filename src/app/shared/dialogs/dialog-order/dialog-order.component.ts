@@ -65,6 +65,7 @@ export class DialogOrderComponent {
   public categories = signal<any[]>([]);
   public costCenters = signal<any[]>([]);
   public tags = signal<any[]>([]);
+  public supliers = signal<any[]>([]);
 
   public isAdmin = false;
   public hasGranatum = false;
@@ -96,6 +97,10 @@ export class DialogOrderComponent {
       this.tags.set(b.data);
     })
 
+    this._orderService.getSuplier().subscribe((b: ApiResponse<any[]>) => {
+      this.supliers.set(b.data);
+    })
+
     this._orderService.getCostCenter().subscribe((b: ApiResponse<any[]>) => {
       this.costCenters.set(b.data);
     })
@@ -117,6 +122,7 @@ export class DialogOrderComponent {
       items: this._fb.array([]),
       bank_id: [null],
       category_id: [null],
+      external_suplier_id: [null],
       tag_id: [null],
       cost_center_id: [null],
     });

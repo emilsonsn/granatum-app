@@ -106,7 +106,7 @@
         </mat-form-field>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <div class="col-md-4 mb-3">
         <span class="fw-bolder">Centro de custo</span>
         <mat-form-field appearance="outline">
           <mat-select formControlName="cost_center_id" placeholder="Centro de custo" >
@@ -117,7 +117,7 @@
         </mat-form-field>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <div class="col-md-4 mb-3">
         <span class="fw-bolder">Tags</span>
         <mat-form-field appearance="outline">
           <mat-select formControlName="tag_id" placeholder="Tag" >
@@ -126,7 +126,18 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>      
+      </div>     
+      
+      <div class="col-md-4 mb-3">
+        <span class="fw-bolder">Fornecedor</span>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="external_suplier_id" placeholder="Fornecedor" >
+            <mat-option *ngFor="let suplier of supliers()" [value]="suplier.id">
+              {{ suplier.nome }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>       
     }
 
     <div class="col-12" formArrayName="items">

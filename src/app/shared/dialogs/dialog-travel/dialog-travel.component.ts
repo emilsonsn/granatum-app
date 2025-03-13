@@ -52,7 +52,8 @@ export class DialogTravelComponent {
   public categories = signal<any[]>([]);
   public costCenters = signal<any[]>([]);
   public tags = signal<any[]>([]);
-
+  public supliers = signal<any[]>([]);
+  
   constructor(
     private fb: FormBuilder,
     private readonly _toastr: ToastrService,
@@ -70,6 +71,7 @@ export class DialogTravelComponent {
       category_id: [''],
       tag_id: [''],
       cost_center_id: [''],
+      external_suplier_id: [''],
       total_value: ['', [Validators.required, Validators.min(0)]],
       purchase_date: [new Date(), [Validators.required]],
       observations: [''],
@@ -93,6 +95,10 @@ export class DialogTravelComponent {
     this._travelService.getTags().subscribe((b: ApiResponse<any[]>) => {
       this.tags.set(b.data);
     })
+
+    this._travelService.getSuplier().subscribe((b: ApiResponse<any[]>) => {
+      this.supliers.set(b.data);
+    })    
 
     if (this._data) {
       this.isToEdit = 'true';
@@ -292,6 +298,7 @@ export class DialogTravelComponent {
       formData.append('bank_id', form.value.bank_id ?? '');
       formData.append('category_id', form.value.category_id ?? '');
       formData.append('tag_id', form.value.tag_id ?? '');
+      formData.append('external_suplier_id', form.value.external_suplier_id ?? '');
       formData.append('cost_center_id', form.value.cost_center_id ?? '');
       formData.append('total_value', form.value.total_value);
       formData.append('purchase_date', dayjs(form.value.purchase_date).format('YYYY-MM-DD'));
