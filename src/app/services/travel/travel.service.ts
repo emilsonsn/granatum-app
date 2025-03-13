@@ -62,6 +62,10 @@ export class TravelService {
     return this.http.get(`${this.apiUrl}/get-categories`);
   }
 
+  getTags(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/get-tags`);
+  }  
+
   // Obter banco
   getBank(): Observable<any> {
     return this.http.get(`${this.apiUrl}/get-bank`);

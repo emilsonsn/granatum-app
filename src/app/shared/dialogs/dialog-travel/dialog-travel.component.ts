@@ -51,6 +51,7 @@ export class DialogTravelComponent {
   public bancos = signal<Banco[]>([]);
   public categories = signal<any[]>([]);
   public costCenters = signal<any[]>([]);
+  public tags = signal<any[]>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +68,7 @@ export class DialogTravelComponent {
       transport: ['', [Validators.required]],
       bank_id: [''],
       category_id: [''],
+      tag_id: [''],
       cost_center_id: [''],
       total_value: ['', [Validators.required, Validators.min(0)]],
       purchase_date: [new Date(), [Validators.required]],
@@ -86,6 +88,10 @@ export class DialogTravelComponent {
 
     this._travelService.getCostCenter().subscribe((b: ApiResponse<any[]>) => {
       this.costCenters.set(b.data);
+    })
+
+    this._travelService.getTags().subscribe((b: ApiResponse<any[]>) => {
+      this.tags.set(b.data);
     })
 
     if (this._data) {

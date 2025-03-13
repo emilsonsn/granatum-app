@@ -85,7 +85,7 @@
 
     @if (isAdmin) {
       <div class="col-md-6 mb-3">
-        <span class="fw-bolder">Banco *</span>
+        <span class="fw-bolder">Banco</span>
         <mat-form-field appearance="outline">
           <mat-select formControlName="bank_id" placeholder="Banco" >
             <mat-option *ngFor="let banco of bancos()" [value]="banco.id">
@@ -96,7 +96,7 @@
       </div>
 
       <div class="col-md-6 mb-3">
-        <span class="fw-bolder">Categoria *</span>
+        <span class="fw-bolder">Categoria</span>
         <mat-form-field appearance="outline">
           <mat-select formControlName="category_id" placeholder="Categoria" >
             <mat-option *ngFor="let category of categories()" [value]="category.id">
@@ -106,8 +106,8 @@
         </mat-form-field>
       </div>
 
-      <div class="col-md-12 mb-3">
-        <span class="fw-bolder">Centro de custo *</span>
+      <div class="col-md-6 mb-3">
+        <span class="fw-bolder">Centro de custo</span>
         <mat-form-field appearance="outline">
           <mat-select formControlName="cost_center_id" placeholder="Centro de custo" >
             <mat-option *ngFor="let costCenter of costCenters()" [value]="costCenter.id">
@@ -116,6 +116,17 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+      <div class="col-md-6 mb-3">
+        <span class="fw-bolder">Tags</span>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="tag_id" placeholder="Tag" >
+            <mat-option *ngFor="let tag of tags()" [value]="tag.id">
+              {{ tag.descricao }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>      
     }
 
     <div class="col-12" formArrayName="items">
