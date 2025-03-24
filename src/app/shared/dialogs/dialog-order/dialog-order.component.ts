@@ -18,7 +18,7 @@ import {DialogOrderSolicitationComponent} from '../dialog-order-solicitation/dia
 import {RequestService} from '@services/request.service';
 import {RequestStatus} from '@models/request';
 import {SessionQuery} from '@store/session.query';
-
+import utc from 'dayjs/plugin/utc';
 @Component({
   selector: 'app-dialog-order',
   templateUrl: './dialog-order.component.html',
@@ -107,17 +107,19 @@ export class DialogOrderComponent {
   }
 
   ngOnInit(): void {
+    dayjs.extend(utc);
+
     this.form = this._fb.group({
       order_type: [null, Validators.required],
       date: [null, Validators.required],
       construction_id: [null, Validators.required],
       user_id: [null],
-      supplier_id: [null],
       description: [''],
       total_value: [null, Validators.required],
       payment_method: [null, Validators.required],
       purchase_status: [null],
       purchase_date: [null],
+      due_date: [null],
       quantity_items: [null, Validators.required],
       items: this._fb.array([]),
       bank_id: [null],
@@ -160,8 +162,14 @@ export class DialogOrderComponent {
           path: file.path
         });
       });
-
-      this.form.patchValue(this._data.order);
+      
+      this.form.patchValue({
+        ...this._data.order,
+        purchase_date: this._data.order.purchase_date ? new Date(`${this._data.order.purchase_date}T12:00:00`) : null,
+        date: this._data.order.date ? new Date(`${this._data.order.date}T12:00:00`) : null,
+        due_date: this._data.order.due_date ? new Date(`${this._data.order.due_date}T12:00:00`) : null,
+      });      
+      
     } else {
       this.items.push(this.createItem());
     }
@@ -274,6 +282,9 @@ export class DialogOrderComponent {
       }else if(key == 'purchase_date'){
         if(order.purchase_date) orderFormData.append('purchase_date', dayjs(order.purchase_date).format('YYYY-MM-DD'));
       }
+      else if(key == 'due_date'){
+        if(order.due_date) orderFormData.append('due_date', dayjs(order.due_date).format('YYYY-MM-DD'));
+      }
        else if (key == 'items') {
         (order.items).forEach(item => {
           orderFormData.append('items[]', JSON.stringify(item));
@@ -290,7 +301,6 @@ export class DialogOrderComponent {
     const data = {
       order_id: order.id,
       total_value: order.total_value,
-      supplier_id: order.supplier_id,
       construction_id: order.construction_id,
       status: RequestStatus.Pending,
       user_id: order.user_id,

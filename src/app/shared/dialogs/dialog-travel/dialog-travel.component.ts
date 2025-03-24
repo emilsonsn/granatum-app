@@ -103,7 +103,11 @@ export class DialogTravelComponent {
     if (this._data) {
       this.isToEdit = 'true';
       this.title = 'Edição de Viagem';
-      this.form.patchValue(this._data);
+
+      this.form.patchValue({
+        ...this._data,
+        purchase_date: this._data.purchase_date ? new Date(`${this._data.purchase_date}T12:00:00`) : null,
+      });        
 
       if (this._data.files) {
         this._data.files.forEach((file, index) => {

@@ -42,12 +42,6 @@ export class TableOrdersComponent {
       classes: "",
     },
     {
-      slug: "supplier_id",
-      order: false,
-      title: "Fornecedor",
-      classes: "",
-    },
-    {
       slug: "user_id",
       order: false,
       title: "Solicitante",

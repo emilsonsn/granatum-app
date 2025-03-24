@@ -40,17 +40,6 @@
     </div>
 
     <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Fornecedor *</span>
-      <mat-form-field appearance="outline">
-        <mat-select formControlName="supplier_id" placeholder="Fornecedor">
-          <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
-            {{ supplier.fantasy_name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-6 mb-3">
       <span class="fw-bolder">Obra *</span>
       <mat-form-field appearance="outline">
         <mat-select formControlName="construction_id" placeholder="Obra">

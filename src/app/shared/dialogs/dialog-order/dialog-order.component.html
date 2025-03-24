@@ -40,19 +40,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Fornecedor</span>
-      <mat-form-field appearance="outline">
-        <mat-select formControlName="supplier_id" placeholder="Fornecedor" >
-          <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
-            {{ supplier.fantasy_name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-
-    <div class="col-md-4 col-12 mb-3">
+    <div class="col-md-6 col-12 mb-3">
       <span class="fw-bolder">Tipo de Solicitação *</span>
       <mat-form-field>
         <mat-select [formControl]="order_type" placeholder="Tipo de Solicitação" >
@@ -63,7 +51,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-6 mb-3">
       <span class="fw-bolder">Obra *</span>
       <mat-form-field appearance="outline">
         <mat-select formControlName="construction_id" placeholder="Obra">
@@ -74,7 +62,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-6 mb-3">
       <span class="fw-bolder">Data *</span>
       <mat-form-field appearance="outline">
         <input matInput [matDatepicker]="picker" formControlName="date" placeholder="DD/MM/YYYY" readonly >
@@ -204,14 +192,26 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 mb-3">
-      <span class="fw-bolder">Data de pagamento *</span>
-      <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="picker1" formControlName="purchase_date" placeholder="Escolha uma data">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
-    </div>
+    @if(form.get('payment_method').value === 'Cash'){
+      <div class="col-md-6 mb-3">
+        <span class="fw-bolder">Data de pagamento</span>
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker1" formControlName="purchase_date" placeholder="Escolha uma data">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+    }
+    @else{
+      <div class="col-md-6 mb-3">
+        <span class="fw-bolder">Data de vencimento</span>
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker1" formControlName="due_date" placeholder="Escolha uma data">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+    }
     
     <div class="col-12 mb-3">
       <span class="fw-bolder">Descrição</span>

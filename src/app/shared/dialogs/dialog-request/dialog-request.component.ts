@@ -57,7 +57,6 @@ export class DialogRequestComponent {
       order_id : [null, Validators.required],
       solicitation_type: [null, Validators.required],
       total_value: [null, Validators.required],
-      supplier_id: [null, Validators.required],
       user_id: [null, Validators.required],
       construction_id: [null, Validators.required],
       status: [null],

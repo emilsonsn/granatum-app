@@ -8,9 +8,9 @@ export interface RequestOrder {
   order_type: RequestOrderType;
   date: string;
   purchase_date: string;
+  due_date: string;
   construction_id: number;
   user_id: number;
-  supplier_id: number;
   quantity_items: number;
   total_value: number;
   payment_method: PaymentForm;

@@ -3,7 +3,6 @@ export interface Request {
   order_id : number,
   solicitation_type : RequestType,
   total_value : number,
-  supplier_id : number,
   user_id : number,
   construction_id : number,
   status : RequestStatus,
